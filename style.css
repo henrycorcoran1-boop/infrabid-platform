@@ -473,6 +473,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 0;background:var(--bg-2
 .phero .eyebrow .dot,.hero .eyebrow .dot{background:#fff;box-shadow:0 0 10px rgba(255,255,255,.7)}
 .phero .eyebrow-num .n,.hero .eyebrow-num .n{color:#fff}
 .phero .eyebrow-num .lab,.hero .eyebrow-num .lab{color:rgba(255,255,255,.7)}
+.phero .pill-hl,.hero .pill-hl{background:rgba(255,255,255,.22);color:#fff}
 /* literal stock photography replaced by animated morphing light blobs (see below) */
 .phero-img{display:none}
 .phero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
