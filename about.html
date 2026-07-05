@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="style.css">
 <style>
 .who-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:8px}
-.who-grid .card{padding:30px}
+.who-grid .card{padding:34px 30px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.who-grid .card .ico{margin:0 auto 22px;width:62px;height:62px;border-radius:17px;background:var(--grad);
+  border:none;box-shadow:0 14px 28px -10px rgba(19,49,152,.45)}
+.who-grid .card .ico svg{width:28px;height:28px;stroke:#fff}
+.who-grid .card h3{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.who-grid .card{transition:opacity .4s ease,filter .4s ease,transform .4s ease}
+.who-grid:has(.card:hover) .card:not(:hover){opacity:.5;filter:blur(1.5px);transform:scale(.97)}
 .regions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .regions-grid .rg{padding:26px;border:1px solid var(--border);border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm)}
 .regions-grid .rg h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;font-weight:700}
@@ -70,6 +76,7 @@
 </section>
 
 <section class="section" id="who-built">
+  <img class="sec-bgimg" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Four disciplines, one estimating engine</h2>
