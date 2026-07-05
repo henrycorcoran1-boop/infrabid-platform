@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="InfraBid was developed with construction professionals, AI researchers, project management and estimating experts, and PhD researchers across Europe, Asia, North America, and Australia.">
+<meta name="theme-color" content="#FFFFFF">
+<title>About · InfraBid</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<style>
+.who-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:8px}
+.who-grid .card{padding:30px}
+.regions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.regions-grid .rg{padding:26px;border:1px solid var(--border);border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm)}
+.regions-grid .rg h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;font-weight:700}
+.regions-grid .rg p{font-size:13px;color:var(--text-sub);line-height:1.65}
+@media(max-width:860px){.who-grid{grid-template-columns:1fr}.regions-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.regions-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="#main" class="sr-skip">Skip to content</a>
+<div id="progress"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="InfraBid home">
+      <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+      <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="valuation.html">Valuation</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="takeoff.html">AI Takeoff</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="process.html">Process</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu">
+    <a href="valuation.html">Valuation Suite</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="takeoff.html">AI Takeoff</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="process.html">Process</a>
+    <a href="suppliers.html">Suppliers</a>
+    <a href="value-engineering.html">Value Engineering</a>
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="btn btn-primary">Request Demo</a>
+  </div>
+</nav>
+<main id="main">
+<section class="phero">
+  <img class="phero-img" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1600&q=65" alt="Engineer reviewing data on site" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
+  <div class="wrap content reveal">
+    <div class="eyebrow-num"><span class="n">N°11</span><span class="lab">Company</span></div>
+    <h1>Built By Practitioners, Not Just Programmers</h1>
+    <p>InfraBid was developed in conjunction with construction professionals, AI researchers, project management and estimating experts, and PhD researchers working across academia and industry — so the platform reflects how tenders are actually won, not how a spreadsheet thinks they should be.</p>
+  </div>
+</section>
+
+<section class="section" id="who-built">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> Who Built This</span>
+      <h2>Four disciplines, one estimating engine</h2>
+      <p class="scroll-reveal-text">Every module in InfraBid — the valuation model, the takeoff tooling, the merchant pricing feeds — was shaped by people who have to live with the consequences of an estimate being wrong.</p>
+    </div>
+    <div class="who-grid">
+      <div class="card reveal"><div class="spot"></div>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
+        <h3>Construction Professionals</h3>
+        <p>Site managers, quantity surveyors, and contractors who reviewed every rate, ledger line, and dossier format against real tenders they've actually submitted.</p>
+      </div>
+      <div class="card reveal"><div class="spot"></div>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
+        <h3>AI Researchers</h3>
+        <p>Applied machine-learning researchers responsible for the parts of the platform that read documents and detect structure — and for being honest about what that technology can and can't do yet.</p>
+      </div>
+      <div class="card reveal"><div class="spot"></div>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></div>
+        <h3>Project Management &amp; Estimating Experts</h3>
+        <p>Practitioners who defined how a valuation model should behave under real margin pressure, procurement deadlines, and client scrutiny.</p>
+      </div>
+      <div class="card reveal"><div class="spot"></div>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 7.5v9L12 21l9-4.5v-9"/></svg></div>
+        <h3>PhD Researchers</h3>
+        <p>Academic researchers working across construction economics, quantity surveying, and applied AI, contributing methodology review and validation from outside the commercial team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="global-review">
+  <div class="wrap media-band">
+    <div class="media-figs reveal">
+      <div class="figure">
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=70"
+             alt="Architectural drawings and plans on a desk" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <span class="cap">Cross-Disciplinary Review</span>
+      </div>
+      <div class="figure">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=70"
+             alt="Construction site crew" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <span class="cap">Field-Tested Validation</span>
+      </div>
+    </div>
+    <div class="media-copy reveal">
+      <span class="eyebrow"><span class="dot"></span> How We Work</span>
+      <h2 style="font-size:clamp(28px,4vw,46px);letter-spacing:-.02em;margin:18px 0 14px">Reviewed by people outside the building</h2>
+      <p class="scroll-reveal-text" style="font-size:15px;max-width:520px">Contributing academics and practitioners across Europe, Asia, North America, and Australia review our methodology, stress-test the pricing model against their own project data, and challenge assumptions the core team can't see from the inside.</p>
+      <ul class="feat-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Independent methodology review, not just internal QA</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Feedback loops from live construction sites, not just labs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="regions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> A Global Network</span>
+      <h2>Contributors across four continents</h2>
+      <p class="scroll-reveal-text">The core product is built for the Irish market — but the thinking behind it has been tested against practice and research well beyond it.</p>
+    </div>
+    <div class="regions-grid">
+      <div class="rg reveal"><h4>Europe</h4><p>Construction economics and quantity surveying researchers, alongside working estimators, informing core valuation methodology.</p></div>
+      <div class="rg reveal"><h4>Asia</h4><p>Applied AI and computer vision researchers contributing to document parsing and structural detection approaches.</p></div>
+      <div class="rg reveal"><h4>North America</h4><p>Project management academics and practitioners reviewing risk provisioning and margin protection logic.</p></div>
+      <div class="rg reveal"><h4>Australia</h4><p>Estimating and procurement specialists stress-testing the platform against large-scale civil and infrastructure tenders.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="cta">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <span class="eyebrow"><span class="dot"></span> Work With Us</span>
+      <h2>Built With Practitioners.<br>Ready For Yours.</h2>
+      <p>Request a guided demonstration and see how a platform shaped by construction professionals and researchers handles your next tender.</p>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-primary" data-magnetic>Request a Demo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>
+        </a>
+        <a href="valuation.html" class="btn btn-ghost">Try the Valuation Suite</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+          <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+        </div>
+        <p class="bl">Real-time procurement intelligence and quantity surveying for the Irish construction market.</p>
+      </div>
+      <div class="foot-col"><h5>Platform</h5><a href="valuation.html">Valuation Suite</a><a href="dashboard.html">Dashboard</a><a href="takeoff.html">AI Takeoff</a><a href="marketplace.html">Marketplace</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Contact</h5><a href="mailto:info@infrabid.ie">info@infrabid.ie</a><li>Dublin, Ireland</li></div>
+    </div>
+    <div class="foot-bar"><span>© 2026 InfraBid · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+  </div>
+</footer>
+
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="app.js"></script>
+</body>
+</html>
