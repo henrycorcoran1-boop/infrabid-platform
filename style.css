@@ -79,6 +79,7 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1
   border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-sm);
   animation:spin360 7s linear infinite}
 .spin-logo svg{width:40px;height:38px}
+.spin-logo-light{border-color:rgba(255,255,255,.7);box-shadow:0 14px 34px -12px rgba(4,16,48,.5),0 0 0 6px rgba(255,255,255,.08)}
 @keyframes spin360{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.spin-logo{animation:none}}
 
