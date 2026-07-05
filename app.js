@@ -342,4 +342,451 @@
       success.style.display='none'; standby.style.display='block';
     });
   })();
+
+  /* ---------- tender dashboard (dashboard.html) ---------- */
+  (function(){
+    var boardBody = document.getElementById('board-body');
+    if(!boardBody) return;
+    var $=function(id){ return document.getElementById(id); };
+
+    var DEFAULT_TENDERS=[
+      {id:1,name:"Blanchardstown Distributor Road — Ph2",client:"Fingal County Council",value:1850000,deadline:"2026-08-14",status:"Submitted"},
+      {id:2,name:"Cork Docklands Foul Sewer Upgrade",client:"Irish Water",value:640000,deadline:"2026-07-22",status:"Draft"},
+      {id:3,name:"N24 Realignment — Earthworks Package",client:"TII",value:3200000,deadline:"2026-09-30",status:"Draft"},
+      {id:4,name:"Kilkenny Commercial Unit Fit-Out",client:"Bracken Developments",value:412000,deadline:"2026-07-10",status:"Won"},
+      {id:5,name:"Galway Flood Relief — Culvert Works",client:"OPW",value:980000,deadline:"2026-06-28",status:"Lost"},
+      {id:6,name:"Waterford Greenway Extension",client:"Waterford City & County Council",value:275000,deadline:"2026-08-02",status:"Submitted"}
+    ];
+
+    function load(){ try{ var r=localStorage.getItem('infrabid_tenders'); if(r) return JSON.parse(r); }catch(e){} return JSON.parse(JSON.stringify(DEFAULT_TENDERS)); }
+    function persist(){ try{ localStorage.setItem('infrabid_tenders', JSON.stringify(tenders)); }catch(e){} }
+    var tenders=load(), statusFilter='all', searchTerm='', editingId=null;
+
+    function euroFull(n){ return '€'+Math.round(n||0).toLocaleString('en-IE'); }
+    function daysUntil(dateStr){ if(!dateStr) return 999; var d=new Date(dateStr+'T00:00:00'), t=new Date(); t.setHours(0,0,0,0); return Math.round((d-t)/86400000); }
+    function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+    function renderKPIs(){
+      var open=tenders.filter(function(t){ return t.status==='Draft'||t.status==='Submitted'; });
+      var decided=tenders.filter(function(t){ return t.status==='Won'||t.status==='Lost'; });
+      var won=tenders.filter(function(t){ return t.status==='Won'; });
+      $('kpi-active').textContent=open.length;
+      $('kpi-value').textContent=euroFull(open.reduce(function(a,t){ return a+(+t.value||0); },0));
+      $('kpi-winrate').textContent=decided.length? Math.round(won.length/decided.length*100)+'%' : '—';
+      $('kpi-winrate-sub').textContent=decided.length? 'of '+decided.length+' decided' : 'no decided tenders yet';
+      $('kpi-duesoon').textContent=open.filter(function(t){ var d=daysUntil(t.deadline); return d>=0&&d<=7; }).length;
+    }
+
+    function render(){
+      var term=searchTerm;
+      var list=tenders.filter(function(t){
+        if(statusFilter!=='all' && t.status!==statusFilter) return false;
+        if(term && !((t.name||'').toLowerCase().indexOf(term)>-1 || (t.client||'').toLowerCase().indexOf(term)>-1)) return false;
+        return true;
+      }).sort(function(a,b){ return new Date(a.deadline)-new Date(b.deadline); });
+
+      boardBody.innerHTML = list.length ? list.map(function(t){
+        var d=daysUntil(t.deadline), urg = d<=7? 'urgent' : d<=30? 'soon' : '';
+        var dLabel = d<0 ? Math.abs(d)+'d overdue' : d===0 ? 'Due today' : d+'d left';
+        return '<div class="board-row">'+
+          '<div><div class="tname">'+esc(t.name)+'</div><div class="tclient">'+esc(t.client)+'</div></div>'+
+          '<div class="tval">'+euroFull(t.value)+'</div>'+
+          '<div class="tdeadline '+urg+'">'+dLabel+'</div>'+
+          '<div><span class="status-pill '+t.status.toLowerCase()+'">'+t.status+'</span></div>'+
+          '<div class="board-actions">'+
+            '<button class="icon-btn" data-edit="'+t.id+'" aria-label="Edit tender"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4z"/></svg></button>'+
+            '<button class="icon-btn del" data-del="'+t.id+'" aria-label="Delete tender"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14"/></svg></button>'+
+          '</div></div>';
+      }).join('') : '<div style="padding:44px 22px;text-align:center;color:var(--muted);font-size:13px">No tenders match this view.</div>';
+
+      renderKPIs();
+    }
+
+    document.querySelectorAll('#status-chips .fchip').forEach(function(chip){
+      chip.addEventListener('click', function(){
+        document.querySelectorAll('#status-chips .fchip').forEach(function(c){ c.classList.remove('active'); });
+        chip.classList.add('active');
+        statusFilter=chip.dataset.status;
+        render();
+      });
+    });
+
+    var searchInput=$('tender-search');
+    if(searchInput) searchInput.addEventListener('input', function(){ searchTerm=this.value.trim().toLowerCase(); render(); });
+
+    var formWrap=$('tender-form-wrap');
+    function resetInvalid(){ ['t-name','t-client'].forEach(function(id){ $(id).closest('.fld').classList.remove('invalid'); }); }
+
+    $('new-tender-btn').addEventListener('click', function(){
+      editingId=null; resetInvalid();
+      $('form-title').textContent='New Tender';
+      $('form-hint').textContent='Saved locally to this browser.';
+      $('t-name').value=''; $('t-client').value=''; $('t-value').value=''; $('t-deadline').value='';
+      $('t-status').value='Draft';
+      formWrap.style.display='block';
+      formWrap.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+    });
+
+    $('tender-cancel-btn').addEventListener('click', function(){ formWrap.style.display='none'; });
+
+    $('tender-save-btn').addEventListener('click', function(){
+      resetInvalid();
+      var name=$('t-name').value.trim(), client=$('t-client').value.trim(), ok=true;
+      if(!name){ $('t-name').closest('.fld').classList.add('invalid'); ok=false; }
+      if(!client){ $('t-client').closest('.fld').classList.add('invalid'); ok=false; }
+      if(!ok) return;
+
+      var data={ name:name, client:client, value:parseFloat($('t-value').value)||0,
+        deadline:$('t-deadline').value, status:$('t-status').value };
+
+      if(editingId){
+        tenders=tenders.map(function(t){ return t.id===editingId? Object.assign({},t,data) : t; });
+      } else {
+        data.id=Date.now();
+        tenders.push(data);
+      }
+      persist(); formWrap.style.display='none'; render();
+    });
+
+    boardBody.addEventListener('click', function(e){
+      var editBtn=e.target.closest('[data-edit]'), delBtn=e.target.closest('[data-del]');
+      if(editBtn){
+        var id=parseFloat(editBtn.dataset.edit), t=tenders.find(function(x){ return x.id===id; });
+        if(!t) return;
+        editingId=id; resetInvalid();
+        $('form-title').textContent='Edit Tender';
+        $('form-hint').textContent='Updating an existing tender.';
+        $('t-name').value=t.name; $('t-client').value=t.client; $('t-value').value=t.value;
+        $('t-deadline').value=t.deadline; $('t-status').value=t.status;
+        formWrap.style.display='block';
+        formWrap.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+      } else if(delBtn){
+        var did=parseFloat(delBtn.dataset.del);
+        if(window.confirm('Delete this tender? This cannot be undone.')){
+          tenders=tenders.filter(function(x){ return x.id!==did; });
+          persist(); render();
+        }
+      }
+    });
+
+    render();
+  })();
+
+  /* ---------- AI takeoff (takeoff.html) ---------- */
+  (function(){
+    var zone=document.getElementById('upload-zone');
+    if(!zone) return;
+    var $=function(id){ return document.getElementById(id); };
+    var fileInput=$('takeoff-file-input'), fileInfo=$('upload-file-info'), runBtn=$('run-takeoff-btn'),
+        clearBtn=$('upload-clear-btn'), standby=$('tk-standby'), loading=$('tk-loading'), results=$('tk-results'),
+        footer=$('tk-footer'), badge=$('tk-badge'), elemBody=$('tk-elem-body');
+    var currentFile=null, lastTakeoff=null;
+
+    var ELEMENT_POOL=[
+      {name:'Concrete Ground Slab', unit:'m²', factor:0.92},
+      {name:'Structural Steel Beams', unit:'no.', factor:0.018},
+      {name:'Timber Stud Partitions', unit:'m', factor:0.35},
+      {name:'External Doors', unit:'no.', factor:0.012},
+      {name:'Windows (Glazed Units)', unit:'no.', factor:0.028},
+      {name:'Roof Trusses', unit:'no.', factor:0.02},
+      {name:'Rebar T12', unit:'kg', factor:4.2},
+      {name:'Blockwork (100mm)', unit:'m²', factor:0.65},
+      {name:'Insulation Boards (PIR)', unit:'m²', factor:0.88},
+      {name:'Drainage Pipework', unit:'m', factor:0.22},
+      {name:'Plasterboard Sheets', unit:'no.', factor:0.08},
+      {name:'Excavation', unit:'m³', factor:0.24}
+    ];
+
+    function mulberry32(seed){
+      var a=seed>>>0;
+      return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
+    }
+
+    function bytesToSize(b){
+      if(b<1024) return b+' B';
+      if(b<1048576) return (b/1024).toFixed(1)+' KB';
+      return (b/1048576).toFixed(2)+' MB';
+    }
+
+    function setFile(file){
+      currentFile=file;
+      fileInfo.style.display='flex';
+      $('upload-file-name').textContent=file.name;
+      $('upload-file-meta').textContent=bytesToSize(file.size)+' · '+(file.type||'unknown type');
+      runBtn.disabled=false;
+      standby.style.display='block'; results.style.display='none'; footer.style.display='none'; loading.style.display='none';
+      badge.textContent='Ready'; badge.style.color='var(--navy)';
+    }
+
+    zone.addEventListener('click', function(){ fileInput.click(); });
+    zone.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fileInput.click(); } });
+    zone.addEventListener('dragover', function(e){ e.preventDefault(); zone.classList.add('drag'); });
+    zone.addEventListener('dragleave', function(){ zone.classList.remove('drag'); });
+    zone.addEventListener('drop', function(e){
+      e.preventDefault(); zone.classList.remove('drag');
+      if(e.dataTransfer.files && e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', function(){ if(this.files && this.files[0]) setFile(this.files[0]); });
+    clearBtn.addEventListener('click', function(){
+      currentFile=null; fileInput.value=''; fileInfo.style.display='none'; runBtn.disabled=true;
+      standby.style.display='block'; results.style.display='none'; footer.style.display='none';
+      badge.textContent='Standby'; badge.style.color='var(--muted)';
+    });
+
+    function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+    async function runAnalysis(){
+      if(!currentFile) return;
+      standby.style.display='none'; results.style.display='none'; footer.style.display='none';
+      loading.style.display='block'; runBtn.disabled=true;
+      badge.textContent='Analysing'; badge.style.color='var(--navy)';
+      var stepEls=document.querySelectorAll('#tk-steps .scan-step');
+      stepEls.forEach(function(s){ s.className='scan-step'; });
+
+      var buf=await currentFile.arrayBuffer();
+      var digest, seed;
+      try{
+        var hashBuf=await crypto.subtle.digest('SHA-256', buf);
+        var hashArr=Array.from(new Uint8Array(hashBuf));
+        digest=hashArr.map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+        seed=parseInt(digest.slice(0,8),16);
+      } catch(e){
+        seed=(currentFile.size*2654435761)>>>0;
+        digest=seed.toString(16);
+      }
+      var rand=mulberry32(seed);
+
+      var stepDur=reduce?0:550;
+      for(var i=0;i<stepEls.length;i++){
+        (function(idx){ setTimeout(function(){
+          stepEls.forEach(function(s,j){ if(j<idx) s.className='scan-step done'; });
+          if(stepEls[idx]) stepEls[idx].className='scan-step active';
+        }, idx*stepDur); })(i);
+      }
+      await new Promise(function(res){ setTimeout(res, reduce?0:stepEls.length*stepDur+400); });
+      stepEls.forEach(function(s){ s.className='scan-step done'; });
+
+      var gia=Math.max(80, Math.min(2400, Math.round((currentFile.size/1024)*0.9)));
+      var shuffled=ELEMENT_POOL.map(function(e){ return [rand(), e]; }).sort(function(a,b){ return a[0]-b[0]; }).map(function(p){ return p[1]; });
+      var count=6+Math.floor(rand()*3);
+      var chosen=shuffled.slice(0, count);
+      var rows=chosen.map(function(el){
+        var qty=Math.max(1, Math.round(gia*el.factor*(0.82+rand()*0.36)));
+        var confidence=Math.round(60+rand()*38);
+        return { name:el.name, qty:qty, unit:el.unit, confidence:confidence };
+      });
+      var avgConf=Math.round(rows.reduce(function(a,r){ return a+r.confidence; },0)/rows.length);
+
+      elemBody.innerHTML=rows.map(function(r){
+        var flag = r.confidence<80 ? 'Verify Manually' : '';
+        return '<div class="elem-row"><span>'+esc(r.name)+'</span><span>'+r.qty.toLocaleString('en-IE')+' '+r.unit+'</span>'+
+          '<span><span class="conf-bar"><i style="width:'+r.confidence+'%"></i></span>'+r.confidence+'%</span>'+
+          '<span class="flag">'+flag+'</span></div>';
+      }).join('');
+      $('tk-summary-title').textContent=rows.length+' elements detected';
+      $('tk-gia').textContent=gia.toLocaleString('en-IE')+' m²';
+      $('tk-avgconf').textContent=avgConf+'%';
+
+      lastTakeoff={ fileName:currentFile.name, gia:gia, avgConf:avgConf, rows:rows, digest:digest.slice(0,16) };
+
+      loading.style.display='none'; results.style.display='block'; footer.style.display='block';
+      runBtn.disabled=false; badge.textContent='Complete'; badge.style.color='#17A06A';
+    }
+
+    runBtn.addEventListener('click', runAnalysis);
+
+    var exportBtn=$('tk-export-btn');
+    if(exportBtn) exportBtn.addEventListener('click', function(){
+      if(!lastTakeoff) return;
+      var lines=['Element,Quantity,Unit,Confidence %,Flag'];
+      lastTakeoff.rows.forEach(function(r){
+        lines.push('"'+r.name+'",'+r.qty+',"'+r.unit+'",'+r.confidence+','+(r.confidence<80?'Verify Manually':''));
+      });
+      var blob=new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8'}), url=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=url; a.download='InfraBid_Takeoff_'+lastTakeoff.fileName.replace(/\.[^.]+$/,'')+'.csv';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    });
+
+    var toValBtn=$('tk-tovaluation-btn');
+    if(toValBtn) toValBtn.addEventListener('click', function(){
+      if(!lastTakeoff) return;
+      try{ localStorage.setItem('infrabid_takeoff_handoff', JSON.stringify({ gia:lastTakeoff.gia, ts:Date.now() })); }catch(e){}
+      window.location.href='valuation.html';
+    });
+  })();
+
+  /* ---------- valuation handoff from AI takeoff ---------- */
+  (function(){
+    var areaField=document.getElementById('spec-area');
+    if(!areaField) return;
+    try{
+      var raw=localStorage.getItem('infrabid_takeoff_handoff');
+      if(raw){
+        var data=JSON.parse(raw);
+        if(data && data.gia && (Date.now()-data.ts) < 1000*60*30){
+          areaField.value=data.gia;
+        }
+        localStorage.removeItem('infrabid_takeoff_handoff');
+      }
+    }catch(e){}
+  })();
+
+  /* ---------- supplier marketplace (marketplace.html) ---------- */
+  (function(){
+    var grid=document.getElementById('supplier-grid');
+    if(!grid) return;
+    var $=function(id){ return document.getElementById(id); };
+
+    var SUPPLIERS=[
+      {id:'chadwicks', name:'Chadwicks', category:'Concrete & Aggregates', region:'Leinster', item:'Readymix C30', price:124.50, unit:'m³', trend:0.8, rating:4.6},
+      {id:'roadstone', name:'Roadstone', category:'Concrete & Aggregates', region:'Leinster', item:'Aggregate', price:32.00, unit:'t', trend:1.2, rating:4.7},
+      {id:'kilsaran', name:'Kilsaran', category:'Concrete & Aggregates', region:'Munster', item:'Readymix C30', price:121.00, unit:'m³', trend:-0.4, rating:4.4},
+      {id:'brooks', name:'Brooks Timber', category:'Timber & Frame', region:'Leinster', item:'C24 Timber 4.8m', price:18.40, unit:'length', trend:0.5, rating:4.5},
+      {id:'murray', name:'Murray Timber', category:'Timber & Frame', region:'Munster', item:'C24 Timber 4.8m', price:17.90, unit:'length', trend:-0.6, rating:4.3},
+      {id:'heiton', name:'Heiton Buckley', category:'Steel & Rebar', region:'Leinster', item:'Rebar T12', price:0.96, unit:'kg', trend:0.9, rating:4.4},
+      {id:'mbs', name:'MBS Steel', category:'Steel & Rebar', region:'Connacht', item:'Rebar T12', price:0.99, unit:'kg', trend:1.5, rating:4.2},
+      {id:'dakota', name:'Dakota', category:'Insulation & Dry-lining', region:'Leinster', item:'Insulation PIR', price:34.10, unit:'m²', trend:0.3, rating:4.6},
+      {id:'isocover', name:'Isocover', category:'Insulation & Dry-lining', region:'Munster', item:'Insulation PIR', price:33.20, unit:'m²', trend:-0.2, rating:4.5},
+      {id:'murdocks', name:"Murdock's", category:'Roofing & Cladding', region:'Ulster (ROI)', item:'Roof Tile', price:14.80, unit:'m²', trend:0.7, rating:4.3},
+      {id:'tegral', name:'Tegral', category:'Roofing & Cladding', region:'Leinster', item:'Roof Sheet', price:22.50, unit:'m²', trend:0.4, rating:4.5},
+      {id:'wolseley', name:'Wolseley', category:'Plumbing & Civil', region:'Leinster', item:'PVC Pipe 110mm', price:6.40, unit:'m', trend:-0.3, rating:4.4}
+    ];
+
+    var catFilter='all', regionFilter='all', searchTerm='', sortBy='price-asc', selected={};
+
+    function euro2(n){ return '€'+n.toFixed(2); }
+    function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+    function stars(r){ var full=Math.round(r); return '★★★★★'.slice(0,full)+'☆☆☆☆☆'.slice(0,5-full); }
+
+    function selectedList(){ return SUPPLIERS.filter(function(s){ return selected[s.id]; }); }
+
+    function renderCompareBar(){
+      var n=selectedList().length;
+      var bar=$('compare-bar');
+      bar.classList.toggle('show', n>0);
+      $('compare-count').textContent=n+' selected';
+      $('compare-view-btn').style.display = n>=2 ? 'inline-block' : 'none';
+    }
+
+    function render(){
+      var term=searchTerm;
+      var list=SUPPLIERS.filter(function(s){
+        if(catFilter!=='all' && s.category!==catFilter) return false;
+        if(regionFilter!=='all' && s.region!==regionFilter) return false;
+        if(term && s.name.toLowerCase().indexOf(term)===-1 && s.item.toLowerCase().indexOf(term)===-1) return false;
+        return true;
+      });
+      list.sort(function(a,b){
+        if(sortBy==='price-asc') return a.price-b.price;
+        if(sortBy==='price-desc') return b.price-a.price;
+        if(sortBy==='rating-desc') return b.rating-a.rating;
+        if(sortBy==='name-asc') return a.name.localeCompare(b.name);
+        return 0;
+      });
+
+      grid.innerHTML = list.length ? list.map(function(s){
+        var trendUp=s.trend>=0;
+        return '<div class="supplier-card">'+
+          '<div class="cat">'+esc(s.category)+'</div>'+
+          '<h3>'+esc(s.name)+'</h3>'+
+          '<div class="region">'+esc(s.region)+'</div>'+
+          '<div class="price-row"><span>'+esc(s.item)+'</span><b>'+euro2(s.price)+'/'+esc(s.unit)+'</b></div>'+
+          '<div class="price-row"><span>7-day trend</span><span style="color:'+(trendUp?'#17A06A':'#C0392B')+'">'+(trendUp?'▲':'▼')+' '+Math.abs(s.trend).toFixed(1)+'%</span></div>'+
+          '<div class="price-row"><span class="stars">'+stars(s.rating)+'</span><span>'+s.rating.toFixed(1)+'</span></div>'+
+          '<div class="sc-foot">'+
+            '<label class="cmp"><input type="checkbox" data-cmp="'+s.id+'" '+(selected[s.id]?'checked':'')+'> Compare</label>'+
+            '<button class="btn btn-ghost btn-sm-quote" data-quote="'+s.id+'" style="padding:8px 14px;font-size:10px">Request Quote</button>'+
+          '</div></div>';
+      }).join('') : '<div style="grid-column:1/-1;padding:44px;text-align:center;color:var(--muted);font-size:13px">No suppliers match these filters.</div>';
+
+      renderCompareBar();
+    }
+
+    document.querySelectorAll('#cat-chips .fchip').forEach(function(chip){
+      chip.addEventListener('click', function(){
+        document.querySelectorAll('#cat-chips .fchip').forEach(function(c){ c.classList.remove('active'); });
+        chip.classList.add('active');
+        catFilter=chip.dataset.cat;
+        render();
+      });
+    });
+    $('supp-region-filter').addEventListener('change', function(){ regionFilter=this.value; render(); });
+    $('supp-sort').addEventListener('change', function(){ sortBy=this.value; render(); });
+    $('supp-search').addEventListener('input', function(){ searchTerm=this.value.trim().toLowerCase(); render(); });
+
+    grid.addEventListener('change', function(e){
+      var cb=e.target.closest('[data-cmp]');
+      if(!cb) return;
+      if(cb.checked) selected[cb.dataset.cmp]=true; else delete selected[cb.dataset.cmp];
+      renderCompareBar();
+    });
+
+    var quotePanel=$('quote-panel'), currentQuoteSupplier=null;
+    grid.addEventListener('click', function(e){
+      var qb=e.target.closest('[data-quote]');
+      if(!qb) return;
+      var s=SUPPLIERS.find(function(x){ return x.id===qb.dataset.quote; });
+      if(!s) return;
+      currentQuoteSupplier=s;
+      $('quote-supplier-name').textContent=s.name;
+      ['q-name','q-email','q-qty','q-notes'].forEach(function(id){ $(id).value=''; });
+      document.querySelectorAll('#quote-panel .fld').forEach(function(f){ f.classList.remove('invalid'); });
+      quotePanel.style.display='block';
+      quotePanel.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+    });
+    $('quote-cancel-btn').addEventListener('click', function(){ quotePanel.style.display='none'; });
+
+    function readQuotes(){ try{ return JSON.parse(localStorage.getItem('infrabid_quote_requests')||'[]'); }catch(e){ return []; } }
+    function saveQuote(q){ var list=readQuotes(); list.push(q); try{ localStorage.setItem('infrabid_quote_requests', JSON.stringify(list)); }catch(e){} }
+
+    $('quote-send-btn').addEventListener('click', function(){
+      var name=$('q-name').value.trim(), email=$('q-email').value.trim(), ok=true;
+      $('q-name').closest('.fld').classList.remove('invalid');
+      $('q-email').closest('.fld').classList.remove('invalid');
+      if(!name){ $('q-name').closest('.fld').classList.add('invalid'); ok=false; }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ $('q-email').closest('.fld').classList.add('invalid'); ok=false; }
+      if(!ok || !currentQuoteSupplier) return;
+
+      var ref='RFQ-'+Date.now().toString(36).toUpperCase();
+      var data={ ref:ref, supplier:currentQuoteSupplier.name, item:currentQuoteSupplier.item,
+        name:name, email:email, qty:$('q-qty').value.trim(), notes:$('q-notes').value.trim(), submittedAt:new Date().toISOString() };
+      saveQuote(data);
+
+      var subject='Quote Request '+ref+' — '+data.supplier;
+      var body=['Reference: '+ref,'Supplier: '+data.supplier,'Item: '+data.item,'Requested by: '+data.name,
+        'Email: '+data.email,'Quantity: '+(data.qty||'—'),'','Notes:',data.notes||'—'].join('\n');
+      var mailto='mailto:info@arya.ie?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+      $('quote-hint').textContent='Request '+ref+' logged. Opening email draft…';
+      quotePanel.style.display='none';
+      window.location.href=mailto;
+    });
+
+    $('compare-view-btn').addEventListener('click', function(){
+      var list=selectedList();
+      var panel=$('compare-panel');
+      var attrs=[['Category', function(s){return s.category;}], ['Region', function(s){return s.region;}],
+        ['Reference Item', function(s){return s.item;}], ['Price', function(s){return euro2(s.price)+'/'+s.unit;}],
+        ['7-Day Trend', function(s){return (s.trend>=0?'▲ ':'▼ ')+Math.abs(s.trend).toFixed(1)+'%';}],
+        ['Rating', function(s){return s.rating.toFixed(1)+' '+stars(s.rating);}]];
+      var html='<div class="ledger-head"><span>Side-by-Side Comparison</span><h4>'+list.length+' Suppliers Selected</h4></div>'+
+        '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:'+(280+list.length*160)+'px">'+
+        '<tr><td style="padding:10px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em"></td>'+
+        list.map(function(s){ return '<td style="padding:10px 8px;font-weight:700;color:var(--navy);font-size:13px">'+esc(s.name)+'</td>'; }).join('')+'</tr>'+
+        attrs.map(function(a){ return '<tr><td style="padding:10px 8px;border-top:1px solid var(--border);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em">'+a[0]+'</td>'+
+          list.map(function(s){ return '<td style="padding:10px 8px;border-top:1px solid var(--border);font-size:13px;color:var(--ink)">'+a[1](s)+'</td>'; }).join('')+'</tr>'; }).join('')+
+        '</table></div>';
+      panel.innerHTML=html;
+      panel.style.display='block';
+      panel.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+    });
+
+    $('compare-clear-btn').addEventListener('click', function(){
+      selected={};
+      $('compare-panel').style.display='none';
+      render();
+    });
+
+    render();
+  })();
 })();

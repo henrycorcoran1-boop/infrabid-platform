@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Arya Estimating — real-time procurement intelligence and quantity surveying for the Irish construction market. Investor-grade tender estimates in minutes.">
+<meta name="description" content="InfraBid Tender Dashboard — track every tender in progress, pipeline value, and deadlines in one live board.">
 <meta name="theme-color" content="#FFFFFF">
-<title>Pricing · Arya Estimating</title>
+<title>Tender Dashboard · InfraBid</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -50,52 +50,70 @@
 </nav>
 <main id="main">
 <section class="phero">
-  <img class="phero-img" src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?auto=format&fit=crop&w=1600&q=65" alt="Modern architecture" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
+  <img class="phero-img" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=65" alt="Construction site aerial view" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
   <div class="wrap content reveal">
-    <span class="eyebrow"><span class="dot"></span> Engagement Tiers</span>
-      <h1>Procurement Licensing</h1>
-      <p style="margin:0 auto">Transparent tiers for contractors, consultancies, and enterprise frameworks.</p>
+    <span class="eyebrow"><span class="dot"></span> Live Operations</span>
+    <h1>Tender Dashboard</h1>
+    <p>Track every tender end to end — status, pipeline value, and deadlines in one live board. Data is stored in your browser, so it persists between visits.</p>
   </div>
 </section>
-<section class="section" id="pricing">
+<section class="section alt" id="dashboard">
   <div class="wrap">
-    
-    <div class="price-grid">
-      <div class="plan reveal">
-        <h3>Starter</h3><div class="who">Solo Estimators &amp; Small Civil Trades</div>
-        <div class="amt">€199<small>/mo</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Up to 15 valuations / month</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Leinster merchant index</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>PDF ledger export</li>
-        </ul>
-        <a href="contact.html" class="btn btn-ghost">Select</a>
+
+    <div class="kpi-strip">
+      <div class="kpi-tile"><div class="lbl">Active Tenders</div><div class="val" id="kpi-active">0</div><div class="sub">Draft + Submitted</div></div>
+      <div class="kpi-tile"><div class="lbl">Pipeline Value</div><div class="val" id="kpi-value">€0</div><div class="sub">All open tenders</div></div>
+      <div class="kpi-tile"><div class="lbl">Win Rate</div><div class="val" id="kpi-winrate">0%</div><div class="sub" id="kpi-winrate-sub">of decided tenders</div></div>
+      <div class="kpi-tile"><div class="lbl">Due This Week</div><div class="val" id="kpi-duesoon">0</div><div class="sub">Deadline within 7 days</div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="chipbar" id="status-chips">
+        <button class="fchip active" data-status="all">All</button>
+        <button class="fchip" data-status="Draft">Draft</button>
+        <button class="fchip" data-status="Submitted">Submitted</button>
+        <button class="fchip" data-status="Won">Won</button>
+        <button class="fchip" data-status="Lost">Lost</button>
       </div>
-      <div class="plan feat reveal">
-        <span class="badge">Most Selected</span>
-        <h3>Professional</h3><div class="who">Mid-Market Firms · The &quot;Leinster&quot; Choice</div>
-        <div class="amt">€350<small>/mo</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Unlimited valuations</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>National merchant index</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Tender dossier compiler</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>5 seats included</li>
-        </ul>
-        <a href="contact.html" class="btn btn-primary">Select</a>
+      <div class="search-box"><input id="tender-search" type="search" placeholder="Search tenders or clients…"></div>
+      <button class="btn btn-primary" id="new-tender-btn" style="padding:11px 22px">New Tender
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </div>
+
+    <div class="field-group" id="tender-form-wrap" style="display:none">
+      <span class="gl" id="form-title">New Tender</span>
+      <div class="grid3">
+        <div>
+          <div class="fld"><label for="t-name">Tender Name</label><div class="ip"><input id="t-name" type="text"></div></div>
+          <div class="fld"><label for="t-client">Client</label><div class="ip"><input id="t-client" type="text"></div></div>
+        </div>
+        <div>
+          <div class="fld"><label for="t-value">Estimated Value</label><div class="ip"><span class="sym">€</span><input id="t-value" type="number" min="0" step="1000"></div></div>
+          <div class="fld"><label for="t-deadline">Submission Deadline</label><div class="ip"><input id="t-deadline" type="date"></div></div>
+        </div>
+        <div>
+          <div class="fld"><label for="t-status">Status</label><div class="ip"><select id="t-status">
+            <option>Draft</option><option>Submitted</option><option>Won</option><option>Lost</option>
+          </select></div></div>
+        </div>
       </div>
-      <div class="plan reveal">
-        <h3>Enterprise</h3><div class="who">Tier 1 Contractors &amp; Unlimited Seats</div>
-        <div class="amt">€950<small>/mo</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Custom index integrations</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Dedicated success manager</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>SSO &amp; audit controls</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Unlimited seats</li>
-        </ul>
-        <a href="contact.html" class="btn btn-ghost">Contact Sales</a>
+      <div class="val-actions">
+        <p id="form-hint">Saved locally to this browser.</p>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost" id="tender-cancel-btn" type="button">Cancel</button>
+          <button class="btn btn-primary" id="tender-save-btn" type="button">Save Tender</button>
+        </div>
       </div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:38px;font-size:14px;color:var(--text-sub)"><b style="color:var(--navy)">Strategic Hook:</b> Subscriptions are subsidized by Local Enterprise Office (LEO) digital grants.</p>
+
+    <div class="board">
+      <div class="board-row head">
+        <span>Tender</span><span>Value</span><span>Deadline</span><span>Status</span><span></span>
+      </div>
+      <div id="board-body"></div>
+    </div>
+
   </div>
 </section>
 </main>
@@ -113,10 +131,9 @@
       <div class="foot-col"><h5>Company</h5><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
       <div class="foot-col"><h5>Contact</h5><a href="mailto:info@arya.ie">info@arya.ie</a><li>Dublin, Ireland</li></div>
     </div>
-    <div class="foot-bar"><span>© 2026 Arya Estimating · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+    <div class="foot-bar"><span>© 2026 InfraBid · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
   </div>
 </footer>
-
 <button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script src="app.js"></script>
 </body>

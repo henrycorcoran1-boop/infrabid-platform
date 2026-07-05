@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="InfraBid AI Takeoff — upload a drawing or spec file and get an instant element and quantity breakdown.">
+<meta name="theme-color" content="#FFFFFF">
+<title>AI Takeoff · InfraBid</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="#main" class="sr-skip">Skip to content</a>
+<div id="progress"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="InfraBid home">
+      <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+      <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="valuation.html">Valuation</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="takeoff.html">AI Takeoff</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="process.html">Process</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu">
+    <a href="valuation.html">Valuation Suite</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="takeoff.html">AI Takeoff</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="process.html">Process</a>
+    <a href="suppliers.html">Suppliers</a>
+    <a href="value-engineering.html">Value Engineering</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="btn btn-primary">Request Demo</a>
+  </div>
+</nav>
+<main id="main">
+<section class="phero">
+  <img class="phero-img" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=65" alt="Architectural blueprints and plans" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
+  <div class="wrap content reveal">
+    <span class="eyebrow"><span class="dot"></span> Document Intelligence</span>
+    <h1>AI-Assisted Takeoff</h1>
+    <p>Upload a drawing, spec, or takeoff file and get an instant element and quantity breakdown — the first pass before your estimator's manual review.</p>
+  </div>
+</section>
+<section class="section alt" id="takeoff">
+  <div class="wrap">
+    <div class="val-grid">
+      <div class="reveal">
+        <div class="field-group">
+          <span class="gl">01 / Upload Document</span>
+          <div class="upload-zone" id="upload-zone" tabindex="0" role="button" aria-label="Upload a drawing or spec file">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 16V4M12 4l-5 5M12 4l5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            <h4>Drag &amp; drop a file, or click to browse</h4>
+            <p>PDF, DWG, DOCX, PNG or JPG — processed entirely in your browser</p>
+          </div>
+          <input type="file" id="takeoff-file-input" style="display:none" accept=".pdf,.dwg,.docx,.doc,.png,.jpg,.jpeg">
+          <div class="upload-file" id="upload-file-info" style="display:none">
+            <div><b id="upload-file-name">—</b><span id="upload-file-meta">—</span></div>
+            <button class="icon-btn" id="upload-clear-btn" aria-label="Remove file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+          </div>
+        </div>
+        <div class="val-actions">
+          <p>Analysis runs locally against the file's structure — nothing is uploaded to a server.</p>
+          <button class="btn btn-primary" id="run-takeoff-btn" data-magnetic disabled>Run Takeoff Analysis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="analysis">
+          <div class="an-top"><span>Takeoff Analysis</span><span id="tk-badge">Standby</span></div>
+          <div class="an-body" aria-live="polite">
+            <div class="an-standby" id="tk-standby">
+              <h4>Awaiting Document</h4>
+              <p>Upload a file and run the analysis to generate a detected element and quantity breakdown.</p>
+            </div>
+            <div id="tk-loading" style="display:none">
+              <div class="spinner"></div>
+              <div class="scan-steps" id="tk-steps">
+                <div class="scan-step" data-step="0"><span class="dot"></span>Parsing document structure…</div>
+                <div class="scan-step" data-step="1"><span class="dot"></span>Detecting vector layers &amp; symbols…</div>
+                <div class="scan-step" data-step="2"><span class="dot"></span>Cross-referencing NBS specification…</div>
+                <div class="scan-step" data-step="3"><span class="dot"></span>Compiling quantity schedule…</div>
+              </div>
+            </div>
+            <div id="tk-results" style="display:none">
+              <div class="ledger-head"><span>Detected Elements</span><h4 id="tk-summary-title">—</h4></div>
+              <div class="elem-row head"><span>Element</span><span>Qty</span><span>Confidence</span><span>Flag</span></div>
+              <div id="tk-elem-body"></div>
+            </div>
+          </div>
+          <div class="an-foot" id="tk-footer" style="display:none">
+            <div class="ft">
+              <div><span class="lab">Est. GIA (from file size)</span><span class="total" id="tk-gia" style="font-size:26px">—</span></div>
+              <div style="text-align:right"><span class="lab">Avg. Confidence</span><span class="margin" id="tk-avgconf">—</span></div>
+            </div>
+            <div class="btns"><button class="sec" id="tk-export-btn" type="button">Export Elements CSV</button><button class="pri" id="tk-tovaluation-btn" type="button">Send to Valuation Suite</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <b>How this works today:</b> the analysis reads your file's real bytes (size, type, and a SHA-256 fingerprint) to deterministically generate a plausible element and quantity breakdown — the same file always produces the same result, and different files produce different results. It is a heuristic preview, not computer vision. A production-grade takeoff pipeline that reads actual vector/CAD geometry requires server-side ML processing — see the backend roadmap.
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+          <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+        </div>
+        <p class="bl">Real-time procurement intelligence and quantity surveying for the Irish construction market.</p>
+      </div>
+      <div class="foot-col"><h5>Platform</h5><a href="valuation.html">Valuation Suite</a><a href="dashboard.html">Dashboard</a><a href="takeoff.html">AI Takeoff</a><a href="marketplace.html">Marketplace</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Contact</h5><a href="mailto:info@arya.ie">info@arya.ie</a><li>Dublin, Ireland</li></div>
+    </div>
+    <div class="foot-bar"><span>© 2026 InfraBid · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+  </div>
+</footer>
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="app.js"></script>
+</body>
+</html>

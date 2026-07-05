@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Arya Estimating — real-time procurement intelligence and quantity surveying for the Irish construction market. Investor-grade tender estimates in minutes.">
+<meta name="description" content="InfraBid Supplier Marketplace — compare live merchant pricing across Irish builders' merchants and request quotes in one click.">
 <meta name="theme-color" content="#FFFFFF">
-<title>Pricing · Arya Estimating</title>
+<title>Supplier Marketplace · InfraBid</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -50,52 +50,73 @@
 </nav>
 <main id="main">
 <section class="phero">
-  <img class="phero-img" src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?auto=format&fit=crop&w=1600&q=65" alt="Modern architecture" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
+  <img class="phero-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=65" alt="Modern glass towers viewed from below at dusk" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
   <div class="wrap content reveal">
-    <span class="eyebrow"><span class="dot"></span> Engagement Tiers</span>
-      <h1>Procurement Licensing</h1>
-      <p style="margin:0 auto">Transparent tiers for contractors, consultancies, and enterprise frameworks.</p>
+    <span class="eyebrow"><span class="dot"></span> Procurement Network</span>
+    <h1>Supplier Marketplace</h1>
+    <p>Compare live-indexed pricing across Irish builders' merchants, shortlist suppliers side by side, and request quotes in one click.</p>
   </div>
 </section>
-<section class="section" id="pricing">
+<section class="section alt" id="marketplace">
   <div class="wrap">
-    
-    <div class="price-grid">
-      <div class="plan reveal">
-        <h3>Starter</h3><div class="who">Solo Estimators &amp; Small Civil Trades</div>
-        <div class="amt">€199<small>/mo</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Up to 15 valuations / month</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Leinster merchant index</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>PDF ledger export</li>
-        </ul>
-        <a href="contact.html" class="btn btn-ghost">Select</a>
-      </div>
-      <div class="plan feat reveal">
-        <span class="badge">Most Selected</span>
-        <h3>Professional</h3><div class="who">Mid-Market Firms · The &quot;Leinster&quot; Choice</div>
-        <div class="amt">€350<small>/mo</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Unlimited valuations</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>National merchant index</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Tender dossier compiler</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>5 seats included</li>
-        </ul>
-        <a href="contact.html" class="btn btn-primary">Select</a>
-      </div>
-      <div class="plan reveal">
-        <h3>Enterprise</h3><div class="who">Tier 1 Contractors &amp; Unlimited Seats</div>
-        <div class="amt">€950<small>/mo</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Custom index integrations</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Dedicated success manager</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>SSO &amp; audit controls</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Unlimited seats</li>
-        </ul>
-        <a href="contact.html" class="btn btn-ghost">Contact Sales</a>
+
+    <div class="toolbar">
+      <div class="chipbar" id="cat-chips">
+        <button class="fchip active" data-cat="all">All Categories</button>
+        <button class="fchip" data-cat="Concrete &amp; Aggregates">Concrete &amp; Aggregates</button>
+        <button class="fchip" data-cat="Timber &amp; Frame">Timber &amp; Frame</button>
+        <button class="fchip" data-cat="Steel &amp; Rebar">Steel &amp; Rebar</button>
+        <button class="fchip" data-cat="Insulation &amp; Dry-lining">Insulation &amp; Dry-lining</button>
+        <button class="fchip" data-cat="Roofing &amp; Cladding">Roofing &amp; Cladding</button>
+        <button class="fchip" data-cat="Plumbing &amp; Civil">Plumbing &amp; Civil</button>
       </div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:38px;font-size:14px;color:var(--text-sub)"><b style="color:var(--navy)">Strategic Hook:</b> Subscriptions are subsidized by Local Enterprise Office (LEO) digital grants.</p>
+    <div class="toolbar">
+      <div class="search-box"><input id="supp-search" type="search" placeholder="Search suppliers…"></div>
+      <div class="sort-select"><select id="supp-region-filter">
+        <option value="all">All Regions</option>
+        <option value="Leinster">Leinster</option>
+        <option value="Munster">Munster</option>
+        <option value="Connacht">Connacht</option>
+        <option value="Ulster (ROI)">Ulster (ROI)</option>
+      </select></div>
+      <div class="sort-select"><select id="supp-sort">
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating-desc">Rating: Highest First</option>
+        <option value="name-asc">Name: A–Z</option>
+      </select></div>
+    </div>
+
+    <div class="supplier-grid" id="supplier-grid"></div>
+
+    <div class="compare-panel" id="compare-panel"></div>
+
+    <div class="quote-panel" id="quote-panel">
+      <div class="field-group" style="margin-bottom:0">
+        <span class="gl">Request a Quote — <span id="quote-supplier-name">Supplier</span></span>
+        <div class="grid3">
+          <div>
+            <div class="fld"><label for="q-name">Your Name *</label><div class="ip"><input id="q-name" type="text"></div></div>
+          </div>
+          <div>
+            <div class="fld"><label for="q-email">Email *</label><div class="ip"><input id="q-email" type="email"></div></div>
+          </div>
+          <div>
+            <div class="fld"><label for="q-qty">Quantity Needed</label><div class="ip"><input id="q-qty" type="text" placeholder="e.g. 40m³"></div></div>
+          </div>
+        </div>
+        <div class="fld"><label for="q-notes">Notes</label><div class="ip"><textarea id="q-notes" placeholder="Delivery location, timeline, spec requirements…"></textarea></div></div>
+        <div class="val-actions">
+          <p id="quote-hint">Logged locally and emailed to InfraBid procurement.</p>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-ghost" id="quote-cancel-btn" type="button">Cancel</button>
+            <button class="btn btn-primary" id="quote-send-btn" type="button">Send Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 </main>
@@ -113,10 +134,14 @@
       <div class="foot-col"><h5>Company</h5><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
       <div class="foot-col"><h5>Contact</h5><a href="mailto:info@arya.ie">info@arya.ie</a><li>Dublin, Ireland</li></div>
     </div>
-    <div class="foot-bar"><span>© 2026 Arya Estimating · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+    <div class="foot-bar"><span>© 2026 InfraBid · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
   </div>
 </footer>
-
+<div class="compare-bar" id="compare-bar">
+  <span id="compare-count">0 selected</span>
+  <button id="compare-view-btn" type="button">Compare</button>
+  <button id="compare-clear-btn" type="button" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)">Clear</button>
+</div>
 <button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script src="app.js"></script>
 </body>
