@@ -22,7 +22,7 @@
   });
   mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mm.style.display='none'; mb.setAttribute('aria-expanded','false'); }); });
 
-  (function(){ var path=(location.pathname.split('/').pop()||'estimate.html');
+  (function(){ var path=(location.pathname.split('/').pop()||'index.html');
     document.querySelectorAll('.nav-links a, #mobile-menu a').forEach(function(a){
       if(a.getAttribute('href')===path) a.classList.add('active'); }); })();
 
@@ -322,12 +322,12 @@
         'Project Type: '+data.projectType, 'Estimated Value: '+(data.value?('€'+data.value):'—'),
         'Target Start: '+(data.timeline||'—'), '', 'Project Details:', data.message
       ];
-      lastMailto='mailto:info@arya.ie?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(bodyLines.join('\n'));
+      lastMailto='mailto:info@infrabid.ie?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(bodyLines.join('\n'));
 
       badge.textContent='Verified'; badge.style.color='var(--navy)';
       standby.style.display='none'; success.style.display='block';
       refEl.textContent=ref;
-      summaryEl.innerHTML='Enquiry from <b>'+(data.name||'you')+'</b> logged locally. An email draft to <b>info@arya.ie</b> is opening now.';
+      summaryEl.innerHTML='Enquiry from <b>'+(data.name||'you')+'</b> logged locally. An email draft to <b>info@infrabid.ie</b> is opening now.';
       window.location.href=lastMailto;
     });
 
@@ -756,7 +756,7 @@
       var subject='Quote Request '+ref+' — '+data.supplier;
       var body=['Reference: '+ref,'Supplier: '+data.supplier,'Item: '+data.item,'Requested by: '+data.name,
         'Email: '+data.email,'Quantity: '+(data.qty||'—'),'','Notes:',data.notes||'—'].join('\n');
-      var mailto='mailto:info@arya.ie?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+      var mailto='mailto:info@infrabid.ie?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
       $('quote-hint').textContent='Request '+ref+' logged. Opening email draft…';
       quotePanel.style.display='none';
       window.location.href=mailto;
