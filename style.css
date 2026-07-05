@@ -75,6 +75,12 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1
 .section-head{max-width:680px;margin-bottom:60px}
 .section-head h1,.section-head h2{font-size:clamp(30px,4.4vw,50px);text-transform:none;letter-spacing:-.02em;margin:18px 0 16px;font-weight:800}
 .section-head p{color:var(--text-sub);font-size:16px;max-width:560px}
+.spin-logo{width:76px;height:76px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  animation:spin360 7s linear infinite}
+.spin-logo svg{width:40px;height:38px}
+@keyframes spin360{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin-logo{animation:none}}
 
 /* ---------- buttons ---------- */
 .btn{display:inline-flex;align-items:center;gap:12px;padding:17px 30px;font-size:12px;
