@@ -519,9 +519,12 @@ footer{border-top:1px solid var(--border);padding:64px 0 0;background:var(--bg-2
 .exec-val h3{font-size:18px;text-transform:none;letter-spacing:-.01em;color:var(--ink);font-weight:700;margin-bottom:14px}
 .exec-val p{color:var(--text-sub);font-size:15px;line-height:1.7}
 .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:34px}
-.cap-grid .card{padding:26px;transition:opacity .4s var(--ease),filter .4s var(--ease),transform .4s var(--ease)}
-.cap-grid .card h3{margin-bottom:0;font-size:14px}
-.cap-grid .card .ico{margin-bottom:16px}
+.cap-grid .card{padding:38px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;
+  transition:opacity .4s var(--ease),filter .4s var(--ease),transform .4s var(--ease)}
+.cap-grid .card h3{margin-bottom:0;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.cap-grid .card .ico{margin:0 auto 22px;width:62px;height:62px;border-radius:17px;
+  background:var(--grad);border:none;box-shadow:0 14px 28px -10px rgba(19,49,152,.45)}
+.cap-grid .card .ico svg{width:28px;height:28px;stroke:#fff}
 .cap-grid:has(.card:hover) .card:not(:hover){opacity:.5;filter:blur(1.5px);transform:scale(.97)}
 .exec-goal{font-size:17px;color:var(--ink);max-width:700px;line-height:1.6}
 .exec-goal b{color:var(--ink);font-weight:600}
