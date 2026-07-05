@@ -62,6 +62,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .eyebrow-num .lab{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-sub);font-weight:600}
 .pill-hl{display:inline-block;padding:2px 12px;border-radius:20px;background:var(--accent);
   color:var(--ink);font-weight:700}
+.scroll-reveal-text .wrd{color:var(--muted);transition:color .35s ease}
+.scroll-reveal-text .wrd.on{color:var(--ink)}
 h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.08}
 .gtext{background:var(--grad-soft);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent}
@@ -444,22 +446,47 @@ footer{border-top:1px solid var(--border);padding:64px 0 0;background:var(--bg-2
 .phero .content{position:relative;z-index:2;max-width:760px}
 .phero .content h1{font-size:clamp(32px,5vw,56px);text-transform:none;letter-spacing:-.02em;margin:18px 0 16px;color:var(--ink);font-weight:800}
 .phero .content p{color:var(--text-sub);font-size:16px;max-width:560px}
-.phero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:saturate(.45) sepia(.12) hue-rotate(150deg) brightness(1.08) contrast(1.02);transform:scale(1.06);
-  animation:kenburns 26s ease-in-out infinite alternate;will-change:transform}
-.phero-veil{position:absolute;inset:0;pointer-events:none;background:
-  linear-gradient(180deg,rgba(237,232,232,.72),rgba(237,232,232,.86) 58%,var(--bg) 100%),
-  linear-gradient(120deg,rgba(190,255,139,.22),rgba(213,186,251,.16) 75%)}
+/* literal stock photography replaced by animated morphing blobs (see below) */
+.phero-img{display:none}
+.phero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(180deg,rgba(237,232,232,.35),rgba(237,232,232,.55) 58%,var(--bg) 100%)}
 .phero + .section{padding-top:58px}
 .hero{overflow:hidden}
 .hero>.wrap{position:relative;z-index:2}
 .hero .phero-veil{background:
-  linear-gradient(180deg,rgba(237,232,232,.68),rgba(237,232,232,.8) 55%,rgba(237,232,232,.94) 100%),
-  linear-gradient(120deg,rgba(190,255,139,.2),rgba(213,186,251,.14) 72%)}
+  linear-gradient(180deg,rgba(237,232,232,.3),rgba(237,232,232,.5) 55%,rgba(237,232,232,.72) 100%)}
 
-/* contact CTA with abstract image behind dark+lime veil */
-.cta-box .phero-img{filter:saturate(.5) hue-rotate(150deg) contrast(1.05) brightness(.85);animation:kenburns 28s ease-in-out infinite alternate}
-.cta-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(10,10,10,.90),rgba(20,26,16,.82) 55%,rgba(143,224,89,.35))}
+/* ---------- morphing blob backgrounds ---------- */
+.hero::before,.phero::before,.cta-box::before{
+  content:"";position:absolute;top:-15%;right:-12%;width:58%;height:130%;z-index:0;pointer-events:none;
+  filter:blur(64px);opacity:.55;background:linear-gradient(120deg,var(--accent) 0%,var(--secondary) 100%);
+  animation:blobmorph 17s ease-in-out infinite alternate,blobdrift 23s ease-in-out infinite alternate;
+  will-change:border-radius,transform}
+.hero::after,.phero::after,.cta-box::after{
+  content:"";position:absolute;bottom:-25%;left:-14%;width:48%;height:120%;z-index:0;pointer-events:none;
+  filter:blur(74px);opacity:.42;background:linear-gradient(200deg,var(--secondary) 0%,var(--accent-deep) 100%);
+  animation:blobmorph 21s ease-in-out infinite alternate-reverse,blobdrift 27s ease-in-out infinite alternate-reverse;
+  will-change:border-radius,transform}
+.cta-box::before{opacity:.5;mix-blend-mode:screen}
+.cta-box::after{opacity:.35;mix-blend-mode:screen;background:linear-gradient(200deg,var(--accent) 0%,var(--secondary-deep) 100%)}
+@keyframes blobmorph{
+  0%{border-radius:42% 58% 65% 35%/45% 45% 55% 55%}
+  25%{border-radius:65% 35% 40% 60%/55% 65% 35% 45%}
+  50%{border-radius:35% 65% 55% 45%/40% 50% 50% 60%}
+  75%{border-radius:55% 45% 35% 65%/65% 35% 60% 40%}
+  100%{border-radius:42% 58% 65% 35%/45% 45% 55% 55%}
+}
+@keyframes blobdrift{
+  0%{transform:translate(0,0) scale(1) rotate(0deg)}
+  50%{transform:translate(4%,-5%) scale(1.1) rotate(10deg)}
+  100%{transform:translate(-3%,4%) scale(.94) rotate(-8deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero::before,.hero::after,.phero::before,.phero::after,.cta-box::before,.cta-box::after{animation:none}
+}
+
+/* contact CTA with morphing blobs behind dark+lime veil */
+.cta-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(120deg,rgba(10,10,10,.90),rgba(20,26,16,.82) 55%,rgba(143,224,89,.35))}
 .cta-box>*:not(.phero-img):not(.cta-veil){position:relative;z-index:2}
 
 /* ---------- InfraBid executive summary ---------- */
@@ -471,9 +498,10 @@ footer{border-top:1px solid var(--border);padding:64px 0 0;background:var(--bg-2
 .exec-val h3{font-size:18px;text-transform:none;letter-spacing:-.01em;color:var(--ink);font-weight:700;margin-bottom:14px}
 .exec-val p{color:var(--text-sub);font-size:15px;line-height:1.7}
 .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:34px}
-.cap-grid .card{padding:26px}
+.cap-grid .card{padding:26px;transition:opacity .4s var(--ease),filter .4s var(--ease),transform .4s var(--ease)}
 .cap-grid .card h3{margin-bottom:0;font-size:14px}
 .cap-grid .card .ico{margin-bottom:16px}
+.cap-grid:has(.card:hover) .card:not(:hover){opacity:.5;filter:blur(1.5px);transform:scale(.97)}
 .exec-goal{font-size:17px;color:var(--ink);max-width:700px;line-height:1.6}
 .exec-goal b{color:var(--ink);font-weight:600}
 @media(max-width:860px){.exec-grid{grid-template-columns:1fr}.cap-grid{grid-template-columns:1fr}}
@@ -569,8 +597,9 @@ nav.scrolled .brand .logo{height:40px}
 /* ---------- supplier marketplace ---------- */
 .supplier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .supplier-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;
-  box-shadow:var(--shadow-sm);transition:all .25s;position:relative}
-.supplier-card:hover{border-color:var(--secondary-deep);transform:translateY(-4px)}
+  box-shadow:var(--shadow-sm);transition:opacity .4s var(--ease),filter .4s var(--ease),transform .35s var(--ease),border-color .35s;position:relative}
+.supplier-card:hover{border-color:var(--secondary-deep);transform:translateY(-4px) scale(1.02)}
+.supplier-grid:has(.supplier-card:hover) .supplier-card:not(:hover){opacity:.55;filter:blur(1.5px);transform:scale(.97)}
 .supplier-card .cat{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary-deep);font-weight:700;margin-bottom:8px}
 .supplier-card h3{font-size:16px;margin-bottom:4px}
 .supplier-card .region{font-size:11px;color:var(--muted);margin-bottom:14px}

@@ -42,6 +42,35 @@
   }
   if(reduce){ document.querySelectorAll('.track i').forEach(function(i){ i.style.width=i.getAttribute('data-w'); }); }
 
+  /* ---------- scroll-linked progressive text reveal ---------- */
+  (function(){
+    var blocks = document.querySelectorAll('.scroll-reveal-text');
+    if(!blocks.length) return;
+    var words = [];
+    blocks.forEach(function(el){
+      var text = el.textContent, parts = text.split(/(\s+)/);
+      el.innerHTML = parts.map(function(p){
+        return /\S/.test(p) ? '<span class="wrd">'+p+'</span>' : p;
+      }).join('');
+      words = words.concat(Array.prototype.slice.call(el.querySelectorAll('.wrd')));
+    });
+    if(reduce){ words.forEach(function(w){ w.classList.add('on'); }); return; }
+
+    var ticking = false;
+    function update(){
+      ticking = false;
+      var line = window.innerHeight*0.78;
+      words.forEach(function(w){
+        var top = w.getBoundingClientRect().top;
+        w.classList.toggle('on', top < line);
+      });
+    }
+    function onScroll(){ if(!ticking){ requestAnimationFrame(update); ticking = true; } }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    update();
+  })();
+
   var cio = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); cio.unobserve(e.target); } });
   },{threshold:.5});
