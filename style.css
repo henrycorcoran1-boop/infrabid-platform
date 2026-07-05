@@ -608,6 +608,41 @@ nav.scrolled .brand .logo{height:40px}
 .note-box{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:12px;color:var(--text-sub);line-height:1.6;margin-top:20px}
 .note-box b{color:var(--ink)}
 
+/* ---------- takeoff measurement workspace ---------- */
+.tk-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.tk-toolbar .fchip:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.tk-hud{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;padding:12px 18px;border:1px solid var(--border);
+  border-radius:var(--r-sm);background:var(--bg-2);font-size:12px;color:var(--text-sub);margin-bottom:14px}
+.tk-hud b{color:var(--ink)}
+.tk-hud .scale-ok{color:#17A06A;font-weight:700}
+.tk-hud .scale-bad{color:#B7791F;font-weight:700}
+.tk-pagenav{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-sub);margin-bottom:10px}
+.tk-canvas-wrap{position:relative;border:1px solid var(--border);border-radius:var(--r-md);overflow:auto;
+  background:
+    linear-gradient(45deg,#F4F8FD 25%,transparent 25%) -12px 0/24px 24px,
+    linear-gradient(-45deg,#F4F8FD 25%,transparent 25%) -12px 0/24px 24px,
+    linear-gradient(45deg,transparent 75%,#F4F8FD 75%) -12px 0/24px 24px,
+    linear-gradient(-45deg,transparent 75%,#F4F8FD 75%) -12px 0/24px 24px,#fff;
+  max-height:72vh}
+.tk-canvas-wrap .stage{position:relative}
+.tk-canvas-wrap canvas{display:block}
+.tk-canvas-wrap .ov{position:absolute;left:0;top:0;cursor:crosshair}
+.tk-empty{padding:70px 30px;text-align:center;color:var(--muted);font-size:13px}
+.tk-calib-panel,.tk-label-panel{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:16px 18px;
+  border:1px solid var(--border-2);border-radius:var(--r-sm);background:#fff;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.tk-calib-panel label,.tk-label-panel label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-sub)}
+.tk-calib-panel input,.tk-label-panel input{padding:9px 12px;border:1px solid var(--border-2);border-radius:8px;font-size:13px}
+.tk-calib-panel input{width:100px}
+.tk-label-panel input{flex:1;min-width:160px}
+.tk-calib-panel select{padding:9px 10px;border:1px solid var(--border-2);border-radius:8px;font-size:13px;background:#fff}
+.tk-mini-btn{padding:9px 18px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border-radius:8px;
+  border:1px solid var(--border-2);background:#fff;color:var(--ink);cursor:pointer;transition:all .25s}
+.tk-mini-btn:hover{border-color:var(--ink);background:var(--accent-soft)}
+.tk-mini-btn.pri{background:var(--grad);color:#fff;border-color:transparent}
+.tk-schedule .elem-row{grid-template-columns:2fr 1fr 1fr 40px}
+.tk-schedule .elem-row.head{grid-template-columns:2fr 1fr 1fr 40px}
+.tk-schedule-empty{padding:26px 22px;font-size:13px;color:var(--muted)}
+
 /* ---------- supplier marketplace ---------- */
 .supplier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .supplier-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;

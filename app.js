@@ -503,51 +503,298 @@
     render();
   })();
 
-  /* ---------- AI takeoff (takeoff.html) ---------- */
+  /* ---------- AI takeoff (takeoff.html) : real calibrated measurement ---------- */
   (function(){
     var zone=document.getElementById('upload-zone');
     if(!zone) return;
     var $=function(id){ return document.getElementById(id); };
-    var fileInput=$('takeoff-file-input'), fileInfo=$('upload-file-info'), runBtn=$('run-takeoff-btn'),
-        clearBtn=$('upload-clear-btn'), standby=$('tk-standby'), loading=$('tk-loading'), results=$('tk-results'),
-        footer=$('tk-footer'), badge=$('tk-badge'), elemBody=$('tk-elem-body');
-    var currentFile=null, lastTakeoff=null;
+    var fileInput=$('takeoff-file-input'), fileInfo=$('upload-file-info'), clearBtn=$('upload-clear-btn');
 
-    var ELEMENT_POOL=[
-      {name:'Concrete Ground Slab', unit:'m²', factor:0.92},
-      {name:'Structural Steel Beams', unit:'no.', factor:0.018},
-      {name:'Timber Stud Partitions', unit:'m', factor:0.35},
-      {name:'External Doors', unit:'no.', factor:0.012},
-      {name:'Windows (Glazed Units)', unit:'no.', factor:0.028},
-      {name:'Roof Trusses', unit:'no.', factor:0.02},
-      {name:'Rebar T12', unit:'kg', factor:4.2},
-      {name:'Blockwork (100mm)', unit:'m²', factor:0.65},
-      {name:'Insulation Boards (PIR)', unit:'m²', factor:0.88},
-      {name:'Drainage Pipework', unit:'m', factor:0.22},
-      {name:'Plasterboard Sheets', unit:'no.', factor:0.08},
-      {name:'Excavation', unit:'m³', factor:0.24}
-    ];
-
-    function mulberry32(seed){
-      var a=seed>>>0;
-      return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
+    if(window.pdfjsLib){
+      pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
+
+    var UNIT_TO_M={mm:0.001, cm:0.01, m:1, ft:0.3048, in:0.0254};
+
+    var currentFile=null, fileKind=null, pdfDoc=null, baseImage=null;
+    var pageNum=1, pageCount=1, calibrations={};
+    var contentCanvas=null, overlayCanvas=null, octx=null;
+    var tool='calibrate', points=[], pendingCommit=null;
+    var schedule=[], scheduleIdSeed=1;
 
     function bytesToSize(b){
       if(b<1024) return b+' B';
       if(b<1048576) return (b/1024).toFixed(1)+' KB';
       return (b/1048576).toFixed(2)+' MB';
     }
+    function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+    function dist(a,b){ return Math.hypot(b.x-a.x, b.y-a.y); }
+    function polylineLength(pts){ var s=0; for(var i=1;i<pts.length;i++) s+=dist(pts[i-1],pts[i]); return s; }
+    function polygonAreaPx(pts){
+      var s=0;
+      for(var i=0;i<pts.length;i++){ var a=pts[i], b=pts[(i+1)%pts.length]; s+=a.x*b.y-b.x*a.y; }
+      return Math.abs(s)/2;
+    }
+    function countByType(t){ return schedule.filter(function(r){ return r.type===t; }).length; }
 
-    function setFile(file){
+    function showLoadError(msg){
+      $('tk-workspace').style.display='block';
+      $('tk-canvas-wrap').innerHTML='<div class="tk-empty">'+esc(msg)+'</div>';
+    }
+
+    function resetWorkspace(){
+      pdfDoc=null; baseImage=null; fileKind=null; pageNum=1; pageCount=1;
+      calibrations={}; schedule=[]; tool='calibrate'; points=[]; pendingCommit=null;
+      contentCanvas=null; overlayCanvas=null; octx=null;
+      $('tk-workspace').style.display='none';
+      $('tk-schedule-wrap').style.display='none';
+      $('tk-actions').style.display='none';
+      $('tk-pagenav').style.display='none';
+      hideCalibPanel(); hideLabelPanel();
+      renderSchedule();
+    }
+
+    function loadFile(file){
       currentFile=file;
       fileInfo.style.display='flex';
       $('upload-file-name').textContent=file.name;
       $('upload-file-meta').textContent=bytesToSize(file.size)+' · '+(file.type||'unknown type');
-      runBtn.disabled=false;
-      standby.style.display='block'; results.style.display='none'; footer.style.display='none'; loading.style.display='none';
-      badge.textContent='Ready'; badge.style.color='var(--navy)';
+      resetWorkspace();
+      var ext=file.name.split('.').pop().toLowerCase();
+      if(ext==='pdf'){ fileKind='pdf'; loadPdf(file); }
+      else if(['png','jpg','jpeg'].indexOf(ext)!==-1){ fileKind='image'; loadImage(file); }
+      else { showLoadError('Unsupported file type. Please upload a PDF, PNG, or JPG to measure directly — other formats can\'t be rendered and measured pixel-for-pixel in the browser.'); }
     }
+
+    function loadImage(file){
+      var url=URL.createObjectURL(file);
+      var img=new Image();
+      img.onload=function(){
+        baseImage=img; pageCount=1; pageNum=1;
+        $('tk-pagenav').style.display='none';
+        renderCurrentPage();
+        URL.revokeObjectURL(url);
+      };
+      img.onerror=function(){ showLoadError('Could not read this image file.'); URL.revokeObjectURL(url); };
+      img.src=url;
+    }
+
+    async function loadPdf(file){
+      if(!window.pdfjsLib){ showLoadError('PDF engine failed to load. Check your connection and try again.'); return; }
+      try{
+        var buf=await file.arrayBuffer();
+        var doc=await pdfjsLib.getDocument({data:buf}).promise;
+        pdfDoc=doc; pageCount=doc.numPages; pageNum=1;
+        $('tk-pagenav').style.display=pageCount>1 ? 'flex' : 'none';
+        updatePageLabel();
+        await renderCurrentPage();
+      }catch(e){
+        showLoadError('Could not read this PDF. It may be corrupted or password-protected.');
+      }
+    }
+
+    function updatePageLabel(){ $('tk-page-label').textContent='Page '+pageNum+' of '+pageCount; }
+
+    async function renderCurrentPage(){
+      $('tk-workspace').style.display='block';
+      $('tk-schedule-wrap').style.display='block';
+      $('tk-actions').style.display='flex';
+
+      var wrap=$('tk-canvas-wrap');
+      wrap.innerHTML='';
+      var stage=document.createElement('div'); stage.className='stage';
+      contentCanvas=document.createElement('canvas');
+      overlayCanvas=document.createElement('canvas'); overlayCanvas.className='ov';
+      stage.appendChild(contentCanvas); stage.appendChild(overlayCanvas);
+      wrap.appendChild(stage);
+      var ctx=contentCanvas.getContext('2d');
+      var targetW=Math.min(1100, wrap.clientWidth || 900);
+
+      if(fileKind==='pdf'){
+        var page=await pdfDoc.getPage(pageNum);
+        var baseViewport=page.getViewport({scale:1});
+        var scale=targetW/baseViewport.width;
+        var viewport=page.getViewport({scale:scale});
+        contentCanvas.width=viewport.width; contentCanvas.height=viewport.height;
+        overlayCanvas.width=viewport.width; overlayCanvas.height=viewport.height;
+        await page.render({canvasContext:ctx, viewport:viewport}).promise;
+      } else {
+        var s=targetW/baseImage.width, w=baseImage.width*s, h=baseImage.height*s;
+        contentCanvas.width=w; contentCanvas.height=h;
+        overlayCanvas.width=w; overlayCanvas.height=h;
+        ctx.drawImage(baseImage,0,0,w,h);
+      }
+
+      octx=overlayCanvas.getContext('2d');
+      tool='calibrate'; points=[];
+      overlayCanvas.addEventListener('click', onCanvasClick);
+      updateToolAvailability();
+      updateScaleReadout();
+      updateToolButtonsUI();
+      redrawOverlay();
+    }
+
+    function onCanvasClick(e){
+      if(!tool) return;
+      if(tool==='calibrate' && points.length>=2) return;
+      var rect=overlayCanvas.getBoundingClientRect();
+      var x=(e.clientX-rect.left)*(overlayCanvas.width/rect.width);
+      var y=(e.clientY-rect.top)*(overlayCanvas.height/rect.height);
+      points.push({x:x,y:y});
+      updateToolButtonsUI();
+      redrawOverlay();
+    }
+
+    function drawGeometry(type, pts, strokeColor, fillColor){
+      if(!pts.length) return;
+      octx.strokeStyle=strokeColor; octx.fillStyle=fillColor; octx.lineWidth=2.4;
+      if(type==='Area'){
+        octx.beginPath();
+        pts.forEach(function(p,i){ i===0?octx.moveTo(p.x,p.y):octx.lineTo(p.x,p.y); });
+        if(pts.length>2){ octx.closePath(); octx.fill(); }
+        octx.stroke();
+      } else if(type!=='Count'){
+        octx.beginPath();
+        pts.forEach(function(p,i){ i===0?octx.moveTo(p.x,p.y):octx.lineTo(p.x,p.y); });
+        octx.stroke();
+      }
+      pts.forEach(function(p,i){
+        octx.beginPath(); octx.arc(p.x,p.y,4,0,Math.PI*2); octx.fillStyle=strokeColor; octx.fill();
+        if(type==='Count'){
+          octx.fillStyle='#fff'; octx.font='10px sans-serif'; octx.textAlign='center'; octx.fillText(String(i+1), p.x, p.y-8);
+        }
+      });
+    }
+
+    function redrawOverlay(){
+      if(!octx) return;
+      octx.clearRect(0,0,overlayCanvas.width, overlayCanvas.height);
+      schedule.filter(function(r){ return r.page===pageNum; }).forEach(function(r){
+        drawGeometry(r.type, r.points, 'rgba(19,49,152,.85)', 'rgba(71,109,207,.16)');
+      });
+      if(points.length){
+        var inProgType = tool==='calibrate' ? 'Length' : (tool==='area' ? 'Area' : (tool==='count' ? 'Count' : 'Length'));
+        var color = tool==='calibrate' ? 'rgba(183,121,31,.95)' : 'rgba(230,126,34,.95)';
+        drawGeometry(inProgType, points, color, 'rgba(230,126,34,.16)');
+      }
+    }
+
+    function updateToolAvailability(){
+      var calibrated=!!calibrations[pageNum];
+      ['length','area','count'].forEach(function(t){ $('tk-tool-'+t).disabled=!calibrated; });
+    }
+
+    function updateScaleReadout(){
+      var el=$('tk-scale-readout'), px=calibrations[pageNum];
+      if(px){ el.textContent=(1000/px).toFixed(2)+' mm per pixel (calibrated)'; el.className='scale-ok'; }
+      else { el.textContent='Not calibrated — draw a line with Set Scale'; el.className='scale-bad'; }
+    }
+
+    function updateToolButtonsUI(){
+      $('tk-undo-btn').disabled = points.length===0;
+      $('tk-cancel-btn').disabled = points.length===0;
+      var canFinish=false;
+      if(tool==='calibrate') canFinish = points.length===2;
+      else if(tool==='length') canFinish = points.length>=2;
+      else if(tool==='area') canFinish = points.length>=3;
+      else if(tool==='count') canFinish = points.length>=1;
+      $('tk-finish-btn').disabled = !canFinish;
+      ['calibrate','length','area','count'].forEach(function(t){ $('tk-tool-'+t).classList.toggle('active', tool===t); });
+    }
+
+    ['calibrate','length','area','count'].forEach(function(t){
+      $('tk-tool-'+t).addEventListener('click', function(){
+        if(this.disabled) return;
+        if(tool!==t){ tool=t; points=[]; }
+        updateToolButtonsUI(); redrawOverlay();
+      });
+    });
+
+    $('tk-undo-btn').addEventListener('click', function(){ points.pop(); updateToolButtonsUI(); redrawOverlay(); });
+    $('tk-cancel-btn').addEventListener('click', function(){ points=[]; updateToolButtonsUI(); redrawOverlay(); });
+
+    function showCalibPanel(){ $('tk-calib-panel').style.display='flex'; $('tk-calib-length').focus(); }
+    function hideCalibPanel(){ $('tk-calib-panel').style.display='none'; $('tk-calib-length').value=''; }
+    function openLabelPanel(defaultLabel, previewText){
+      $('tk-label-title').textContent='Label this measurement — '+previewText;
+      var input=$('tk-label-input'); input.value=defaultLabel;
+      $('tk-label-panel').style.display='flex'; input.focus();
+    }
+    function hideLabelPanel(){ $('tk-label-panel').style.display='none'; }
+
+    $('tk-finish-btn').addEventListener('click', function(){
+      if(tool==='calibrate'){
+        if(points.length!==2) return;
+        showCalibPanel();
+        return;
+      }
+      if(!calibrations[pageNum]) return;
+      if(tool==='length'){
+        if(points.length<2) return;
+        var meters=polylineLength(points)/calibrations[pageNum];
+        pendingCommit={type:'Length', qty:+meters.toFixed(2), unit:'m', points:points.slice(), page:pageNum};
+        openLabelPanel('Length '+(countByType('Length')+1), meters.toFixed(2)+' m');
+      } else if(tool==='area'){
+        if(points.length<3) return;
+        var m2=polygonAreaPx(points)/(calibrations[pageNum]*calibrations[pageNum]);
+        pendingCommit={type:'Area', qty:+m2.toFixed(2), unit:'m²', points:points.slice(), page:pageNum};
+        openLabelPanel('Area '+(countByType('Area')+1), m2.toFixed(2)+' m²');
+      } else if(tool==='count'){
+        if(points.length<1) return;
+        pendingCommit={type:'Count', qty:points.length, unit:'no.', points:points.slice(), page:pageNum};
+        openLabelPanel('Count '+(countByType('Count')+1), points.length+' item'+(points.length===1?'':'s'));
+      }
+    });
+
+    $('tk-calib-confirm').addEventListener('click', function(){
+      var lenVal=parseFloat($('tk-calib-length').value);
+      var unit=$('tk-calib-unit').value;
+      if(!lenVal || lenVal<=0 || points.length!==2) return;
+      var meters=lenVal*UNIT_TO_M[unit];
+      var pxDist=dist(points[0], points[1]);
+      calibrations[pageNum]=pxDist/meters;
+      hideCalibPanel();
+      points=[]; tool='calibrate';
+      updateScaleReadout(); updateToolAvailability(); updateToolButtonsUI(); redrawOverlay();
+    });
+    $('tk-calib-cancel').addEventListener('click', function(){ hideCalibPanel(); });
+
+    $('tk-label-confirm').addEventListener('click', function(){
+      if(!pendingCommit) return;
+      var label=$('tk-label-input').value.trim() || (pendingCommit.type+' '+(countByType(pendingCommit.type)+1));
+      schedule.push({ id:scheduleIdSeed++, label:label, type:pendingCommit.type, qty:pendingCommit.qty, unit:pendingCommit.unit, points:pendingCommit.points, page:pendingCommit.page });
+      pendingCommit=null; hideLabelPanel();
+      points=[]; tool='calibrate';
+      updateToolButtonsUI(); renderSchedule(); redrawOverlay(); updateActionAvailability();
+    });
+    $('tk-label-cancel').addEventListener('click', function(){ pendingCommit=null; hideLabelPanel(); });
+
+    function renderSchedule(){
+      var body=$('tk-schedule-body');
+      if(!schedule.length){ body.innerHTML='<div class="tk-schedule-empty">No measurements yet. Calibrate the scale, then measure a length, area, or count.</div>'; return; }
+      body.innerHTML=schedule.map(function(r){
+        return '<div class="elem-row"><span>'+esc(r.label)+'</span><span>'+r.type+'</span><span>'+r.qty.toLocaleString('en-IE')+' '+r.unit+'</span>'+
+          '<button class="icon-btn del" data-id="'+r.id+'" aria-label="Remove measurement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>';
+      }).join('');
+      Array.prototype.forEach.call(body.querySelectorAll('.icon-btn.del'), function(btn){
+        btn.addEventListener('click', function(){
+          var id=parseInt(btn.getAttribute('data-id'),10);
+          schedule=schedule.filter(function(r){ return r.id!==id; });
+          renderSchedule(); redrawOverlay(); updateActionAvailability();
+        });
+      });
+    }
+
+    function updateActionAvailability(){
+      var areaRows=schedule.filter(function(r){ return r.type==='Area'; });
+      $('tk-tovaluation-btn').disabled = areaRows.length===0;
+      $('tk-actions-hint').textContent = areaRows.length
+        ? ('Total measured area: '+areaRows.reduce(function(a,r){ return a+r.qty; },0).toFixed(2)+' m² across '+areaRows.length+' area measurement'+(areaRows.length>1?'s':'')+'.')
+        : 'Add at least one Area measurement to send a gross internal area to the Valuation Suite.';
+    }
+
+    $('tk-prev-page').addEventListener('click', function(){ if(pageNum>1){ pageNum--; updatePageLabel(); renderCurrentPage(); } });
+    $('tk-next-page').addEventListener('click', function(){ if(pageNum<pageCount){ pageNum++; updatePageLabel(); renderCurrentPage(); } });
 
     zone.addEventListener('click', function(){ fileInput.click(); });
     zone.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fileInput.click(); } });
@@ -555,96 +802,33 @@
     zone.addEventListener('dragleave', function(){ zone.classList.remove('drag'); });
     zone.addEventListener('drop', function(e){
       e.preventDefault(); zone.classList.remove('drag');
-      if(e.dataTransfer.files && e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+      if(e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
     });
-    fileInput.addEventListener('change', function(){ if(this.files && this.files[0]) setFile(this.files[0]); });
+    fileInput.addEventListener('change', function(){ if(this.files && this.files[0]) loadFile(this.files[0]); });
     clearBtn.addEventListener('click', function(){
-      currentFile=null; fileInput.value=''; fileInfo.style.display='none'; runBtn.disabled=true;
-      standby.style.display='block'; results.style.display='none'; footer.style.display='none';
-      badge.textContent='Standby'; badge.style.color='var(--muted)';
+      currentFile=null; fileInput.value=''; fileInfo.style.display='none';
+      resetWorkspace();
     });
 
-    function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-
-    async function runAnalysis(){
-      if(!currentFile) return;
-      standby.style.display='none'; results.style.display='none'; footer.style.display='none';
-      loading.style.display='block'; runBtn.disabled=true;
-      badge.textContent='Analysing'; badge.style.color='var(--navy)';
-      var stepEls=document.querySelectorAll('#tk-steps .scan-step');
-      stepEls.forEach(function(s){ s.className='scan-step'; });
-
-      var buf=await currentFile.arrayBuffer();
-      var digest, seed;
-      try{
-        var hashBuf=await crypto.subtle.digest('SHA-256', buf);
-        var hashArr=Array.from(new Uint8Array(hashBuf));
-        digest=hashArr.map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
-        seed=parseInt(digest.slice(0,8),16);
-      } catch(e){
-        seed=(currentFile.size*2654435761)>>>0;
-        digest=seed.toString(16);
-      }
-      var rand=mulberry32(seed);
-
-      var stepDur=reduce?0:550;
-      for(var i=0;i<stepEls.length;i++){
-        (function(idx){ setTimeout(function(){
-          stepEls.forEach(function(s,j){ if(j<idx) s.className='scan-step done'; });
-          if(stepEls[idx]) stepEls[idx].className='scan-step active';
-        }, idx*stepDur); })(i);
-      }
-      await new Promise(function(res){ setTimeout(res, reduce?0:stepEls.length*stepDur+400); });
-      stepEls.forEach(function(s){ s.className='scan-step done'; });
-
-      var gia=Math.max(80, Math.min(2400, Math.round((currentFile.size/1024)*0.9)));
-      var shuffled=ELEMENT_POOL.map(function(e){ return [rand(), e]; }).sort(function(a,b){ return a[0]-b[0]; }).map(function(p){ return p[1]; });
-      var count=6+Math.floor(rand()*3);
-      var chosen=shuffled.slice(0, count);
-      var rows=chosen.map(function(el){
-        var qty=Math.max(1, Math.round(gia*el.factor*(0.82+rand()*0.36)));
-        var confidence=Math.round(60+rand()*38);
-        return { name:el.name, qty:qty, unit:el.unit, confidence:confidence };
-      });
-      var avgConf=Math.round(rows.reduce(function(a,r){ return a+r.confidence; },0)/rows.length);
-
-      elemBody.innerHTML=rows.map(function(r){
-        var flag = r.confidence<80 ? 'Verify Manually' : '';
-        return '<div class="elem-row"><span>'+esc(r.name)+'</span><span>'+r.qty.toLocaleString('en-IE')+' '+r.unit+'</span>'+
-          '<span><span class="conf-bar"><i style="width:'+r.confidence+'%"></i></span>'+r.confidence+'%</span>'+
-          '<span class="flag">'+flag+'</span></div>';
-      }).join('');
-      $('tk-summary-title').textContent=rows.length+' elements detected';
-      $('tk-gia').textContent=gia.toLocaleString('en-IE')+' m²';
-      $('tk-avgconf').textContent=avgConf+'%';
-
-      lastTakeoff={ fileName:currentFile.name, gia:gia, avgConf:avgConf, rows:rows, digest:digest.slice(0,16) };
-
-      loading.style.display='none'; results.style.display='block'; footer.style.display='block';
-      runBtn.disabled=false; badge.textContent='Complete'; badge.style.color='#17A06A';
-    }
-
-    runBtn.addEventListener('click', runAnalysis);
-
-    var exportBtn=$('tk-export-btn');
-    if(exportBtn) exportBtn.addEventListener('click', function(){
-      if(!lastTakeoff) return;
-      var lines=['Element,Quantity,Unit,Confidence %,Flag'];
-      lastTakeoff.rows.forEach(function(r){
-        lines.push('"'+r.name+'",'+r.qty+',"'+r.unit+'",'+r.confidence+','+(r.confidence<80?'Verify Manually':''));
-      });
+    $('tk-export-btn').addEventListener('click', function(){
+      if(!schedule.length) return;
+      var lines=['Label,Type,Quantity,Unit'];
+      schedule.forEach(function(r){ lines.push('"'+r.label.replace(/"/g,'""')+'",'+r.type+','+r.qty+',"'+r.unit+'"'); });
       var blob=new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8'}), url=URL.createObjectURL(blob), a=document.createElement('a');
-      a.href=url; a.download='InfraBid_Takeoff_'+lastTakeoff.fileName.replace(/\.[^.]+$/,'')+'.csv';
+      a.href=url; a.download='InfraBid_Takeoff_'+(currentFile ? currentFile.name.replace(/\.[^.]+$/,'') : 'schedule')+'.csv';
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
     });
 
-    var toValBtn=$('tk-tovaluation-btn');
-    if(toValBtn) toValBtn.addEventListener('click', function(){
-      if(!lastTakeoff) return;
-      try{ localStorage.setItem('infrabid_takeoff_handoff', JSON.stringify({ gia:lastTakeoff.gia, ts:Date.now() })); }catch(e){}
+    $('tk-tovaluation-btn').addEventListener('click', function(){
+      var areaRows=schedule.filter(function(r){ return r.type==='Area'; });
+      if(!areaRows.length) return;
+      var totalArea=+areaRows.reduce(function(a,r){ return a+r.qty; },0).toFixed(2);
+      try{ localStorage.setItem('infrabid_takeoff_handoff', JSON.stringify({ gia:totalArea, ts:Date.now() })); }catch(e){}
       window.location.href='valuation.html';
     });
+
+    renderSchedule();
   })();
 
   /* ---------- valuation handoff from AI takeoff ---------- */

@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="InfraBid AI Takeoff — upload a drawing or spec file and get an instant element and quantity breakdown.">
+<meta name="description" content="InfraBid AI Takeoff — render a real PDF or image drawing in your browser, calibrate its scale, and measure exact lengths, areas, and counts.">
 <meta name="theme-color" content="#FFFFFF">
 <title>AI Takeoff · InfraBid</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 </head>
 <body>
 <a href="#main" class="sr-skip">Skip to content</a>
@@ -53,72 +54,91 @@
 <section class="phero">
   <img class="phero-img" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=65" alt="Architectural blueprints and plans" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
   <div class="wrap content reveal">
-    <div class="eyebrow-num"><span class="n">N°03</span><span class="lab">Document Intelligence</span></div>
+    <div class="eyebrow-num"><span class="n">N°03</span><span class="lab">Calibrated Measurement</span></div>
     <h1>AI-Assisted Takeoff</h1>
-    <p>Upload a drawing, spec, or takeoff file and get an instant element and quantity breakdown — the first pass before your estimator's manual review.</p>
+    <p>Upload a real PDF or image drawing, calibrate its scale against a known length, then trace exact lengths, areas, and counts directly off the page — the same way you would on a light table, with the arithmetic done for you.</p>
   </div>
 </section>
 <section class="section alt" id="takeoff">
   <div class="wrap">
-    <div class="val-grid">
-      <div class="reveal">
-        <div class="field-group">
-          <span class="gl">01 / Upload Document</span>
-          <div class="upload-zone" id="upload-zone" tabindex="0" role="button" aria-label="Upload a drawing or spec file">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 16V4M12 4l-5 5M12 4l5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
-            <h4>Drag &amp; drop a file, or click to browse</h4>
-            <p>PDF, DWG, DOCX, PNG or JPG — processed entirely in your browser</p>
-          </div>
-          <input type="file" id="takeoff-file-input" style="display:none" accept=".pdf,.dwg,.docx,.doc,.png,.jpg,.jpeg">
-          <div class="upload-file" id="upload-file-info" style="display:none">
-            <div><b id="upload-file-name">—</b><span id="upload-file-meta">—</span></div>
-            <button class="icon-btn" id="upload-clear-btn" aria-label="Remove file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-          </div>
-        </div>
-        <div class="val-actions">
-          <p>Analysis runs locally against the file's structure — nothing is uploaded to a server.</p>
-          <button class="btn btn-primary" id="run-takeoff-btn" data-magnetic disabled>Run Takeoff Analysis
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-        </div>
+    <div class="field-group">
+      <span class="gl">01 / Upload Drawing</span>
+      <div class="upload-zone" id="upload-zone" tabindex="0" role="button" aria-label="Upload a PDF or image drawing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 16V4M12 4l-5 5M12 4l5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+        <h4>Drag &amp; drop a PDF or image, or click to browse</h4>
+        <p>PDF, PNG or JPG — rendered and measured entirely in your browser, nothing is uploaded</p>
+      </div>
+      <input type="file" id="takeoff-file-input" style="display:none" accept=".pdf,.png,.jpg,.jpeg">
+      <div class="upload-file" id="upload-file-info" style="display:none">
+        <div><b id="upload-file-name">—</b><span id="upload-file-meta">—</span></div>
+        <button class="icon-btn" id="upload-clear-btn" aria-label="Remove file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+    </div>
+
+    <div id="tk-workspace" style="display:none;margin-top:30px">
+      <span class="gl">02 / Calibrate &amp; Measure</span>
+
+      <div class="tk-pagenav" id="tk-pagenav" style="display:none">
+        <button class="icon-btn" id="tk-prev-page" aria-label="Previous page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span id="tk-page-label">Page 1 of 1</span>
+        <button class="icon-btn" id="tk-next-page" aria-label="Next page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></button>
       </div>
 
-      <div class="reveal">
-        <div class="analysis">
-          <div class="an-top"><span>Takeoff Analysis</span><span id="tk-badge">Standby</span></div>
-          <div class="an-body" aria-live="polite">
-            <div class="an-standby" id="tk-standby">
-              <h4>Awaiting Document</h4>
-              <p>Upload a file and run the analysis to generate a detected element and quantity breakdown.</p>
-            </div>
-            <div id="tk-loading" style="display:none">
-              <div class="spinner"></div>
-              <div class="scan-steps" id="tk-steps">
-                <div class="scan-step" data-step="0"><span class="dot"></span>Parsing document structure…</div>
-                <div class="scan-step" data-step="1"><span class="dot"></span>Detecting vector layers &amp; symbols…</div>
-                <div class="scan-step" data-step="2"><span class="dot"></span>Cross-referencing NBS specification…</div>
-                <div class="scan-step" data-step="3"><span class="dot"></span>Compiling quantity schedule…</div>
-              </div>
-            </div>
-            <div id="tk-results" style="display:none">
-              <div class="ledger-head"><span>Detected Elements</span><h4 id="tk-summary-title">—</h4></div>
-              <div class="elem-row head"><span>Element</span><span>Qty</span><span>Confidence</span><span>Flag</span></div>
-              <div id="tk-elem-body"></div>
-            </div>
-          </div>
-          <div class="an-foot" id="tk-footer" style="display:none">
-            <div class="ft">
-              <div><span class="lab">Est. GIA (from file size)</span><span class="total" id="tk-gia" style="font-size:26px">—</span></div>
-              <div style="text-align:right"><span class="lab">Avg. Confidence</span><span class="margin" id="tk-avgconf">—</span></div>
-            </div>
-            <div class="btns"><button class="sec" id="tk-export-btn" type="button">Export Elements CSV</button><button class="pri" id="tk-tovaluation-btn" type="button">Send to Valuation Suite</button></div>
-          </div>
-        </div>
+      <div class="tk-toolbar">
+        <button class="fchip active" id="tk-tool-calibrate" data-tool="calibrate" type="button">Set Scale</button>
+        <button class="fchip" id="tk-tool-length" data-tool="length" type="button" disabled>Measure Length</button>
+        <button class="fchip" id="tk-tool-area" data-tool="area" type="button" disabled>Measure Area</button>
+        <button class="fchip" id="tk-tool-count" data-tool="count" type="button" disabled>Count Items</button>
+        <button class="tk-mini-btn" id="tk-undo-btn" type="button" style="margin-left:auto" disabled>Undo Point</button>
+        <button class="tk-mini-btn pri" id="tk-finish-btn" type="button" disabled>Finish Shape</button>
+        <button class="tk-mini-btn" id="tk-cancel-btn" type="button" disabled>Cancel Shape</button>
+      </div>
+
+      <div class="tk-hud">
+        <span>Scale: <b id="tk-scale-readout" class="scale-bad">Not calibrated</b></span>
+      </div>
+
+      <div class="tk-calib-panel" id="tk-calib-panel" style="display:none">
+        <label for="tk-calib-length">Real-world length of the line you drew</label>
+        <input id="tk-calib-length" type="number" min="0.0001" step="0.01" placeholder="e.g. 5">
+        <select id="tk-calib-unit">
+          <option value="mm">mm</option><option value="cm">cm</option><option value="m" selected>m</option>
+          <option value="ft">ft</option><option value="in">in</option>
+        </select>
+        <button class="tk-mini-btn pri" id="tk-calib-confirm" type="button">Set Scale</button>
+        <button class="tk-mini-btn" id="tk-calib-cancel" type="button">Cancel</button>
+      </div>
+
+      <div class="tk-label-panel" id="tk-label-panel" style="display:none">
+        <label for="tk-label-input" id="tk-label-title">Label this measurement</label>
+        <input id="tk-label-input" type="text" placeholder="e.g. External Wall Perimeter">
+        <button class="tk-mini-btn pri" id="tk-label-confirm" type="button">Add to Schedule</button>
+        <button class="tk-mini-btn" id="tk-label-cancel" type="button">Discard</button>
+      </div>
+
+      <div class="tk-canvas-wrap" id="tk-canvas-wrap">
+        <div class="tk-empty">Load a drawing above to begin.</div>
+      </div>
+    </div>
+
+    <div class="field-group" id="tk-schedule-wrap" style="display:none;margin-top:30px">
+      <span class="gl">03 / Takeoff Schedule</span>
+      <div class="tk-schedule">
+        <div class="elem-row head"><span>Label</span><span>Type</span><span>Quantity</span><span></span></div>
+        <div id="tk-schedule-body"></div>
+      </div>
+    </div>
+
+    <div class="val-actions" id="tk-actions" style="display:none">
+      <p id="tk-actions-hint">Add at least one Area measurement to send a gross internal area to the Valuation Suite.</p>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-ghost" id="tk-export-btn" type="button">Export Schedule CSV</button>
+        <button class="btn btn-primary" id="tk-tovaluation-btn" type="button" disabled>Send Area to Valuation Suite</button>
       </div>
     </div>
 
     <div class="note-box">
-      <b>How this works today:</b> the analysis reads your file's real bytes (size, type, and a SHA-256 fingerprint) to deterministically generate a plausible element and quantity breakdown — the same file always produces the same result, and different files produce different results. It is a heuristic preview, not computer vision. A production-grade takeoff pipeline that reads actual vector/CAD geometry requires server-side ML processing — see the backend roadmap.
+      <b>How this works:</b> InfraBid renders your actual PDF or image file to canvas in your browser — nothing is uploaded to a server. You calibrate the scale by drawing a line over any element of known real-world length (a dimension line, a door width, a grid spacing) and entering that length. Every length, area, and count you then trace is an exact geometric calculation against that calibrated scale — not an automated estimate. Accuracy depends entirely on how precisely you calibrate and trace, the same as measuring on a printed drawing with a scale rule.
     </div>
   </div>
 </section>
