@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Log in to InfraBid to access the Valuation Suite, AI Takeoff, Dashboard, and Supplier Marketplace.">
+<meta name="theme-color" content="#FFFFFF">
+<title>Log In · InfraBid</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<style>
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:140px 20px 60px}
+.auth-card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow);padding:44px 38px}
+.auth-card .brand{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:28px;text-decoration:none}
+.auth-card h1{font-size:24px;font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:8px}
+.auth-card .sub{font-size:13px;color:var(--text-sub);text-align:center;margin-bottom:30px}
+.auth-card .fld{margin-bottom:20px}
+.auth-card .btn{width:100%;justify-content:center;margin-top:6px}
+.auth-error{display:none;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.3);color:#C0392B;
+  font-size:12.5px;border-radius:10px;padding:12px 14px;margin-bottom:18px;line-height:1.5}
+.auth-foot{text-align:center;font-size:13px;color:var(--text-sub);margin-top:22px}
+.auth-foot a{color:var(--secondary-deep);font-weight:600;text-decoration:none}
+.auth-foot a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <a href="index.html" class="brand" aria-label="InfraBid home">
+      <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true" style="width:34px;height:32px"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+      <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+    </a>
+    <h1>Log In</h1>
+    <p class="sub">Access the Valuation Suite, AI Takeoff, Dashboard, and Marketplace.</p>
+
+    <div class="auth-error" id="auth-error"></div>
+
+    <form id="login-form" novalidate>
+      <div class="fld">
+        <label for="login-email">Email</label>
+        <div class="ip"><input id="login-email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="fld">
+        <label for="login-password">Password</label>
+        <div class="ip"><input id="login-password" type="password" autocomplete="current-password" required></div>
+      </div>
+      <button class="btn btn-primary" id="login-submit" type="submit">Log In</button>
+    </form>
+
+    <p class="auth-foot">Don't have an account? <a href="signup.html">Sign up</a></p>
+  </div>
+</div>
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+(function(){
+  function qs(name){ return new URLSearchParams(window.location.search).get(name); }
+
+  document.addEventListener('DOMContentLoaded', async function(){
+    // Already logged in? Skip straight to the requested tool (or the dashboard).
+    var session = await InfraBidAuth.getSession();
+    if(session){
+      window.location.href = qs('next') || 'dashboard.html';
+      return;
+    }
+
+    var form = document.getElementById('login-form');
+    var errBox = document.getElementById('auth-error');
+    var submitBtn = document.getElementById('login-submit');
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      errBox.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in…';
+
+      var email = document.getElementById('login-email').value.trim();
+      var password = document.getElementById('login-password').value;
+
+      var res = await InfraBidAuth.signIn(email, password);
+      if(res.error){
+        errBox.textContent = res.error.message;
+        errBox.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Log In';
+        return;
+      }
+
+      window.location.href = qs('next') || 'dashboard.html';
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -9,7 +9,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-requires-auth>
 <a href="#main" class="sr-skip">Skip to content</a>
 <div id="progress"></div>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
@@ -31,6 +31,7 @@
     </div>
     <div class="nav-cta">
       <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <div class="nav-auth" data-auth-slot></div>
       <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -48,6 +49,7 @@
     <a href="pricing.html">Pricing</a>
     <a href="faq.html">FAQ</a>
     <a href="contact.html" class="btn btn-primary">Request Demo</a>
+    <div class="nav-auth" data-auth-slot></div>
   </div>
 </nav>
 <main id="main">
@@ -169,7 +171,9 @@
   <button id="compare-view-btn" type="button">Compare</button>
   <button id="compare-clear-btn" type="button" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)">Clear</button>
 </div>
-<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-<script src="app.js"></script>
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

@@ -47,6 +47,7 @@
     </div>
     <div class="nav-cta">
       <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <div class="nav-auth" data-auth-slot></div>
       <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -64,6 +65,7 @@
     <a href="pricing.html">Pricing</a>
     <a href="faq.html">FAQ</a>
     <a href="contact.html" class="btn btn-primary">Request Demo</a>
+    <div class="nav-auth" data-auth-slot></div>
   </div>
 </nav>
 <main id="main">
@@ -180,7 +182,9 @@
   </div>
 </footer>
 
-<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-<script src="app.js"></script>
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

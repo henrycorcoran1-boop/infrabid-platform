@@ -375,23 +375,24 @@
   })();
 
   /* ---------- tender dashboard (dashboard.html) ---------- */
-  (function(){
+  (async function(){
     var boardBody = document.getElementById('board-body');
     if(!boardBody) return;
     var $=function(id){ return document.getElementById(id); };
 
-    var DEFAULT_TENDERS=[
-      {id:1,name:"Blanchardstown Distributor Road — Ph2",client:"Fingal County Council",value:1850000,deadline:"2026-08-14",status:"Submitted"},
-      {id:2,name:"Cork Docklands Foul Sewer Upgrade",client:"Irish Water",value:640000,deadline:"2026-07-22",status:"Draft"},
-      {id:3,name:"N24 Realignment — Earthworks Package",client:"TII",value:3200000,deadline:"2026-09-30",status:"Draft"},
-      {id:4,name:"Kilkenny Commercial Unit Fit-Out",client:"Bracken Developments",value:412000,deadline:"2026-07-10",status:"Won"},
-      {id:5,name:"Galway Flood Relief — Culvert Works",client:"OPW",value:980000,deadline:"2026-06-28",status:"Lost"},
-      {id:6,name:"Waterford Greenway Extension",client:"Waterford City & County Council",value:275000,deadline:"2026-08-02",status:"Submitted"}
-    ];
+    // Gating/redirect for logged-out visitors is handled centrally by auth.js.
+    // If there's no session here, that redirect is already in flight — bail out.
+    var session = await InfraBidAuth.getSession();
+    if(!session) return;
+    var sb = InfraBidAuth.getClient();
 
-    function load(){ try{ var r=localStorage.getItem('infrabid_tenders'); if(r) return JSON.parse(r); }catch(e){} return JSON.parse(JSON.stringify(DEFAULT_TENDERS)); }
-    function persist(){ try{ localStorage.setItem('infrabid_tenders', JSON.stringify(tenders)); }catch(e){} }
-    var tenders=load(), statusFilter='all', searchTerm='', editingId=null;
+    var tenders=[], statusFilter='all', searchTerm='', editingId=null;
+
+    async function load(){
+      var res = await sb.from('tenders').select('*').order('deadline', { ascending:true });
+      if(res.error){ console.error('InfraBid: failed to load tenders', res.error); tenders=[]; return; }
+      tenders = res.data || [];
+    }
 
     function euroFull(n){ return '€'+Math.round(n||0).toLocaleString('en-IE'); }
     function daysUntil(dateStr){ if(!dateStr) return 999; var d=new Date(dateStr+'T00:00:00'), t=new Date(); t.setHours(0,0,0,0); return Math.round((d-t)/86400000); }
@@ -451,7 +452,7 @@
     $('new-tender-btn').addEventListener('click', function(){
       editingId=null; resetInvalid();
       $('form-title').textContent='New Tender';
-      $('form-hint').textContent='Saved locally to this browser.';
+      $('form-hint').textContent='Saved to your account.';
       $('t-name').value=''; $('t-client').value=''; $('t-value').value=''; $('t-deadline').value='';
       $('t-status').value='Draft';
       formWrap.style.display='block';
@@ -460,7 +461,7 @@
 
     $('tender-cancel-btn').addEventListener('click', function(){ formWrap.style.display='none'; });
 
-    $('tender-save-btn').addEventListener('click', function(){
+    $('tender-save-btn').addEventListener('click', async function(){
       resetInvalid();
       var name=$('t-name').value.trim(), client=$('t-client').value.trim(), ok=true;
       if(!name){ $('t-name').closest('.fld').classList.add('invalid'); ok=false; }
@@ -468,38 +469,39 @@
       if(!ok) return;
 
       var data={ name:name, client:client, value:parseFloat($('t-value').value)||0,
-        deadline:$('t-deadline').value, status:$('t-status').value };
+        deadline:$('t-deadline').value || null, status:$('t-status').value };
 
-      if(editingId){
-        tenders=tenders.map(function(t){ return t.id===editingId? Object.assign({},t,data) : t; });
-      } else {
-        data.id=Date.now();
-        tenders.push(data);
-      }
-      persist(); formWrap.style.display='none'; render();
+      var res = editingId
+        ? await sb.from('tenders').update(data).eq('id', editingId)
+        : await sb.from('tenders').insert(data);
+      if(res.error){ window.alert('Could not save tender: '+res.error.message); return; }
+
+      await load(); formWrap.style.display='none'; render();
     });
 
-    boardBody.addEventListener('click', function(e){
+    boardBody.addEventListener('click', async function(e){
       var editBtn=e.target.closest('[data-edit]'), delBtn=e.target.closest('[data-del]');
       if(editBtn){
-        var id=parseFloat(editBtn.dataset.edit), t=tenders.find(function(x){ return x.id===id; });
+        var id=editBtn.dataset.edit, t=tenders.find(function(x){ return String(x.id)===id; });
         if(!t) return;
-        editingId=id; resetInvalid();
+        editingId=t.id; resetInvalid();
         $('form-title').textContent='Edit Tender';
         $('form-hint').textContent='Updating an existing tender.';
         $('t-name').value=t.name; $('t-client').value=t.client; $('t-value').value=t.value;
-        $('t-deadline').value=t.deadline; $('t-status').value=t.status;
+        $('t-deadline').value=t.deadline||''; $('t-status').value=t.status;
         formWrap.style.display='block';
         formWrap.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
       } else if(delBtn){
-        var did=parseFloat(delBtn.dataset.del);
+        var did=delBtn.dataset.del;
         if(window.confirm('Delete this tender? This cannot be undone.')){
-          tenders=tenders.filter(function(x){ return x.id!==did; });
-          persist(); render();
+          var res = await sb.from('tenders').delete().eq('id', did);
+          if(res.error){ window.alert('Could not delete tender: '+res.error.message); return; }
+          await load(); render();
         }
       }
     });
 
+    await load();
     render();
   })();
 
