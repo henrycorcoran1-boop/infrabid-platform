@@ -277,6 +277,94 @@
     setTimeout(function(){ w.print(); }, 350);
   });
 
+  /* ---------- persist valuations to Supabase (valuation.html) ---------- */
+  (function(){
+    var saveBtn = document.getElementById('save-valuation-btn');
+    var listBody = document.getElementById('saved-valuations-body');
+    if(!saveBtn || !listBody) return;
+    var $=function(id){ return document.getElementById(id); };
+    var v=function(id){ return parseFloat($(id).value)||0; };
+    var sb=null;
+
+    function euroFull(n){ return '€'+Math.round(n||0).toLocaleString('en-IE'); }
+    function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+    function currentInputs(){
+      return {
+        area: v('spec-area'), storeys: v('spec-storeys'),
+        structure: $('spec-structure').value, region: $('spec-region').value,
+        rateConcrete: v('rate-concrete'), rateTimber: v('rate-timber'),
+        rateCarpenter: v('rate-carpenter'), rateLabourer: v('rate-labourer'),
+        rateDigger: v('rate-digger'), rateSkip: v('rate-skip'),
+        rateMarkup: v('rate-markup'), rateContingency: v('rate-contingency')
+      };
+    }
+
+    function applyInputs(inputs){
+      $('spec-area').value=inputs.area; $('spec-storeys').value=inputs.storeys;
+      $('spec-structure').value=inputs.structure; $('spec-region').value=inputs.region;
+      $('rate-concrete').value=inputs.rateConcrete; $('rate-timber').value=inputs.rateTimber;
+      $('rate-carpenter').value=inputs.rateCarpenter; $('rate-labourer').value=inputs.rateLabourer;
+      $('rate-digger').value=inputs.rateDigger; $('rate-skip').value=inputs.rateSkip;
+      $('rate-markup').value=inputs.rateMarkup; $('rate-contingency').value=inputs.rateContingency;
+    }
+
+    async function renderSavedList(){
+      var res = await sb.from('valuations').select('*').order('created_at', { ascending:false }).limit(20);
+      if(res.error){ console.error('InfraBid: failed to load valuations', res.error); return; }
+      var rows = res.data || [];
+      listBody.innerHTML = rows.length ? rows.map(function(r){
+        return '<div class="board-row">'+
+          '<div class="tname">'+esc(r.name)+'</div>'+
+          '<div class="tval">'+euroFull(r.total)+'</div>'+
+          '<div class="tval">'+euroFull(r.margin)+'</div>'+
+          '<div class="tdeadline">'+new Date(r.created_at).toLocaleDateString('en-IE')+'</div>'+
+          '<div class="board-actions">'+
+            '<button class="icon-btn" data-load="'+r.id+'" aria-label="Load valuation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>'+
+            '<button class="icon-btn del" data-del="'+r.id+'" aria-label="Delete valuation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14"/></svg></button>'+
+          '</div></div>';
+      }).join('') : '<div style="padding:24px 22px;text-align:center;color:var(--muted);font-size:13px">No saved valuations yet.</div>';
+      currentRows = rows;
+    }
+
+    var currentRows = [];
+
+    saveBtn.addEventListener('click', async function(){
+      if(!lastLedger){ window.alert('Run Calculate Valuation first, then save the result.'); return; }
+      if(!sb) return;
+      var name = (REGION_LABEL[$('spec-region').value]||$('spec-region').value)+' · '+(STRUCT_LABEL[$('spec-structure').value]||$('spec-structure').value)+' · '+euroFull(lastLedger.total);
+      var row = { name: name, inputs: currentInputs(), total: lastLedger.total, margin: lastLedger.margin };
+      var res = await sb.from('valuations').insert(row);
+      if(res.error){ window.alert('Could not save valuation: '+res.error.message); return; }
+      var origText = saveBtn.textContent;
+      saveBtn.textContent = 'Saved ✓';
+      setTimeout(function(){ saveBtn.textContent = origText; }, 1600);
+      renderSavedList();
+    });
+
+    listBody.addEventListener('click', async function(e){
+      var loadBtn=e.target.closest('[data-load]'), delBtn=e.target.closest('[data-del]');
+      if(loadBtn){
+        var row = currentRows.find(function(r){ return String(r.id)===loadBtn.dataset.load; });
+        if(!row) return;
+        applyInputs(row.inputs);
+        processValuation();
+      } else if(delBtn){
+        if(window.confirm('Delete this saved valuation? This cannot be undone.')){
+          var res = await sb.from('valuations').delete().eq('id', delBtn.dataset.del);
+          if(res.error){ window.alert('Could not delete valuation: '+res.error.message); return; }
+          renderSavedList();
+        }
+      }
+    });
+
+    InfraBidAuth.getSession().then(function(session){
+      if(!session) return; // auth.js guard is redirecting away
+      sb = InfraBidAuth.getClient();
+      renderSavedList();
+    });
+  })();
+
   /* background particle constellation (tuned for white bg) */
   if(!reduce){
     var cv = document.getElementById('bg-canvas'), ctx = cv.getContext('2d');
@@ -523,6 +611,7 @@
     var contentCanvas=null, overlayCanvas=null, octx=null;
     var tool='calibrate', points=[], pendingCommit=null;
     var schedule=[], scheduleIdSeed=1;
+    var sb=null, savedTakeoffs=[];
 
     function bytesToSize(b){
       if(b<1024) return b+' B';
@@ -828,6 +917,65 @@
       var totalArea=+areaRows.reduce(function(a,r){ return a+r.qty; },0).toFixed(2);
       try{ localStorage.setItem('infrabid_takeoff_handoff', JSON.stringify({ gia:totalArea, ts:Date.now() })); }catch(e){}
       window.location.href='valuation.html';
+    });
+
+    async function renderSavedTakeoffs(){
+      var body=$('tk-saved-body');
+      if(!body || !sb) return;
+      var res = await sb.from('takeoffs').select('*').order('created_at', { ascending:false }).limit(20);
+      if(res.error){ console.error('InfraBid: failed to load saved takeoffs', res.error); return; }
+      savedTakeoffs = res.data || [];
+      body.innerHTML = savedTakeoffs.length ? savedTakeoffs.map(function(r){
+        var count=(r.schedule||[]).length;
+        return '<div class="elem-row">'+
+          '<span>'+esc(r.name)+'</span>'+
+          '<span>'+count+' measurement'+(count===1?'':'s')+'</span>'+
+          '<span>'+new Date(r.created_at).toLocaleDateString('en-IE')+'</span>'+
+          '<span style="display:flex;gap:6px;justify-content:flex-end">'+
+            '<button class="icon-btn" data-tksaved-load="'+r.id+'" aria-label="Load saved takeoff into schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>'+
+            '<button class="icon-btn del" data-tksaved-del="'+r.id+'" aria-label="Delete saved takeoff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button>'+
+          '</span></div>';
+      }).join('') : '<div class="tk-schedule-empty">No saved takeoffs yet.</div>';
+    }
+
+    var saveTkBtn=$('tk-save-btn');
+    if(saveTkBtn) saveTkBtn.addEventListener('click', async function(){
+      if(!schedule.length){ window.alert('Add at least one measurement before saving.'); return; }
+      if(!sb) return;
+      var name = currentFile ? currentFile.name : ('Takeoff '+new Date().toLocaleDateString('en-IE'));
+      var res = await sb.from('takeoffs').insert({ name:name, schedule:schedule });
+      if(res.error){ window.alert('Could not save takeoff: '+res.error.message); return; }
+      var origText=saveTkBtn.textContent;
+      saveTkBtn.textContent='Saved ✓';
+      setTimeout(function(){ saveTkBtn.textContent=origText; }, 1600);
+      renderSavedTakeoffs();
+    });
+
+    var savedBody=$('tk-saved-body');
+    if(savedBody) savedBody.addEventListener('click', async function(e){
+      var loadBtn=e.target.closest('[data-tksaved-load]'), delBtn=e.target.closest('[data-tksaved-del]');
+      if(loadBtn){
+        var row=savedTakeoffs.find(function(r){ return String(r.id)===loadBtn.dataset.tksavedLoad; });
+        if(!row) return;
+        schedule=(row.schedule||[]).slice();
+        scheduleIdSeed=schedule.reduce(function(m,r){ return Math.max(m,(r.id||0)+1); }, 1);
+        $('tk-schedule-wrap').style.display='block';
+        $('tk-actions').style.display='flex';
+        renderSchedule(); updateActionAvailability();
+        $('tk-schedule-wrap').scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+      } else if(delBtn){
+        if(window.confirm('Delete this saved takeoff? This cannot be undone.')){
+          var res = await sb.from('takeoffs').delete().eq('id', delBtn.dataset.tksavedDel);
+          if(res.error){ window.alert('Could not delete saved takeoff: '+res.error.message); return; }
+          renderSavedTakeoffs();
+        }
+      }
+    });
+
+    InfraBidAuth.getSession().then(function(session){
+      if(!session) return; // auth.js guard is redirecting away
+      sb = InfraBidAuth.getClient();
+      renderSavedTakeoffs();
     });
 
     renderSchedule();

@@ -136,12 +136,21 @@
       <p id="tk-actions-hint">Add at least one Area measurement to send a gross internal area to the Valuation Suite.</p>
       <div style="display:flex;gap:10px">
         <button class="btn btn-ghost" id="tk-export-btn" type="button">Export Schedule CSV</button>
+        <button class="btn btn-ghost" id="tk-save-btn" type="button">Save Takeoff</button>
         <button class="btn btn-primary" id="tk-tovaluation-btn" type="button" disabled>Send Area to Valuation Suite</button>
       </div>
     </div>
 
     <div class="note-box">
       <b>How this works:</b> InfraBid renders your actual PDF or image file to canvas in your browser — nothing is uploaded to a server. You calibrate the scale by drawing a line over any element of known real-world length (a dimension line, a door width, a grid spacing) and entering that length. Every length, area, and count you then trace is an exact geometric calculation against that calibrated scale — not an automated estimate. Accuracy depends entirely on how precisely you calibrate and trace, the same as measuring on a printed drawing with a scale rule.
+    </div>
+
+    <div class="field-group" id="tk-saved-wrap" style="margin-top:30px">
+      <span class="gl">04 / Saved Takeoffs</span>
+      <div class="tk-schedule">
+        <div class="elem-row head"><span>Name</span><span>Measurements</span><span>Saved</span><span></span></div>
+        <div id="tk-saved-body"><div class="tk-schedule-empty">Log in and save a takeoff to see it here.</div></div>
+      </div>
     </div>
   </div>
 </section>

@@ -678,6 +678,8 @@ nav.scrolled .brand .logo{height:40px}
 .tk-mini-btn.pri{background:var(--grad);color:#fff;border-color:transparent}
 .tk-schedule .elem-row{grid-template-columns:2fr 1fr 1fr 40px}
 .tk-schedule .elem-row.head{grid-template-columns:2fr 1fr 1fr 40px}
+#tk-saved-wrap .elem-row{grid-template-columns:2fr 1fr 1fr 76px}
+#tk-saved-wrap .elem-row.head{grid-template-columns:2fr 1fr 1fr 76px}
 .tk-schedule-empty{padding:26px 22px;font-size:13px;color:var(--muted)}
 
 /* ---------- supplier marketplace ---------- */
