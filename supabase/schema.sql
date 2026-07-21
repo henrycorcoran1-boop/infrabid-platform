@@ -110,3 +110,32 @@ create policy "Users can insert their own rate items"
 create policy "Users can delete their own rate items"
   on public.rate_items for delete
   using (auth.uid() = user_id);
+
+-- InfraBid — Tender Import: priced bills of quantities extracted from a
+-- client-supplied pricing document and priced against the user's rate library.
+
+create table if not exists public.boq_imports (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  name text not null,
+  rows jsonb not null default '[]'::jsonb,
+  markup_pct numeric not null default 0,
+  contingency_pct numeric not null default 0,
+  subtotal numeric not null default 0,
+  total numeric not null default 0,
+  created_at timestamptz not null default now()
+);
+
+alter table public.boq_imports enable row level security;
+
+create policy "Users can view their own tender imports"
+  on public.boq_imports for select
+  using (auth.uid() = user_id);
+
+create policy "Users can insert their own tender imports"
+  on public.boq_imports for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can delete their own tender imports"
+  on public.boq_imports for delete
+  using (auth.uid() = user_id);

@@ -1253,4 +1253,344 @@
 
     render();
   })();
+
+  /* ---------- Tender Import (tender-import.html) ---------- */
+  (function(){
+    var pdZone=document.getElementById('pd-zone');
+    if(!pdZone) return;
+    var $=function(id){ return document.getElementById(id); };
+
+    // Illustrative placeholder rates only — same starter set as the Valuation
+    // Suite's rate library. Replace with your real CECA schedule via that page.
+    var DEFAULT_RATE_ITEMS=[
+      {category:'Labour', description:'General Operative', unit:'per hr', rate:26.50},
+      {category:'Labour', description:'Skilled Operative / Ganger', unit:'per hr', rate:34.00},
+      {category:'Plant', description:'13T Excavator', unit:'per hr', rate:65.00},
+      {category:'Plant', description:'6T Dumper', unit:'per hr', rate:38.00},
+      {category:'Output Rate', description:'Lay 150mm dia. pipe', unit:'per m', rate:28.00},
+      {category:'Output Rate', description:'Lay 300mm dia. pipe', unit:'per m', rate:42.00},
+      {category:'Output Rate', description:'Excavate & backfill trench', unit:'per m³', rate:18.50},
+      {category:'Materials', description:'300mm dia. pipe (supply)', unit:'per m', rate:55.00}
+    ];
+    var libraryItems=DEFAULT_RATE_ITEMS.slice();
+    var boqRows=[], lastBoqTotals={subtotal:0,uplift:0,total:0,markup:0,contingency:0};
+    var savedImports=[], specFiles=[], dwgFiles=[], pdFileName='';
+    var sb=null;
+
+    function bytesToSize(b){ if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB'; }
+    function escAttr(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+    function scoreMatch(a,b){
+      var wa=(a||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
+      var wb=(b||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean);
+      if(!wa.length||!wb.length) return 0;
+      var setB={}; wb.forEach(function(w){ setB[w]=true; });
+      var shared=wa.filter(function(w){ return setB[w]; }).length;
+      return shared/Math.max(wa.length,wb.length);
+    }
+    function bestMatch(desc){
+      var best=null, bestScore=0;
+      libraryItems.forEach(function(it){
+        var s=scoreMatch(desc, it.description);
+        if(s>bestScore){ bestScore=s; best=it; }
+      });
+      return bestScore>=0.34 ? best : null;
+    }
+
+    function parseCSVText(text){
+      var rows=[], row=[], field='', inQuotes=false;
+      for(var i=0;i<text.length;i++){
+        var c=text[i];
+        if(inQuotes){
+          if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; }
+          else field+=c;
+        } else {
+          if(c==='"') inQuotes=true;
+          else if(c===','){ row.push(field); field=''; }
+          else if(c==='\n' || c==='\r'){
+            if(c==='\r' && text[i+1]==='\n') i++;
+            row.push(field); field=''; rows.push(row); row=[];
+          } else field+=c;
+        }
+      }
+      if(field.length || row.length){ row.push(field); rows.push(row); }
+      return rows.filter(function(r){ return r.length>1 || (r[0]&&r[0].trim()); });
+    }
+
+    async function parsePDFRows(file){
+      var buf=await file.arrayBuffer();
+      var pdf=await pdfjsLib.getDocument({data:buf}).promise;
+      var rows=[];
+      for(var p=1;p<=pdf.numPages;p++){
+        var page=await pdf.getPage(p);
+        var content=await page.getTextContent();
+        var items=content.items.map(function(it){ return { str:it.str, x:it.transform[4], y:it.transform[5] }; });
+        var byY={};
+        items.forEach(function(it){
+          var key=Math.round(it.y/3)*3;
+          (byY[key]=byY[key]||[]).push(it);
+        });
+        var ys=Object.keys(byY).map(Number).sort(function(a,b){ return b-a; });
+        ys.forEach(function(y){
+          var rowItems=byY[y].slice().sort(function(a,b){ return a.x-b.x; });
+          var cols=[], cur='', lastX=null;
+          rowItems.forEach(function(it){
+            if(lastX!==null && (it.x-lastX)>12){ cols.push(cur.trim()); cur=''; }
+            cur+=(cur?' ':'')+it.str;
+            lastX=it.x+(it.str.length*3);
+          });
+          if(cur.trim()) cols.push(cur.trim());
+          if(cols.length) rows.push(cols);
+        });
+      }
+      return rows;
+    }
+
+    var HEADER_KEYWORDS={
+      description:['description','item description','particulars','details'],
+      unit:['unit','uom','u.o.m','unit of measure'],
+      qty:['qty','quantity','quant.']
+    };
+    function detectColumns(rows){
+      for(var r=0;r<Math.min(rows.length,8);r++){
+        var row=(rows[r]||[]).map(function(c){ return (c||'').toString().toLowerCase().trim(); });
+        var map={};
+        row.forEach(function(cell,i){
+          Object.keys(HEADER_KEYWORDS).forEach(function(key){
+            if(map[key]==null && HEADER_KEYWORDS[key].some(function(kw){ return cell.indexOf(kw)>-1; })) map[key]=i;
+          });
+        });
+        if(map.description!=null && map.qty!=null) return { headerRow:r, map:map };
+      }
+      return null;
+    }
+
+    async function handlePricingFile(file){
+      var ext=file.name.split('.').pop().toLowerCase();
+      var statusEl=$('ti-parse-status');
+      var rows;
+      try{
+        if(ext==='csv'){
+          rows=parseCSVText(await file.text());
+          statusEl.textContent='Parsed as CSV — '+rows.length+' rows detected.';
+        } else if(ext==='xlsx' || ext==='xls'){
+          if(!window.XLSX){ window.alert('Excel parser failed to load (check your connection) — try CSV instead.'); return; }
+          var wb=XLSX.read(await file.arrayBuffer(), {type:'array'});
+          var ws=wb.Sheets[wb.SheetNames[0]];
+          rows=XLSX.utils.sheet_to_json(ws, {header:1, raw:false, defval:''});
+          statusEl.textContent='Parsed as Excel ("'+wb.SheetNames[0]+'") — '+rows.length+' rows detected.';
+        } else if(ext==='pdf'){
+          if(!window.pdfjsLib){ window.alert('PDF parser failed to load (check your connection) — try CSV/Excel instead.'); return; }
+          pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          rows=await parsePDFRows(file);
+          statusEl.textContent='Best-effort PDF text extraction — '+rows.length+' rows detected. Please review every line carefully.';
+        } else {
+          window.alert('Unsupported file type. Use CSV, XLSX, or PDF.');
+          return;
+        }
+      } catch(e){
+        console.error('InfraBid: pricing document parse failed', e);
+        window.alert('Could not parse this file: '+e.message);
+        return;
+      }
+
+      var detected=detectColumns(rows);
+      var startRow, colMap;
+      if(detected){
+        startRow=detected.headerRow+1; colMap=detected.map;
+      } else {
+        startRow=0; colMap={description:0, unit:1, qty:2};
+        statusEl.textContent+=' Column headers not recognized — guessed Description/Unit/Qty as the first three columns; please verify every row.';
+      }
+
+      boqRows=[];
+      for(var i=startRow;i<rows.length;i++){
+        var r=rows[i];
+        if(!r) continue;
+        var desc=(r[colMap.description]||'').toString().trim();
+        var qtyRaw=colMap.qty!=null ? (r[colMap.qty]||'').toString().replace(/,/g,'') : '';
+        var qty=parseFloat(qtyRaw);
+        if(!desc || !isFinite(qty) || qty<=0) continue;
+        var unit=colMap.unit!=null ? (r[colMap.unit]||'').toString().trim() : '';
+        var match=bestMatch(desc);
+        boqRows.push({ description:desc, unit:unit||(match?match.unit:'ea'), qty:qty, rate:match?match.rate:0, matched:!!match });
+      }
+
+      if(!boqRows.length) window.alert('No line items could be extracted from this file. Check the format, or add items manually below.');
+      $('ti-boq-wrap').style.display='block';
+      renderBOQTable();
+    }
+
+    function renderBOQTable(){
+      var body=$('ti-boq-body');
+      body.innerHTML=boqRows.map(function(row,i){
+        return '<div class="elem-row" data-row-idx="'+i+'">'+
+          '<span><input type="text" class="ti-desc" data-field="description" value="'+escAttr(row.description)+'"></span>'+
+          '<span><input type="text" class="ti-unit" data-field="unit" value="'+escAttr(row.unit)+'"></span>'+
+          '<span><input type="number" class="ti-qty" data-field="qty" value="'+row.qty+'" step="0.01"></span>'+
+          '<span><input type="number" class="ti-rate" data-field="rate" value="'+row.rate+'" step="0.01">'+
+            '<div class="'+(row.matched?'':'unmatched')+'" style="font-size:9px;margin-top:2px">'+(row.matched?'Auto-matched':'Unmatched — set rate')+'</div></span>'+
+          '<span class="ti-amount">'+euro((row.qty||0)*(row.rate||0))+'</span>'+
+          '<button class="icon-btn del" data-remove-boq="'+i+'" aria-label="Remove line item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button>'+
+        '</div>';
+      }).join('');
+      recomputeTotals();
+    }
+
+    function recomputeTotals(){
+      var sub=0;
+      Array.prototype.forEach.call(document.querySelectorAll('#ti-boq-body .elem-row'), function(rowEl){
+        var idx=parseInt(rowEl.dataset.rowIdx,10);
+        var row=boqRows[idx];
+        if(!row) return;
+        var amt=(row.qty||0)*(row.rate||0);
+        sub+=amt;
+        var amtEl=rowEl.querySelector('.ti-amount');
+        if(amtEl) amtEl.textContent=euro(amt);
+      });
+      var markup=parseFloat($('ti-markup').value)||0, contingency=parseFloat($('ti-contingency').value)||0;
+      var uplift=sub*((markup+contingency)/100);
+      var total=sub+uplift;
+      $('ti-subtotal').textContent=euro(sub);
+      $('ti-uplift').textContent=euro(uplift);
+      $('ti-total').textContent=euro(total);
+      lastBoqTotals={ subtotal:sub, uplift:uplift, total:total, markup:markup, contingency:contingency };
+    }
+
+    $('ti-boq-body').addEventListener('input', function(e){
+      var rowEl=e.target.closest('.elem-row');
+      if(!rowEl) return;
+      var idx=parseInt(rowEl.dataset.rowIdx,10);
+      var field=e.target.dataset.field;
+      if(!field || !boqRows[idx]) return;
+      var val=(field==='qty'||field==='rate') ? (parseFloat(e.target.value)||0) : e.target.value;
+      boqRows[idx][field]=val;
+      if(field==='rate') boqRows[idx].matched=true;
+      recomputeTotals();
+    });
+    $('ti-boq-body').addEventListener('click', function(e){
+      var rmBtn=e.target.closest('[data-remove-boq]');
+      if(!rmBtn) return;
+      boqRows.splice(parseInt(rmBtn.dataset.removeBoq,10),1);
+      renderBOQTable();
+    });
+    $('ti-markup').addEventListener('input', recomputeTotals);
+    $('ti-contingency').addEventListener('input', recomputeTotals);
+
+    $('ti-add-row-btn').addEventListener('click', function(){
+      boqRows.push({ description:'New Item', unit:'ea', qty:1, rate:0, matched:false });
+      $('ti-boq-wrap').style.display='block';
+      renderBOQTable();
+    });
+
+    $('ti-export-btn').addEventListener('click', function(){
+      if(!boqRows.length) return;
+      var lines=['Description,Unit,Qty,Rate,Amount'];
+      boqRows.forEach(function(r){
+        lines.push('"'+(r.description||'').replace(/"/g,'""')+'",'+(r.unit||'')+','+r.qty+','+r.rate+','+((r.qty||0)*(r.rate||0)).toFixed(2));
+      });
+      lines.push(',,,Subtotal,'+lastBoqTotals.subtotal.toFixed(2));
+      lines.push(',,,Markup+Contingency,'+lastBoqTotals.uplift.toFixed(2));
+      lines.push(',,,Total,'+lastBoqTotals.total.toFixed(2));
+      downloadBlob('InfraBid_TenderImport.csv', lines.join('\n'), 'text/csv;charset=utf-8');
+    });
+
+    $('ti-save-btn').addEventListener('click', async function(){
+      if(!sb) return;
+      if(!boqRows.length){ window.alert('Nothing to save yet.'); return; }
+      var btn=this, orig=btn.textContent;
+      var name=(pdFileName||'Tender Import')+' — '+euro(lastBoqTotals.total);
+      var res=await sb.from('boq_imports').insert({
+        name:name, rows:boqRows, markup_pct:lastBoqTotals.markup, contingency_pct:lastBoqTotals.contingency,
+        subtotal:lastBoqTotals.subtotal, total:lastBoqTotals.total
+      });
+      if(res.error){ window.alert('Could not save: '+res.error.message); return; }
+      btn.textContent='Saved ✓';
+      setTimeout(function(){ btn.textContent=orig; }, 1600);
+      renderSavedList();
+    });
+
+    async function renderSavedList(){
+      if(!sb) return;
+      var body=$('ti-saved-body');
+      var res=await sb.from('boq_imports').select('*').order('created_at', { ascending:false }).limit(20);
+      if(res.error){ console.error('InfraBid: failed to load tender imports', res.error); return; }
+      savedImports=res.data||[];
+      body.innerHTML=savedImports.length ? savedImports.map(function(r){
+        return '<div class="board-row">'+
+          '<div class="tname">'+escHtml(r.name)+'</div>'+
+          '<div class="tval">'+euro(r.total)+'</div>'+
+          '<div class="tval">'+(r.rows||[]).length+'</div>'+
+          '<div class="tdeadline">'+new Date(r.created_at).toLocaleDateString('en-IE')+'</div>'+
+          '<div class="board-actions">'+
+            '<button class="icon-btn" data-load-boq="'+r.id+'" aria-label="Load tender import"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>'+
+            '<button class="icon-btn del" data-del-boq="'+r.id+'" aria-label="Delete tender import"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14"/></svg></button>'+
+          '</div></div>';
+      }).join('') : '<div style="padding:24px 22px;text-align:center;color:var(--muted);font-size:13px">No saved tender imports yet.</div>';
+    }
+
+    $('ti-saved-body').addEventListener('click', async function(e){
+      var loadBtn=e.target.closest('[data-load-boq]'), delBtn=e.target.closest('[data-del-boq]');
+      if(loadBtn){
+        var row=savedImports.find(function(r){ return String(r.id)===loadBtn.dataset.loadBoq; });
+        if(!row) return;
+        boqRows=(row.rows||[]).slice();
+        $('ti-markup').value=row.markup_pct||0;
+        $('ti-contingency').value=row.contingency_pct||0;
+        $('ti-boq-wrap').style.display='block';
+        renderBOQTable();
+        $('ti-boq-wrap').scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'});
+      } else if(delBtn){
+        if(window.confirm('Delete this saved tender import? This cannot be undone.')){
+          var res=await sb.from('boq_imports').delete().eq('id', delBtn.dataset.delBoq);
+          if(res.error){ window.alert('Could not delete: '+res.error.message); return; }
+          renderSavedList();
+        }
+      }
+    });
+
+    async function loadRateLibrary(){
+      if(!sb) return;
+      var res=await sb.from('rate_items').select('*').order('created_at', { ascending:true });
+      var custom=(res.error || !res.data) ? [] : res.data;
+      libraryItems=DEFAULT_RATE_ITEMS.concat(custom);
+    }
+
+    function renderFileList(el, files){
+      el.innerHTML=files.map(function(f){ return '<div><span>'+escHtml(f.name)+'</span><span>'+bytesToSize(f.size)+'</span></div>'; }).join('');
+    }
+
+    function wireZone(zoneEl, inputEl, onFiles){
+      zoneEl.addEventListener('click', function(){ inputEl.click(); });
+      zoneEl.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); inputEl.click(); } });
+      zoneEl.addEventListener('dragover', function(e){ e.preventDefault(); zoneEl.classList.add('drag'); });
+      zoneEl.addEventListener('dragleave', function(){ zoneEl.classList.remove('drag'); });
+      zoneEl.addEventListener('drop', function(e){
+        e.preventDefault(); zoneEl.classList.remove('drag');
+        if(e.dataTransfer.files && e.dataTransfer.files.length) onFiles(e.dataTransfer.files);
+      });
+      inputEl.addEventListener('change', function(){ if(this.files && this.files.length) onFiles(this.files); });
+    }
+
+    wireZone(pdZone, $('pd-file-input'), function(files){
+      var f=files[0]; pdFileName=f.name;
+      renderFileList($('pd-filelist'), [f]);
+      handlePricingFile(f);
+    });
+    wireZone($('spec-zone'), $('spec-file-input'), function(files){
+      specFiles=specFiles.concat(Array.prototype.slice.call(files));
+      renderFileList($('spec-filelist'), specFiles);
+    });
+    wireZone($('dwg-zone'), $('dwg-file-input'), function(files){
+      dwgFiles=dwgFiles.concat(Array.prototype.slice.call(files));
+      renderFileList($('dwg-filelist'), dwgFiles);
+    });
+
+    InfraBidAuth.getSession().then(function(session){
+      if(!session) return; // auth.js guard is redirecting away
+      sb=InfraBidAuth.getClient();
+      loadRateLibrary();
+      renderSavedList();
+    });
+  })();
 })();

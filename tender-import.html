@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="InfraBid Tender Import — upload the client's pricing document, specifications, and drawings, and auto-price the bill of quantities against your own rate library.">
+<meta name="theme-color" content="#FFFFFF">
+<title>Tender Import · InfraBid</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+<style>
+.ti-upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:860px){.ti-upload-grid{grid-template-columns:1fr}}
+.ti-zone{border:2px dashed var(--border-2);border-radius:var(--r-md);padding:26px 18px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s}
+.ti-zone:hover,.ti-zone.drag{border-color:var(--accent-deep);background:var(--accent-soft)}
+.ti-zone svg{width:26px;height:26px;stroke:var(--secondary-deep);margin-bottom:10px}
+.ti-zone h4{font-size:13px;font-weight:700;margin-bottom:6px}
+.ti-zone p{font-size:11.5px;color:var(--muted);line-height:1.5}
+.ti-filelist{margin-top:10px;font-size:12px;color:var(--text-sub);text-align:left}
+.ti-filelist div{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--border)}
+.ti-boq .elem-row{grid-template-columns:2.4fr .7fr .8fr 1fr 1fr 40px}
+.ti-boq .elem-row.head{grid-template-columns:2.4fr .7fr .8fr 1fr 1fr 40px}
+.ti-boq select,.ti-boq input{width:100%;background:none;border:none;color:var(--ink);font-size:13px;font-weight:600;font-family:var(--font);border-bottom:1px solid var(--border-2);padding:4px 0}
+.ti-boq .unmatched{color:#B7791F;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+</style>
+</head>
+<body data-requires-auth>
+<a href="#main" class="sr-skip">Skip to content</a>
+<div id="progress"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="InfraBid home">
+      <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+      <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="valuation.html">Valuation</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="takeoff.html">AI Takeoff</a>
+      <a href="tender-import.html">Tender Import</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="process.html">Process</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <div class="nav-auth" data-auth-slot></div>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu">
+    <a href="about.html">About</a>
+    <a href="process.html">Process</a>
+    <a href="valuation.html">Valuation Suite</a>
+    <a href="takeoff.html">AI Takeoff</a>
+    <a href="tender-import.html">Tender Import</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="suppliers.html">Suppliers</a>
+    <a href="value-engineering.html">Value Engineering</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="btn btn-primary">Request Demo</a>
+    <div class="nav-auth" data-auth-slot></div>
+  </div>
+</nav>
+<main id="main">
+<section class="phero">
+  <img class="phero-img" src="https://images.unsplash.com/photo-1454165833767-027a894fd226?auto=format&fit=crop&w=1600&q=65" alt="Desk with tender documents and drawings" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
+  <div class="wrap content reveal">
+    <h1>Tender Import</h1>
+    <p>Upload the client's pricing document, specifications, and drawings. Since the quantities are already measured in the pricing document, InfraBid extracts the bill of quantities directly and prices it against your rate library — no re-measuring required.</p>
+  </div>
+</section>
+<section class="section alt" id="tender-import">
+  <img class="sec-bgimg" src="https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+  <div class="wrap">
+
+    <div class="field-group">
+      <span class="gl">01 / Upload Documents</span>
+      <div class="ti-upload-grid">
+        <div>
+          <div class="ti-zone" id="pd-zone" tabindex="0" role="button" aria-label="Upload pricing document">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 3v5h5M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h6"/></svg>
+            <h4>Pricing Document</h4>
+            <p>The client's Bill of Quantities / Schedule of Rates — CSV or Excel parses most reliably; PDF is supported but best-effort.</p>
+          </div>
+          <input type="file" id="pd-file-input" style="display:none" accept=".csv,.xlsx,.xls,.pdf">
+          <div class="ti-filelist" id="pd-filelist"></div>
+        </div>
+        <div>
+          <div class="ti-zone" id="spec-zone" tabindex="0" role="button" aria-label="Upload specification documents">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/></svg>
+            <h4>Specifications</h4>
+            <p>Attached for reference alongside this tender — not parsed for quantities in this version.</p>
+          </div>
+          <input type="file" id="spec-file-input" style="display:none" accept=".pdf,.doc,.docx,.txt" multiple>
+          <div class="ti-filelist" id="spec-filelist"></div>
+        </div>
+        <div>
+          <div class="ti-zone" id="dwg-zone" tabindex="0" role="button" aria-label="Upload drawings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3h18v18H3zM3 15l5-5 4 4 5-6 4 5"/></svg>
+            <h4>Drawings</h4>
+            <p>Attached for reference. Need to measure something the BOQ doesn't cover? Use <a href="takeoff.html">AI Takeoff</a> separately.</p>
+          </div>
+          <input type="file" id="dwg-file-input" style="display:none" accept=".pdf,.png,.jpg,.jpeg" multiple>
+          <div class="ti-filelist" id="dwg-filelist"></div>
+        </div>
+      </div>
+      <div class="note-box" style="margin-top:20px">
+        <b>How this works:</b> Everything is parsed and priced entirely in your browser — no file is uploaded to a server. The pricing document's line items (description, unit, quantity) are extracted automatically and matched against your rate library by description. CSV/Excel extraction is reliable; PDF extraction is heuristic (text-position based) and should always be reviewed line by line before you rely on it.
+      </div>
+    </div>
+
+    <div class="field-group" id="ti-boq-wrap" style="display:none">
+      <span class="gl">02 / Extracted Bill of Quantities</span>
+      <p id="ti-parse-status" style="font-size:12px;color:var(--text-sub);margin-bottom:14px"></p>
+      <div class="tk-schedule ti-boq">
+        <div class="elem-row head"><span>Description</span><span>Unit</span><span>Qty</span><span>Rate</span><span>Amount</span><span></span></div>
+        <div id="ti-boq-body"></div>
+      </div>
+      <button class="btn btn-ghost" id="ti-add-row-btn" type="button" style="margin-top:14px">+ Add Line Item</button>
+
+      <div class="grid3" style="margin-top:26px">
+        <div>
+          <h4>Margin Protection</h4>
+          <div class="fld"><label for="ti-markup">Target Net Yield</label>
+            <div class="ip"><input class="pr" id="ti-markup" type="number" inputmode="decimal" min="0" step="0.5" value="15.0"><span class="sym r">%</span></div></div>
+          <div class="fld"><label for="ti-contingency">Risk Provision</label>
+            <div class="ip"><input class="pr" id="ti-contingency" type="number" inputmode="decimal" min="0" step="0.5" value="5.0"><span class="sym r">%</span></div></div>
+        </div>
+      </div>
+
+      <div class="val-actions" style="margin-top:10px">
+        <p>Subtotal <b id="ti-subtotal">€0.00</b> · Markup + Contingency <b id="ti-uplift">€0.00</b> · <span style="font-size:16px;font-weight:800;color:var(--ink)">Total <span id="ti-total">€0.00</span></span></p>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost" id="ti-export-btn" type="button">Export CSV</button>
+          <button class="btn btn-primary" id="ti-save-btn" type="button">Save Tender Import</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group" id="ti-saved-wrap" style="margin-top:30px">
+      <span class="gl">03 / Saved Tender Imports</span>
+      <div class="board">
+        <div class="board-row head"><span>Name</span><span>Total</span><span>Items</span><span>Saved</span><span></span></div>
+        <div id="ti-saved-body"><div style="padding:24px 22px;text-align:center;color:var(--muted);font-size:13px">Log in and save a tender import to see it here.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+          <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+        </div>
+        <p class="bl">Real-time procurement intelligence and quantity surveying for the Irish construction market.</p>
+      </div>
+      <div class="foot-col"><h5>Platform</h5><a href="valuation.html">Valuation Suite</a><a href="dashboard.html">Dashboard</a><a href="takeoff.html">AI Takeoff</a>
+      <a href="tender-import.html">Tender Import</a><a href="marketplace.html">Marketplace</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Contact</h5><a href="mailto:info@infrabid.ie">info@infrabid.ie</a><li>Dublin, Ireland</li></div>
+    </div>
+    <div class="foot-bar"><span>© 2026 InfraBid · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+  </div>
+</footer>
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
