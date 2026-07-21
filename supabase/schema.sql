@@ -83,3 +83,30 @@ create policy "Users can insert their own takeoffs"
 create policy "Users can delete their own takeoffs"
   on public.takeoffs for delete
   using (auth.uid() = user_id);
+
+-- InfraBid — CECA-style rate library (custom line items users add themselves,
+-- on top of the built-in illustrative placeholder set shipped in app.js).
+
+create table if not exists public.rate_items (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  category text not null,
+  description text not null,
+  unit text not null default 'ea',
+  rate numeric not null default 0,
+  created_at timestamptz not null default now()
+);
+
+alter table public.rate_items enable row level security;
+
+create policy "Users can view their own rate items"
+  on public.rate_items for select
+  using (auth.uid() = user_id);
+
+create policy "Users can insert their own rate items"
+  on public.rate_items for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can delete their own rate items"
+  on public.rate_items for delete
+  using (auth.uid() = user_id);

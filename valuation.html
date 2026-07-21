@@ -121,6 +121,43 @@
           </div>
         </div>
 
+        <div class="field-group" id="ceca-wrap">
+          <span class="gl">03 / Additional Items (Rate Library)</span>
+          <div class="note-box" style="margin-top:0;margin-bottom:16px">
+            Illustrative placeholder rates only — not verified CECA Dayworks Schedule figures. Replace or add your own via "Add New Rate" below before relying on this for a real tender.
+          </div>
+          <div class="toolbar">
+            <div class="sort-select" style="flex:2"><select id="ceca-item-select"></select></div>
+            <div class="fld" style="margin:0;flex:0 0 120px"><div class="ip"><input id="ceca-item-qty" type="number" min="0" step="1" value="1" placeholder="Qty"></div></div>
+            <button class="btn btn-ghost" id="ceca-add-btn" type="button" style="padding:11px 22px">Add Item</button>
+          </div>
+          <div class="tk-schedule" id="ceca-items-wrap" style="margin-top:16px;display:none">
+            <div class="elem-row head"><span>Item</span><span>Qty</span><span>Rate</span><span>Line Total</span></div>
+            <div id="ceca-items-body"></div>
+          </div>
+          <button class="btn btn-ghost" id="ceca-newrate-toggle" type="button" style="margin-top:16px">+ Add New Rate to Library</button>
+          <div class="grid3" id="ceca-newrate-form" style="display:none;margin-top:16px">
+            <div>
+              <div class="fld"><label for="ceca-new-category">Category</label>
+                <div class="ip"><select id="ceca-new-category"><option>Labour</option><option>Plant</option><option>Materials</option><option>Output Rate</option></select></div></div>
+            </div>
+            <div>
+              <div class="fld"><label for="ceca-new-desc">Description</label>
+                <div class="ip"><input id="ceca-new-desc" type="text" placeholder="e.g. Laying 300mm dia. pipe"></div></div>
+            </div>
+            <div>
+              <div class="fld"><label for="ceca-new-unit">Unit</label>
+                <div class="ip"><input id="ceca-new-unit" type="text" placeholder="e.g. per m, per hr"></div></div>
+              <div class="fld"><label for="ceca-new-rate">Rate</label>
+                <div class="ip"><span class="sym">€</span><input id="ceca-new-rate" type="number" min="0" step="0.01"></div></div>
+            </div>
+          </div>
+          <div class="val-actions" id="ceca-newrate-actions" style="display:none;margin-top:0">
+            <p>Saved to your account's rate library — reusable across all future valuations.</p>
+            <button class="btn btn-primary" id="ceca-newrate-save" type="button">Save to Library</button>
+          </div>
+        </div>
+
         <div class="val-actions">
           <p>Parameters ready for calculation alignment matrix.</p>
           <button class="btn btn-primary" id="calc-btn" data-magnetic>Calculate Valuation
@@ -147,6 +184,7 @@
               <div class="lrow"><div class="d"><b>Roof Framing Timber</b><span id="val-timber-desc">C24 Certified Sawn</span></div><span class="v" id="val-timber">€0.00</span></div>
               <div class="lrow"><div class="d"><b>Site Production Labour</b><span id="val-labor-desc">Aggregated Allocation</span></div><span class="v" id="val-labor">€0.00</span></div>
               <div class="lrow"><div class="d"><b>Support Logistics</b><span id="val-plant-desc">Excavation &amp; Disposal</span></div><span class="v" id="val-plant">€0.00</span></div>
+              <div id="val-ceca-extra-rows"></div>
             </div>
           </div>
           <div class="an-foot" id="panel-footer" style="display:none">
@@ -161,7 +199,7 @@
     </div>
 
     <div class="field-group" id="saved-valuations-wrap" style="margin-top:34px">
-      <span class="gl">03 / Recent Valuations</span>
+      <span class="gl">04 / Recent Valuations</span>
       <div class="board">
         <div class="board-row head"><span>Name</span><span>Total</span><span>Margin</span><span>Saved</span><span></span></div>
         <div id="saved-valuations-body"><div style="padding:24px 22px;text-align:center;color:var(--muted);font-size:13px">Log in and save a valuation to see it here.</div></div>

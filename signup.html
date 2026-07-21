@@ -37,6 +37,7 @@
     <h1>Create Account</h1>
     <p class="sub">Sign up to access the Valuation Suite, AI Takeoff, Dashboard, and Marketplace.</p>
 
+    <div class="auth-success" id="dev-mode-note" style="display:none">Demo mode — no backend connected yet. Any email and password will create a working (browser-only) demo account.</div>
     <div class="auth-error" id="auth-error"></div>
     <div class="auth-success" id="auth-success"></div>
 
@@ -65,6 +66,8 @@
 <script>
 (function(){
   document.addEventListener('DOMContentLoaded', async function(){
+    if(InfraBidAuth.isDevMode()) document.getElementById('dev-mode-note').style.display = 'block';
+
     var session = await InfraBidAuth.getSession();
     if(session){
       window.location.href = 'dashboard.html';

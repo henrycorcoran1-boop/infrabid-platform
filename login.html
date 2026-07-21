@@ -19,6 +19,8 @@
 .auth-card .btn{width:100%;justify-content:center;margin-top:6px}
 .auth-error{display:none;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.3);color:#C0392B;
   font-size:12.5px;border-radius:10px;padding:12px 14px;margin-bottom:18px;line-height:1.5}
+.auth-success{display:none;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);color:var(--secondary-deep);
+  font-size:12.5px;border-radius:10px;padding:12px 14px;margin-bottom:18px;line-height:1.5}
 .auth-foot{text-align:center;font-size:13px;color:var(--text-sub);margin-top:22px}
 .auth-foot a{color:var(--secondary-deep);font-weight:600;text-decoration:none}
 .auth-foot a:hover{text-decoration:underline}
@@ -35,6 +37,7 @@
     <h1>Log In</h1>
     <p class="sub">Access the Valuation Suite, AI Takeoff, Dashboard, and Marketplace.</p>
 
+    <div class="auth-success" id="dev-mode-note" style="display:none">Demo mode — no backend connected yet. Enter any email and password to log in.</div>
     <div class="auth-error" id="auth-error"></div>
 
     <form id="login-form" novalidate>
@@ -60,6 +63,8 @@
   function qs(name){ return new URLSearchParams(window.location.search).get(name); }
 
   document.addEventListener('DOMContentLoaded', async function(){
+    if(InfraBidAuth.isDevMode()) document.getElementById('dev-mode-note').style.display = 'block';
+
     // Already logged in? Skip straight to the requested tool (or the dashboard).
     var session = await InfraBidAuth.getSession();
     if(session){

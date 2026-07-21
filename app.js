@@ -3,6 +3,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var euro = function(n){ return '€' + n.toLocaleString('en-IE',{minimumFractionDigits:2,maximumFractionDigits:2}); };
   var euro0 = function(n){ return '€' + Math.round(n).toLocaleString('en-IE'); };
+  var escHtml = function(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
 
   var nav = document.getElementById('nav'), prog = document.getElementById('progress'), totop = document.getElementById('totop');
   function onScroll(){
@@ -161,6 +162,7 @@
   var STRUCT_TIMBER_FACTOR = {timber:0.065, masonry:0.022, steel:0.018, rc:0.015};
   var STRUCT_CARPENTRY_HRS_M2 = {timber:1.4, masonry:0.6, steel:0.55, rc:0.5};
   var lastLedger = null;
+  var cecaExtraItems = []; // line items added from the CECA-style rate library (valuation.html)
 
   function processValuation(){
     var $ = function(id){ return document.getElementById(id); };
@@ -190,7 +192,12 @@
           skipUnits=Math.max(Math.ceil(gia/140),2),
           plant=(diggerDays*v('rate-digger'))+(skipUnits*v('rate-skip'));
 
-      var sub=concreteCost+timberCost+labor+plant,
+      var extraRows=cecaExtraItems.map(function(it){
+        return [it.description, it.qty+' '+it.unit+' @ '+euro(it.rate), it.qty*it.rate];
+      });
+      var extraTotal=cecaExtraItems.reduce(function(a,it){ return a+(it.qty*it.rate); },0);
+
+      var sub=concreteCost+timberCost+labor+plant+extraTotal,
           total=sub*(1+((v('rate-markup')+v('rate-contingency'))/100)),
           margin=total-sub;
 
@@ -203,6 +210,13 @@
       $('val-labor').textContent=euro(labor); $('val-plant').textContent=euro(plant);
       $('val-total').textContent=euro(total); $('val-margin-calc').textContent=euro(margin);
 
+      var extraRowsEl=$('val-ceca-extra-rows');
+      if(extraRowsEl){
+        extraRowsEl.innerHTML=cecaExtraItems.map(function(it){
+          return '<div class="lrow"><div class="d"><b>'+escHtml(it.description)+'</b><span>'+it.qty+' '+escHtml(it.unit)+' @ '+euro(it.rate)+'</span></div><span class="v">'+euro(it.qty*it.rate)+'</span></div>';
+        }).join('');
+      }
+
       lastLedger={
         region:REGION_LABEL[region]||region, structure:STRUCT_LABEL[structure]||structure,
         gia:gia, storeys:storeys,
@@ -211,7 +225,7 @@
           ['Roof Framing Timber', timberVol.toFixed(1)+'m³ C24 Certified Sawn', timberCost],
           ['Site Production Labour', (carpentryHrs+generalHrs).toFixed(0)+' labour hrs', labor],
           ['Support Logistics', diggerDays+' excavator days, '+skipUnits+' skip units', plant]
-        ],
+        ].concat(extraRows),
         subtotal:sub, markupPct:v('rate-markup'), contingencyPct:v('rate-contingency'),
         total:total, margin:margin
       };
@@ -358,10 +372,95 @@
       }
     });
 
+    /* ---- CECA-style rate library: dropdown to add line items to a valuation ---- */
+    // Illustrative placeholder rates only. These are NOT verified figures from the
+    // real CECA Dayworks Schedule — replace with your actual schedule via the
+    // "+ Add New Rate to Library" form before relying on this for a real tender.
+    var DEFAULT_RATE_ITEMS=[
+      {category:'Labour', description:'General Operative', unit:'per hr', rate:26.50},
+      {category:'Labour', description:'Skilled Operative / Ganger', unit:'per hr', rate:34.00},
+      {category:'Plant', description:'13T Excavator', unit:'per hr', rate:65.00},
+      {category:'Plant', description:'6T Dumper', unit:'per hr', rate:38.00},
+      {category:'Output Rate', description:'Lay 150mm dia. pipe', unit:'per m', rate:28.00},
+      {category:'Output Rate', description:'Lay 300mm dia. pipe', unit:'per m', rate:42.00},
+      {category:'Output Rate', description:'Excavate & backfill trench', unit:'per m³', rate:18.50},
+      {category:'Materials', description:'300mm dia. pipe (supply)', unit:'per m', rate:55.00}
+    ];
+    var itemSelect=$('ceca-item-select'), itemQty=$('ceca-item-qty'), addBtn=$('ceca-add-btn');
+    var itemsWrap=$('ceca-items-wrap'), itemsBody=$('ceca-items-body');
+    var newRateToggle=$('ceca-newrate-toggle'), newRateForm=$('ceca-newrate-form'), newRateActions=$('ceca-newrate-actions'), newRateSave=$('ceca-newrate-save');
+    var libraryItems=DEFAULT_RATE_ITEMS.slice();
+
+    function renderDropdown(){
+      if(!itemSelect) return;
+      var byCat={};
+      libraryItems.forEach(function(it,i){ (byCat[it.category]=byCat[it.category]||[]).push(i); });
+      itemSelect.innerHTML=Object.keys(byCat).map(function(cat){
+        return '<optgroup label="'+escHtml(cat)+'">'+byCat[cat].map(function(i){
+          var it=libraryItems[i];
+          return '<option value="'+i+'">'+escHtml(it.description)+' — '+euro(it.rate)+' '+escHtml(it.unit)+'</option>';
+        }).join('')+'</optgroup>';
+      }).join('');
+    }
+
+    function renderExtraItemsList(){
+      if(!itemsBody) return;
+      itemsWrap.style.display=cecaExtraItems.length?'block':'none';
+      itemsBody.innerHTML=cecaExtraItems.map(function(it,i){
+        return '<div class="elem-row"><span>'+escHtml(it.description)+'</span><span>'+it.qty+' '+escHtml(it.unit)+'</span><span>'+euro(it.rate)+'</span>'+
+          '<span style="display:flex;align-items:center;gap:8px;justify-content:space-between">'+euro(it.qty*it.rate)+
+          '<button class="icon-btn del" data-remove-extra="'+i+'" aria-label="Remove item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg></button></span></div>';
+      }).join('');
+    }
+
+    if(addBtn) addBtn.addEventListener('click', function(){
+      if(!itemSelect.value) return;
+      var it=libraryItems[parseInt(itemSelect.value,10)];
+      var qty=parseFloat(itemQty.value)||0;
+      if(!it || qty<=0) return;
+      cecaExtraItems.push({ category:it.category, description:it.description, unit:it.unit, rate:it.rate, qty:qty });
+      renderExtraItemsList();
+    });
+
+    if(itemsBody) itemsBody.addEventListener('click', function(e){
+      var rmBtn=e.target.closest('[data-remove-extra]');
+      if(!rmBtn) return;
+      cecaExtraItems.splice(parseInt(rmBtn.dataset.removeExtra,10), 1);
+      renderExtraItemsList();
+    });
+
+    if(newRateToggle) newRateToggle.addEventListener('click', function(){
+      var showing=newRateForm.style.display==='grid'||newRateForm.style.display==='block';
+      newRateForm.style.display=showing?'none':'grid';
+      newRateActions.style.display=showing?'none':'flex';
+    });
+
+    if(newRateSave) newRateSave.addEventListener('click', async function(){
+      if(!sb) return;
+      var category=$('ceca-new-category').value, description=$('ceca-new-desc').value.trim(),
+          unit=$('ceca-new-unit').value.trim()||'ea', rate=parseFloat($('ceca-new-rate').value)||0;
+      if(!description || rate<=0){ window.alert('Enter a description and a rate greater than zero.'); return; }
+      var res = await sb.from('rate_items').insert({ category:category, description:description, unit:unit, rate:rate });
+      if(res.error){ window.alert('Could not save rate: '+res.error.message); return; }
+      await loadRateLibrary();
+      $('ceca-new-desc').value=''; $('ceca-new-unit').value=''; $('ceca-new-rate').value='';
+      newRateForm.style.display='none'; newRateActions.style.display='none';
+    });
+
+    async function loadRateLibrary(){
+      if(!sb) return;
+      var res = await sb.from('rate_items').select('*').order('created_at', { ascending:true });
+      var custom = (res.error || !res.data) ? [] : res.data;
+      libraryItems=DEFAULT_RATE_ITEMS.concat(custom);
+      renderDropdown();
+    }
+
     InfraBidAuth.getSession().then(function(session){
       if(!session) return; // auth.js guard is redirecting away
       sb = InfraBidAuth.getClient();
       renderSavedList();
+      renderDropdown();
+      loadRateLibrary();
     });
   })();
 
