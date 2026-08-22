@@ -15,38 +15,47 @@
   "use strict";
 
   var STORAGE_KEY = 'infrabid_support_chat';
-  var GREETING = "Hi — I'm the InfraBid support assistant. Ask me anything about the Valuation Suite, AI Takeoff, Tender Import, your rate library, pricing, or a problem you've hit.";
+  var GREETING = "Hi — I'm the InfraBid support assistant. Ask me about tender reports, the live tender feed, Tom, pricing, your data, or a problem you've hit.";
   var SUGGESTIONS = [
-    "I can't log in",
-    "Which drawing formats does AI Takeoff read?",
-    "How do I price a client's BOQ?",
-    "What does InfraBid cost?"
+    "How do tender reports work?",
+    "What does InfraBid Pro cost?",
+    "Where do the tenders come from?",
+    "Are my documents kept private?"
   ];
 
-  /* ---------- built-in knowledge base (dev-mode / offline fallback) ---------- */
+  /* ---------- built-in knowledge base (offline / not-yet-deployed fallback) ----------
+     Grounded in the live site content at www.infrabid.ie (swept 2026-08-22). */
   var KB = [
-    { keys: ['login','log in','password','sign in','signin','account','locked','forgot'],
-      answer: "A few things to check: 1) Make sure your email and password are typed correctly (watch for caps lock). 2) If you signed up in a different browser, your session won't carry over — log in again on this one. 3) If this site is running in demo mode (no Supabase project connected), any email and password will log you in, and your data lives only in this browser. Still stuck? Email info@infrabid.ie and the team will reset you within one working day." },
-    { keys: ['save','saved','saving','disappear','lost','missing','gone','persist'],
-      answer: "Saving tenders, valuations, takeoff schedules, rate items, and tender imports requires being logged in — each account only sees its own data. In demo mode, data is stored in this browser only, so it won't follow you to another device or browser. If something you saved is missing, first confirm you're logged in with the same email you used when you saved it." },
-    { keys: ['takeoff','drawing','dwg','dxf','pdf','cad','measure','format','upload'],
-      answer: "AI Takeoff reads vector PDFs, DWG/DXF CAD exports, and NBS-structured specification documents. Scanned or photographed drawings won't parse — if a drawing isn't reading, re-export it as a vector PDF from your CAD package. Your drawings are processed in the browser and never uploaded; only the extracted measurement schedule is saved, and only if you choose to save it while signed in." },
-    { keys: ['tender import','boq','bill of quantities','import','excel','xlsx','pricing document','client'],
-      answer: "Open Tender Import and upload the client's pricing document — an Excel file or a text-based PDF with a tabular bill of quantities works best (scanned PDFs won't extract). InfraBid pulls out the BOQ rows and prices them against your rate library, then you set markup and contingency percentages and save the priced bill to your account." },
-    { keys: ['rate','rates','library','ceca','line item'],
-      answer: "Your rate library combines a built-in illustrative CECA-style rate set with custom line items you add yourself — each has a category, description, unit, and rate. Custom items are saved to your account (log in first) and are used automatically when Tender Import prices a bill of quantities." },
-    { keys: ['valuation','estimate','margin','total'],
-      answer: "In the Valuation Suite, enter your project inputs and InfraBid computes a calibrated estimate with total and margin, priced against the live merchant index. When you're logged in you can save each valuation result to your account and reload it later from the same page." },
-    { keys: ['price','pricing','cost','tier','plan','subscription','pay','month'],
-      answer: "InfraBid has three tiers: Starter at €199/month (solo estimators — up to 15 valuations a month, Leinster merchant index, PDF export), Professional at €350/month (unlimited valuations, national index, tender dossier compiler, 5 seats), and Enterprise at €950/month (custom integrations, dedicated success manager, SSO and audit controls, unlimited seats). There's no lock-in — you can change tier any month." },
-    { keys: ['data','privacy','confidential','secure','security','gdpr','encrypt'],
-      answer: "All drawings and ledgers are encrypted in transit and at rest, and each account's data is isolated — your project data is never used to price competitors' tenders. Enterprise adds SSO and full audit controls. For data-protection requests, email info@infrabid.ie." },
-    { keys: ['region','leinster','munster','connacht','ulster','coverage','ireland'],
-      answer: "The Starter tier covers the Leinster merchant index. Professional and Enterprise extend the national index across all Irish provinces, and bespoke regional integrations are available on request." },
-    { keys: ['merchant','index','fresh','current','sweep','live'],
-      answer: "Validation sweeps run daily across active merchant frameworks, so estimates reflect live, localized rates rather than outdated national average cost books." },
-    { keys: ['human','person','agent','email','contact','phone','speak','talk','demo'],
-      answer: "You can reach the team directly at info@infrabid.ie — they reply within one working day, and can also arrange a no-obligation walkthrough of your first tender." }
+    { keys: ['price','pricing','cost','infrabid pro','plan','pay','month','much','€'],
+      answer: "One plan: InfraBid Pro at €99.99 a month (ex VAT), billed monthly by card, cancel anytime. It includes 4 tender reports a month — that works out at €25 a report — plus every tool: Tom, the live tender feed, award intelligence, the programme tool and the bid book. Reruns of the same document are free, and the allowance resets each month (it doesn't roll over). Need more than 4 reports a month, or team pricing? Email info@infrabid.ie — the first 50 firms also get founding discounts in exchange for structured feedback." },
+    { keys: ['tender report','report','estimate','bill','how it works','ten questions','price a bill','p50','p80','range','rerun','reruns'],
+      answer: "Your pricing document in, a tender report out: upload the bill (Excel, CSV or PDF), answer ten questions about the job — company, location, contract form, return date, which trades you'll sublet, your margin — and every line comes back priced as a low/central/high range from Irish evidence, with P50 and P80 headline figures and commercial flags. The output is a PDF report on your name plus ready-to-send enquiry packs for each sublet trade. Anything the reader isn't confident about is routed to you for a look before it's priced, and reruns of the same document are free. Remember: it's an order-of-magnitude estimate and needs competent commercial review before anything is submitted." },
+    { keys: ['format','pdf','excel','csv','xlsx','scan','scanned','upload','read','file'],
+      answer: "The bill can be a PDF, Excel or CSV file. Excel and CSV are the most reliable; PDF reading is best effort, and scanned PDFs read poorly — if your document won't read, try an Excel or CSV export instead. Lines the reader isn't confident about are flagged for you to check before pricing, and every estimate can be exported back out to CSV with its full breakdown." },
+    { keys: ['tenders','tender feed','etenders','ted','notice','notices','alert','county','counties','where do'],
+      answer: "The live tender feed shows Irish public works out to tender now, sourced from contract notices on Tenders Electronic Daily (TED), the EU's open procurement record, filtered to Irish construction and refreshed through the day. Filter it to your county, trade and deadlines, then save that filter as an alert. InfraBid links out to eTenders for submissions — and to be straight about it, it doesn't claim complete coverage of every Irish tender." },
+    { keys: [' tom','morning email','seven','7am','tender desk'],
+      answer: "Tom is the Tender Opportunity Manager — he runs your tender desk. He reads every construction notice published in Ireland overnight, keeps the ones that suit your firm, and drops a single email at seven each morning to your registered address. He also prices bills from Irish evidence, tracks procurement schedules, manages your bid book, and he never invents a rate. Tom is included with InfraBid Pro." },
+    { keys: ['cancel','cancellation','refund','unsubscribe','billing','stripe','apple','app store','card'],
+      answer: "Subscribed on the web: cancel any time from Manage billing in Settings — your access runs to the end of the month you've paid for, nothing further is charged, and part-month fees aren't refunded. Subscribed through the Apple app: manage it in your Apple Account settings under Subscriptions — deleting the app does not cancel the subscription. For billing disputes, email info@infrabid.ie." },
+    { keys: ['login','log in','sign in','signin','account','password','register','sign up'],
+      answer: "The free tools need no account and no sign-in — the app opens straight to the tools, and your estimates are kept in browser storage on your device. An InfraBid Pro subscription does involve registering: your account holds the email where Tom's morning mail goes, and billing is managed from Settings. If you're locked out or can't sort a login, email info@infrabid.ie and a person will help, usually within one working day." },
+    { keys: ['privacy','private','confidential','document','documents','data protection','gdpr','anthropic','cookie','cookies','track','secure','security','delete'],
+      answer: "Your estimates and rates are kept in browser storage on your own device, and the site sets no advertising or analytics cookies and doesn't track you across other sites. For reading documents there are two paths: the on-device reader, where the file is never transmitted to anyone, and the AI reader, which sends the file to Anthropic for processing — InfraBid doesn't retain it, and Anthropic deletes it after a short abuse-monitoring period. The AI is never shown a rate and never produces a price. InfraBid doesn't sell personal data or train models on your commercial data. If a document may not lawfully leave your organisation, use the on-device reader. GDPR requests: info@infrabid.ie, answered within one month." },
+    { keys: ['sync','device','devices','lost','disappear','disappeared','missing','gone','cleared','another computer'],
+      answer: "Estimates, rate libraries and the programme are stored on the device you created them on — data doesn't sync between devices yet, so work done on one machine won't appear on another. Clearing your browser's site data also removes local drafts, so export anything important to CSV first. If something's missing on the same device and you haven't cleared data, email info@infrabid.ie." },
+    { keys: ['notification','notifications','deadline alert','reminder','push'],
+      answer: "If deadline alerts have stopped in the app, turn them back on in your device settings: Settings, then InfraBid, then Notifications, and switch Allow Notifications on. For alert emails from a saved tender filter, check the filter is still saved and your email address is right — or email info@infrabid.ie." },
+    { keys: ['trial','free','sample','try','demo','preview'],
+      answer: "There's no free trial, but you can see exactly what you'd get two ways: the How It Works page walks through the whole process, and there's a free sample tender report — a twelve-line drainage and watermain bill from Cork, priced through all six stages — downloadable without an account from the Sample Report page." },
+    { keys: ['wrong','error','mistake','inaccurate','accurate','looks off','incorrect','quantity','quantities'],
+      answer: "InfraBid produces order-of-magnitude estimates to support an estimator's judgement — never a bare number, always a range with flags. Quantities are taken on trust from the client's document, so check those first, then the confidence ratings and commercial flags. Reruns and corrections of the same document are free, and nothing should be submitted without line-by-line review by a competent person. If you think a figure is genuinely wrong, email info@infrabid.ie so the team can look at it." },
+    { keys: ['directory','advertise','specialist','specialists','subcontractor','listing','trades directory'],
+      answer: "The specialists directory will connect Irish subcontractors with main contractors during the pricing phase — your trade, the counties you cover, and your contact details, shown to contractors actively seeking quotes. It isn't live yet: you can register interest for free (nothing is charged and nothing committed), and the planned listing is €9.99 a month with no contract, cancellable any month. Listing will require public liability insurance, tax clearance and applicable registrations." },
+    { keys: ['services','pmo','dashboard','programme','programming','schedule','scheduling','bespoke','software','consult'],
+      answer: "Beyond the software, InfraBid offers professional services: full pricing and estimating (a bill priced end to end by people who've done it on site), PMO services and bespoke dashboards, project scheduling and construction programming, and bespoke construction software builds. Email info@infrabid.ie or use the enquiry form on the Services page." },
+    { keys: ['human','person','agent','email','contact','phone','speak','talk','someone'],
+      answer: "You can reach the team directly at info@infrabid.ie — a person answers, usually within one working day." }
   ];
 
   function localAnswer(text){
@@ -58,7 +67,7 @@
       if(score > bestScore){ bestScore = score; best = entry; }
     });
     if(best) return best.answer;
-    return "I didn't catch that one. I can help with logging in, the Valuation Suite, AI Takeoff drawing formats, Tender Import, your rate library, pricing tiers, and data security — or email info@infrabid.ie to reach the team directly (replies within one working day).";
+    return "I didn't catch that one. I can help with tender reports, the live tender feed, Tom, InfraBid Pro pricing and billing, file formats, and how your data is handled — or email info@infrabid.ie to reach the team directly (a person answers, usually within one working day).";
   }
 
   /* ---------- state ---------- */
