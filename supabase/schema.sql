@@ -139,3 +139,35 @@ create policy "Users can insert their own tender imports"
 create policy "Users can delete their own tender imports"
   on public.boq_imports for delete
   using (auth.uid() = user_id);
+
+-- InfraBid — AI Support Chat transcripts. One row per widget conversation for
+-- signed-in users (anonymous visitors still get answers, just no transcript).
+-- Review them from the Supabase dashboard to spot recurring problems.
+
+create table if not exists public.support_conversations (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  page text,
+  messages jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.support_conversations enable row level security;
+
+create policy "Users can view their own support conversations"
+  on public.support_conversations for select
+  using (auth.uid() = user_id);
+
+create policy "Users can insert their own support conversations"
+  on public.support_conversations for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can update their own support conversations"
+  on public.support_conversations for update
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+create policy "Users can delete their own support conversations"
+  on public.support_conversations for delete
+  using (auth.uid() = user_id);

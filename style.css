@@ -711,3 +711,59 @@ nav.scrolled .brand .logo{height:40px}
   .elem-row{grid-template-columns:2fr 1fr 1fr}.elem-row .flag{display:none}}
 @media(max-width:640px){.kpi-strip{grid-template-columns:1fr 1fr}.supplier-grid{grid-template-columns:1fr}
   .board-row{grid-template-columns:1fr auto}.board-row .tdeadline,.board-row .status-pill-wrap{display:none}}
+
+/* ---------- AI support chat widget ---------- */
+#totop{bottom:96px} /* make room for the support launcher below it */
+#ib-support-launcher{position:fixed;bottom:26px;right:26px;z-index:95;width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:#fff;background:var(--grad);
+  box-shadow:0 14px 30px -10px rgba(19,49,152,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+#ib-support-launcher:hover{transform:translateY(-3px);box-shadow:0 22px 48px -12px rgba(19,49,152,.7)}
+#ib-support-launcher svg{width:24px;height:24px}
+#ib-support-launcher .ic-close{display:none}
+#ib-support.open #ib-support-launcher .ic-chat{display:none}
+#ib-support.open #ib-support-launcher .ic-close{display:block}
+#ib-support-panel{position:fixed;bottom:96px;right:26px;z-index:95;width:min(380px,calc(100vw - 32px));
+  height:min(560px,calc(100vh - 130px));display:flex;flex-direction:column;overflow:hidden;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.ibs-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;
+  border-bottom:1px solid var(--border);background:var(--grad);color:#fff}
+.ibs-head-l{display:flex;align-items:center;gap:11px;min-width:0}
+.ibs-dot{width:9px;height:9px;border-radius:50%;background:#5EF2A6;box-shadow:0 0 10px rgba(94,242,166,.9);
+  flex-shrink:0;animation:pulse 2.6s infinite}
+.ibs-title{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.ibs-title b{font-size:14px;letter-spacing:.02em}
+.ibs-sub{font-size:10.5px;opacity:.82;letter-spacing:.04em}
+.ibs-new{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff;
+  border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:6px 12px;flex-shrink:0;transition:background .3s}
+.ibs-new:hover{background:rgba(255,255,255,.16)}
+.ibs-msgs{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:var(--bg-2)}
+.ibs-msg{max-width:86%;padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;
+  white-space:pre-wrap;overflow-wrap:break-word}
+.ibs-msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--border);color:var(--text);
+  border-bottom-left-radius:5px}
+.ibs-msg.me{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:5px}
+.ibs-typing{display:flex;gap:5px;align-items:center;padding:14px 16px}
+.ibs-typing span{width:7px;height:7px;border-radius:50%;background:var(--blue-soft);animation:ibs-blink 1.2s infinite}
+.ibs-typing span:nth-child(2){animation-delay:.18s}
+.ibs-typing span:nth-child(3){animation-delay:.36s}
+@keyframes ibs-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.ibs-chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 12px;background:var(--bg-2)}
+.ibs-chip{font-size:11.5px;padding:7px 13px;border-radius:999px;border:1px solid var(--border-2);
+  background:#fff;color:var(--text-sub);transition:border-color .3s,color .3s,background .3s}
+.ibs-chip:hover{border-color:var(--ink);color:var(--ink);background:var(--accent-soft)}
+.ibs-form{display:flex;gap:9px;padding:13px 14px;border-top:1px solid var(--border);background:var(--surface)}
+.ibs-form input{flex:1;min-width:0;border:1px solid var(--border-2);border-radius:999px;padding:11px 17px;
+  font-family:inherit;font-size:13.5px;color:var(--text);background:var(--bg-2);transition:border-color .3s}
+.ibs-form input:focus{outline:none;border-color:var(--blue)}
+.ibs-send{width:42px;height:42px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#fff;background:var(--grad);transition:transform .3s var(--ease),opacity .3s}
+.ibs-send:hover{transform:translateY(-2px)}
+.ibs-send:disabled{opacity:.5;cursor:default;transform:none}
+.ibs-send svg{width:17px;height:17px}
+.ibs-foot{padding:8px 16px 11px;font-size:10px;letter-spacing:.03em;color:var(--muted);text-align:center;
+  background:var(--surface)}
+@media(max-width:640px){
+  #ib-support-panel{right:16px;bottom:90px}
+  #ib-support-launcher{right:16px;bottom:22px}
+  #totop{bottom:90px;right:16px}
+}
