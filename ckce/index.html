@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CKCE — Project Management &amp; Consulting Engineers, Co. Laois</title>
+  <meta name="description" content="CKCE are consulting engineers in Co. Laois providing civil and structural design, self-build supervision, GPS surveys, percolation testing to the EPA Code of Practice 2021, planning applications and BCAR certification across the Midlands and nationwide.">
+  <link rel="canonical" href="https://www.ckce.ie/">
+  <meta name="theme-color" content="#12294F">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CKCE">
+  <meta property="og:title" content="CKCE — Project Management &amp; Consulting Engineers, Co. Laois">
+  <meta property="og:description" content="Civil and structural design, self-build supervision, GPS surveys, site suitability testing, planning and BCAR certification. Based in Co. Laois, serving the Midlands and nationwide since 2016.">
+  <meta property="og:url" content="https://www.ckce.ie/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:locale" content="en_IE">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CKCE — Project Management &amp; Consulting Engineers, Co. Laois">
+  <meta name="twitter:description" content="Civil and structural design, self-build supervision, GPS surveys, site suitability testing, planning and BCAR certification. Est. 2016, Co. Laois.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Favicon: tri-bar E monogram -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='%231B3B6E'%3E%3Crect x='6' y='8' width='36' height='8' rx='1.5'/%3E%3Crect x='6' y='20' width='36' height='8' rx='1.5'/%3E%3Crect x='6' y='32' width='36' height='8' rx='1.5'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "CKCE",
+    "alternateName": "CKCE Project Management & Consulting Engineers",
+    "slogan": "Project Management & Consulting Engineers",
+    "url": "https://www.ckce.ie",
+    "email": "info@ckce.ie",
+    "foundingDate": "2016",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Co. Laois",
+      "addressCountry": "IE"
+    },
+    "areaServed": [
+      { "@type": "AdministrativeArea", "name": "County Laois" },
+      { "@type": "AdministrativeArea", "name": "Irish Midlands" },
+      { "@type": "Country", "name": "Ireland" }
+    ],
+    "knowsAbout": [
+      "Civil and structural design",
+      "Self-build supervision and stage inspections",
+      "GPS and topographical surveys",
+      "Feasibility studies and site appraisals",
+      "Percolation and site suitability testing",
+      "Planning applications",
+      "BCAR Design Certifier and Assigned Certifier",
+      "Structural assessments and Opinions on Compliance",
+      "Drainage design and flood risk screening",
+      "Tender and procurement support",
+      "Project management"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Engineering services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Civil and structural design" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Self-build supervision and stage inspections" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GPS and topographical surveys" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Percolation and site suitability testing (EPA Code of Practice 2021)" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Planning applications and pre-planning consultations" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Feasibility studies and site appraisals" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Structural assessments and Opinions on Compliance" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "BCAR certification and project management" } }
+      ]
+    }
+  }
+  </script>
+
+  <style>
+    /* ============ Tokens ============ */
+    :root {
+      --navy: #1B3B6E;
+      --ink: #12294F;
+      --ink-deep: #0C1D3A;
+      --slate: #7C8698;          /* decorative only — fails AA on white for small text */
+      --slate-text: #4E5A72;     /* body-secondary, AA on white and paper */
+      --paper: #F7F8FA;
+      --white: #FFFFFF;
+      --accent: #E8722A;
+      --accent-deep: #B0500F;
+      --line: rgba(27, 59, 110, 0.22);
+      --hair: rgba(27, 59, 110, 0.10);
+      --line-light: rgba(247, 248, 250, 0.30);
+      --hair-light: rgba(247, 248, 250, 0.10);
+      --slate-light: #A9B4C6;    /* secondary text on navy, AA */
+
+      --font-display: "Jost", "Poppins", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+      --size-h1: clamp(2.3rem, 1.2rem + 4.6vw, 4.2rem);
+      --size-h2: clamp(1.75rem, 1.2rem + 2.2vw, 2.8rem);
+      --size-h3: clamp(1.12rem, 1rem + 0.5vw, 1.35rem);
+      --size-body: clamp(0.98rem, 0.93rem + 0.2vw, 1.06rem);
+      --size-small: 0.88rem;
+      --size-mono: clamp(0.68rem, 0.65rem + 0.15vw, 0.78rem);
+
+      --space-section: clamp(4.5rem, 3rem + 6vw, 8rem);
+      --container: 72rem;
+      --radius: 6px;
+      --shadow-card: 0 1px 2px rgba(18, 41, 79, 0.05), 0 8px 24px -12px rgba(18, 41, 79, 0.18);
+      --shadow-lift: 0 2px 4px rgba(18, 41, 79, 0.06), 0 18px 40px -16px rgba(18, 41, 79, 0.30);
+      --header-h: 4.25rem;
+      --grid-paper:
+        repeating-linear-gradient(0deg, var(--hair) 0 1px, transparent 1px 32px),
+        repeating-linear-gradient(90deg, var(--hair) 0 1px, transparent 1px 32px);
+    }
+
+    /* ============ Base ============ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-padding-top: calc(var(--header-h) + 1rem);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: 0.005em;
+      text-wrap: balance;
+    }
+
+    a { color: var(--navy); }
+    a:focus-visible, button:focus-visible, input:focus-visible,
+    select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    ::selection { background: var(--navy); color: var(--white); }
+
+    .container {
+      width: min(var(--container), 100% - 2.5rem);
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem; top: -4rem;
+      z-index: 200;
+      padding: 0.6rem 1.1rem;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      text-decoration: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ============ Scroll progress ============ */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      z-index: 130;
+      pointer-events: none;
+    }
+
+    /* ============ Dimension-line vocabulary ============ */
+    /* Section kicker: mono label seated in a double-arrowed dimension line,
+       with extension ticks at each end — echoing the wordmark's rule. */
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .kicker-label {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+    .dim {
+      position: relative;
+      height: 1px;
+      background: var(--line);
+      flex: 1 1 3rem;
+      max-width: 8rem;
+    }
+    .dim::before { /* arrowhead */
+      content: "";
+      position: absolute;
+      top: 50%;
+      border: 4px solid transparent;
+    }
+    .dim::after { /* extension tick */
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 1px;
+      height: 11px;
+      background: var(--line);
+      transform: translateY(-50%);
+    }
+    .dim.l::before { left: 1px; transform: translateY(-50%); border-right-color: var(--navy); border-left-width: 0; }
+    .dim.l::after  { left: 0; }
+    .dim.r::before { right: 1px; transform: translateY(-50%); border-left-color: var(--navy); border-right-width: 0; }
+    .dim.r::after  { right: 0; }
+    .kicker.center { justify-content: center; }
+    .kicker.center .dim { flex: 0 1 6rem; }
+
+    .on-dark .kicker-label { color: var(--slate-light); }
+    .on-dark .dim { background: var(--line-light); }
+    .on-dark .dim::after { background: var(--line-light); }
+    .on-dark .dim.l::before { border-right-color: var(--slate-light); }
+    .on-dark .dim.r::before { border-left-color: var(--slate-light); }
+
+    /* Benchmark crosshair marker used on cards */
+    .bench {
+      position: absolute;
+      top: 1.1rem; right: 1.1rem;
+      width: 18px; height: 18px;
+      color: var(--slate);
+      opacity: 0.55;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+    .section-head { max-width: 44rem; margin-bottom: clamp(2.2rem, 4vw, 3.5rem); }
+    .section-head h2 { color: var(--ink); margin-bottom: 0.9rem; font-size: var(--size-h2); }
+    .section-head p { color: var(--slate-text); }
+    .on-dark .section-head h2 { color: var(--white); }
+    .on-dark .section-head p { color: var(--slate-light); }
+
+    /* ============ Buttons ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.78rem 1.5rem;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: var(--ink-deep);
+      box-shadow: 0 6px 18px -8px rgba(232, 114, 42, 0.65);
+    }
+    .btn-accent:hover { background: #F0813C; transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--line-light);
+    }
+    .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+    .btn-navy {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-navy:hover { background: var(--ink); transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    /* ============ Header ============ */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 120;
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+    }
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .brand svg { display: block; height: 22px; width: auto; }
+    .brand .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: currentColor;
+      opacity: 0.75;
+      border-left: 1px solid currentColor;
+      padding-left: 0.7rem;
+      line-height: 1.4;
+    }
+    .site-nav ul {
+      display: flex;
+      align-items: center;
+      gap: clamp(1rem, 2.5vw, 2.1rem);
+      list-style: none;
+    }
+    .site-nav a:not(.btn) {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 0.98rem;
+      letter-spacing: 0.015em;
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.35rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .site-nav a:not(.btn)::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform 0.25s ease;
+    }
+    .site-nav a:not(.btn):hover::after,
+    .site-nav a:not(.btn)[aria-current="true"]::after { transform: scaleX(1); }
+    .site-nav .btn { padding: 0.55rem 1.15rem; font-size: 0.92rem; }
+
+    .site-header.scrolled {
+      background: rgba(255, 255, 255, 0.86);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 var(--hair), 0 8px 30px -18px rgba(18, 41, 79, 0.35);
+    }
+    .site-header.scrolled .brand,
+    .site-header.scrolled .site-nav a:not(.btn) { color: var(--ink); }
+    .site-header.scrolled .btn-accent { color: var(--ink-deep); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      padding: 10px;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+    .nav-toggle .bar {
+      display: block;
+      height: 2px; width: 100%;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    }
+    .site-header.scrolled .nav-toggle .bar { background: var(--ink); }
+    .nav-toggle[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ============ Hero ============ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--ink-deep);
+      color: var(--white);
+      overflow: hidden;
+      padding: calc(var(--header-h) + 3rem) 0 3rem;
+    }
+    .hero-media, .hero-media::before, .hero-media::after {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+    .hero-media::before { /* navy duotone paint */
+      content: "";
+      background: var(--navy);
+      mix-blend-mode: color;
+    }
+    .hero-media::after { /* legibility gradient */
+      content: "";
+      background:
+        linear-gradient(100deg, rgba(12, 29, 58, 0.94) 20%, rgba(12, 29, 58, 0.72) 55%, rgba(18, 41, 79, 0.55) 100%),
+        linear-gradient(0deg, rgba(12, 29, 58, 0.9) 0%, rgba(12, 29, 58, 0.15) 35%);
+    }
+    .hero-contours {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .hero-contours path {
+      fill: none;
+      stroke: var(--slate-light);
+      stroke-width: 1;
+      opacity: 0.22;
+    }
+    .hero-contours text {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      fill: var(--slate-light);
+      opacity: 0.5;
+    }
+    .js .hero-contours path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    .js .hero.inview .hero-contours path {
+      animation: draw 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation-delay: calc(var(--d, 0) * 0.35s + 0.3s);
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .hero-inner { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--slate-light);
+      margin-bottom: 1.4rem;
+    }
+    .hero-eyebrow::before {
+      content: "";
+      width: 2.6rem; height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-size: var(--size-h1);
+      font-weight: 600;
+      max-width: 15ch;
+      margin-bottom: 1.3rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      max-width: 34rem;
+      font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.18rem);
+      color: #C7CFDC;
+      margin-bottom: 2.2rem;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: clamp(2.5rem, 6vh, 4.5rem); }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      justify-content: start;
+      column-gap: clamp(1.8rem, 4.5vw, 4.5rem);
+      row-gap: 1.5rem;
+      border-top: 1px solid var(--hair-light);
+      padding-top: 1.6rem;
+      max-width: 52rem;
+    }
+    .stat { position: relative; }
+    .stat::before { /* survey station tick */
+      content: "";
+      position: absolute;
+      top: -1.6rem;
+      left: 0;
+      width: 1px; height: 9px;
+      background: var(--line-light);
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.6rem);
+      line-height: 1.1;
+      color: var(--white);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-num .unit { color: var(--accent); }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--slate-light);
+      margin-top: 0.3rem;
+    }
+
+    .hero-scrollcue {
+      position: absolute;
+      bottom: 1.4rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: var(--slate-light);
+      opacity: 0.8;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-scrollcue { animation: cue 2.4s ease-in-out infinite; }
+      @keyframes cue { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 7px); } }
+    }
+
+    /* ============ Sections (shared) ============ */
+    .section { padding-block: var(--space-section); }
+    .section.alt { background: var(--paper) var(--grid-paper); }
+    .section.dark {
+      background:
+        radial-gradient(120% 90% at 85% -10%, rgba(27, 59, 110, 0.55) 0%, transparent 55%),
+        var(--ink-deep);
+      color: var(--white);
+    }
+
+    /* ============ Services ============ */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+      list-style: none;
+    }
+    .svc-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--hair);
+      border-radius: var(--radius);
+      padding: 1.6rem 1.4rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+    .svc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lift);
+      border-color: var(--line);
+    }
+    .svc-card:hover .bench { color: var(--accent); opacity: 1; }
+    .svc-icon {
+      width: 44px; height: 44px;
+      color: var(--navy);
+      margin-bottom: 1.05rem;
+    }
+    .svc-icon svg { width: 100%; height: 100%; }
+    .svc-card h3 {
+      font-size: var(--size-h3);
+      margin-bottom: 0.55rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.35rem;
+    }
+    .svc-card h3::after { /* accent underline draws in on hover */
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform 0.35s ease;
+    }
+    .svc-card:hover h3::after { transform: scaleX(1); }
+    .svc-card p {
+      font-size: var(--size-small);
+      line-height: 1.6;
+      color: var(--slate-text);
+    }
+    .svc-footnote {
+      margin-top: 2rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.04em;
+      color: var(--slate-text);
+    }
+    .svc-footnote .tag {
+      flex: none;
+      color: var(--accent-deep);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ============ Process ============ */
+    .process-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.4rem;
+      padding-top: 3.4rem;
+      margin-top: 0.5rem;
+    }
+    .process-line {
+      position: absolute;
+      top: 0.55rem;
+      left: 0; right: 0;
+      height: 22px;
+      overflow: visible;
+    }
+    .process-line .rule {
+      stroke: var(--line-light);
+      stroke-width: 1.5;
+    }
+    .js .process-line .rule {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      transition: stroke-dashoffset 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+    }
+    .js .inview .process-line .rule { stroke-dashoffset: 0; }
+    .process-line .head { fill: var(--slate-light); }
+    .js .process-line .head {
+      opacity: 0;
+      transition: opacity 0.4s ease 1.6s;
+    }
+    .js .inview .process-line .head { opacity: 1; }
+
+    .step { position: relative; }
+    .step-node {
+      position: absolute;
+      top: -3.4rem;
+      left: 0;
+      width: 22px; height: 22px;
+      color: var(--accent);
+      background: var(--ink-deep);
+      border-radius: 50%;
+    }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .step h3 { font-size: var(--size-h3); color: var(--white); margin-bottom: 0.5rem; }
+    .step p { font-size: var(--size-small); color: var(--slate-light); line-height: 1.62; }
+
+    /* ============ Sectors ============ */
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.1rem;
+    }
+    .tile {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 300px;
+      background: linear-gradient(150deg, var(--navy), var(--ink-deep)); /* fallback if image fails */
+    }
+    .tile:nth-child(1) { grid-column: span 7; }
+    .tile:nth-child(2) { grid-column: span 5; }
+    .tile:nth-child(3) { grid-column: span 5; }
+    .tile:nth-child(4) { grid-column: span 7; }
+    .tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+      transition: transform 0.6s ease;
+    }
+    .tile::before { /* duotone paint */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--navy);
+      mix-blend-mode: color;
+      z-index: 1;
+    }
+    .tile::after { /* caption gradient */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(12, 29, 58, 0.94) 0%, rgba(12, 29, 58, 0.62) 32%, rgba(12, 29, 58, 0.22) 60%, rgba(12, 29, 58, 0.10) 100%);
+      z-index: 2;
+      transition: background-color 0.4s ease;
+    }
+    .tile:hover img, .tile:focus-within img { transform: scale(1.045); }
+    .tile-caption {
+      position: absolute;
+      left: 1.4rem; right: 1.4rem; bottom: 1.2rem;
+      z-index: 3;
+      color: var(--white);
+    }
+    .tile-caption .idx {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .tile-caption h3 { font-size: 1.3rem; color: var(--white); }
+    .tile-caption p {
+      font-size: var(--size-small);
+      color: #C7CFDC;
+      max-width: 30rem;
+      margin-top: 0.35rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .tile:hover .tile-caption p, .tile:focus-within .tile-caption p { opacity: 1; transform: none; }
+
+    /* ============ Why CKCE ============ */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: center;
+    }
+    .why-points { list-style: none; display: grid; gap: 1.5rem; margin-top: 2rem; }
+    .why-points li {
+      position: relative;
+      padding-left: 2.4rem;
+    }
+    .why-points .pt-marker {
+      position: absolute;
+      left: 0; top: 0.2rem;
+      width: 20px; height: 20px;
+      color: var(--accent);
+    }
+    .why-points h3 { font-size: var(--size-h3); margin-bottom: 0.3rem; }
+    .why-points p { font-size: var(--size-small); color: var(--slate-text); }
+    .why-figure {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 340px;
+      background: linear-gradient(150deg, var(--navy), var(--ink-deep));
+      box-shadow: var(--shadow-lift);
+    }
+    .why-figure img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+    .why-figure::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: var(--navy);
+      mix-blend-mode: color;
+      z-index: 1;
+    }
+    .why-figure::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(20deg, rgba(12, 29, 58, 0.55), rgba(12, 29, 58, 0.05) 60%);
+      z-index: 2;
+    }
+    .why-figure figcaption {
+      position: absolute;
+      left: 1.2rem; bottom: 1rem;
+      z-index: 3;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.14em;
+      color: #C7CFDC;
+    }
+    .accreditation {
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      border-top: 1px solid var(--hair);
+      padding-top: 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2.5rem;
+      align-items: center;
+    }
+    .accreditation .acc-label {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--slate-text);
+    }
+    .acc-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+    .acc-item svg { width: 18px; height: 18px; color: var(--navy); flex: none; }
+
+    /* ============ Testimonials ============ */
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
+    }
+    .quote-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--hair);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.5rem 1.5rem;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .quote-card::before {
+      content: "\201C";
+      font-family: var(--font-display);
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--accent);
+      display: block;
+      height: 2.1rem;
+    }
+    .quote-card blockquote p {
+      font-size: 0.97rem;
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    .quote-card figcaption {
+      margin-top: auto;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.08em;
+      color: var(--slate-text);
+    }
+    .quote-card figcaption strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+    .quote-note {
+      margin-top: 1.4rem;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      color: var(--slate-text);
+      letter-spacing: 0.04em;
+    }
+
+    /* ============ Contact ============ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+    .contact-intro h2 { color: var(--white); font-size: var(--size-h2); margin-bottom: 0.9rem; }
+    .contact-intro > p { color: var(--slate-light); max-width: 30rem; }
+    .contact-mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 1.6rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem);
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.25rem;
+      transition: color 0.25s ease;
+    }
+    .contact-mail:hover { color: var(--accent); }
+    .contact-mail svg { width: 22px; height: 22px; color: var(--accent); flex: none; }
+    .contact-meta {
+      margin-top: 1.6rem;
+      display: grid;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.1em;
+      color: var(--slate-light);
+    }
+    .map-wrap {
+      position: relative;
+      margin-top: 2rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--hair-light);
+    }
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 240px;
+      border: 0;
+      filter: grayscale(100%) contrast(0.95);
+    }
+    .map-wrap::after { /* navy tint; clicks pass through is not needed for tint layer */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(27, 59, 110, 0.14);
+      pointer-events: none;
+    }
+
+    .contact-form {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: clamp(1.4rem, 3vw, 2.2rem);
+      box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+      display: grid;
+      gap: 1.1rem;
+    }
+    .contact-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .field { display: grid; gap: 0.35rem; }
+    .field label {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--slate-text);
+    }
+    .field input, .field select, .field textarea {
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--hair);
+      border-radius: 4px;
+      padding: 0.7rem 0.85rem;
+      width: 100%;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .field textarea { resize: vertical; min-height: 7.5rem; }
+    .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--line); }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      background: var(--white);
+      border-color: var(--navy);
+      outline: 2px solid transparent; /* focus ring handled by border + focus-visible */
+    }
+    .form-note {
+      font-size: 0.82rem;
+      color: var(--slate-text);
+      line-height: 1.5;
+    }
+    .form-status {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      color: var(--accent-deep);
+      min-height: 1.2em;
+    }
+
+    /* ============ Footer ============ */
+    .site-footer {
+      background: var(--ink-deep);
+      color: var(--slate-light);
+      padding: 3rem 0 2rem;
+      border-top: 1px solid var(--hair-light);
+    }
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--hair-light);
+    }
+    .footer-brand { color: var(--white); }
+    .footer-brand svg { height: 20px; width: auto; display: block; margin-bottom: 0.8rem; }
+    .footer-brand p {
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.12em;
+      color: var(--slate-light);
+    }
+    .footer-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 1.4rem; }
+    .footer-nav a {
+      color: var(--slate-light);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer-nav a:hover { color: var(--white); }
+    .footer-contact { text-align: right; font-size: 0.92rem; }
+    .footer-contact a { color: var(--white); text-decoration: none; border-bottom: 1px solid var(--accent); }
+    .footer-contact p { margin-top: 0.4rem; }
+    .footer-legal {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding-top: 1.4rem;
+      font-family: var(--font-mono);
+      font-size: var(--size-mono);
+      letter-spacing: 0.08em;
+    }
+
+    /* ============ Reveal animation ============ */
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: calc(var(--i, 0) * 80ms);
+    }
+    .js .reveal.inview {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ============ Reduced motion ============ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+      .js .reveal { opacity: 1; transform: none; }
+      .js .hero-contours path { stroke-dashoffset: 0; }
+      .js .process-line .rule { stroke-dashoffset: 0; }
+      .process-line .head { opacity: 1; }
+      .hero-scrollcue { animation: none; }
+    }
+
+    /* ============ Breakpoints ============ */
+    @media (max-width: 1024px) {
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .quote-grid { grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-figure { min-height: 300px; order: -1; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .site-nav {
+        position: fixed;
+        top: var(--header-h);
+        left: 0; right: 0;
+        background: var(--ink-deep);
+        border-top: 1px solid var(--hair-light);
+        padding: 1.2rem 1.4rem 1.6rem;
+        transform: translateY(-8px);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s;
+        box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.5);
+      }
+      .site-nav.open { transform: none; opacity: 1; visibility: visible; }
+      .site-nav ul { flex-direction: column; align-items: stretch; gap: 0.2rem; }
+      .site-nav a:not(.btn) {
+        display: block;
+        color: var(--white) !important;
+        padding: 0.75rem 0.2rem;
+        font-size: 1.05rem;
+        border-bottom: 1px solid var(--hair-light);
+      }
+      .site-nav a:not(.btn)::after { display: none; }
+      .site-nav li:last-child { margin-top: 1rem; }
+      .site-nav .btn { width: 100%; }
+      .brand .brand-sub { display: none; }
+
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .process-track { grid-template-columns: 1fr; gap: 2rem; padding-top: 0; padding-left: 2.6rem; }
+      .process-line { display: none; } /* horizontal SVG replaced by vertical CSS rule */
+      .process-track::before { /* vertical dimension line through the station markers */
+        content: "";
+        position: absolute;
+        top: 10px; bottom: 14px;
+        left: 10px;
+        width: 1.5px;
+        background: var(--line-light);
+        transform-origin: 50% 0;
+      }
+      .process-track::after { /* arrowhead at the foot of the line */
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 5.5px;
+        border: 5.5px solid transparent;
+        border-top-color: var(--slate-light);
+        border-bottom-width: 0;
+      }
+      .js .process-track::before {
+        transform: scaleY(0);
+        transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+      }
+      .js .process-track.inview::before { transform: scaleY(1); }
+      .js .process-track::after {
+        opacity: 0;
+        transition: opacity 0.4s ease 1.6s;
+      }
+      .js .process-track.inview::after { opacity: 1; }
+      .step-node { top: -1px; left: -2.6rem; }
+      .mosaic .tile { grid-column: 1 / -1 !important; min-height: 240px; }
+      .tile-caption p { opacity: 1; transform: none; } /* captions always visible on touch */
+      .contact-grid { grid-template-columns: 1fr; }
+      .quote-grid { grid-template-columns: 1fr; }
+      .footer-contact { text-align: left; }
+    }
+
+    @media (max-width: 560px) {
+      .svc-grid { grid-template-columns: 1fr; }
+      .contact-form .row { grid-template-columns: 1fr; }
+      .hero-ctas .btn { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Reusable SVG defs: CKCE wordmark (recreated — C K C + tri-bar E) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="wordmark" viewBox="0 0 236 48">
+        <!-- C -->
+        <path d="M46 0 H17 A17 17 0 0 0 0 17 V31 A17 17 0 0 0 17 48 H46 V36 H20 A8 8 0 0 1 12 28 V20 A8 8 0 0 1 20 12 H46 Z"/>
+        <!-- K -->
+        <path d="M58 0 H70 V48 H58 Z"/>
+        <path d="M86 0 H103 L82 24 H67 Z"/>
+        <path d="M67 24 H82 L103 48 H86 Z"/>
+        <!-- C -->
+        <path d="M162 0 H133 A17 17 0 0 0 116 17 V31 A17 17 0 0 0 133 48 H162 V36 H136 A8 8 0 0 1 128 28 V20 A8 8 0 0 1 136 12 H162 Z"/>
+        <!-- E (tri-bar) -->
+        <rect x="176" y="0" width="60" height="12"/>
+        <rect x="176" y="18" width="60" height="12"/>
+        <rect x="176" y="36" width="60" height="12"/>
+      </symbol>
+      <!-- Benchmark / survey-station crosshair -->
+      <symbol id="benchmark" viewBox="0 0 20 20">
+        <g fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="10" cy="10" r="6"/>
+          <path d="M10 0 V4 M10 16 V20 M0 10 H4 M16 10 H20"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header" id="top">
+    <div class="container">
+      <a class="brand" href="#top" aria-label="CKCE — back to top">
+        <svg viewBox="0 0 236 48" role="img" aria-label="CKCE" fill="currentColor"><use href="#wordmark"/></svg>
+        <span class="brand-sub">Project Management &amp;<br>Consulting Engineers</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#services" data-navlink>Services</a></li>
+          <li><a href="#process" data-navlink>How we work</a></li>
+          <li><a href="#sectors" data-navlink>Sectors</a></li>
+          <li><a href="#why" data-navlink>Why CKCE</a></li>
+          <li><a href="#contact" data-navlink>Contact</a></li>
+          <li><a class="btn btn-accent" href="#contact">Request a consultation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80"
+             alt="" fetchpriority="high"
+             onerror="this.style.display='none'">
+      </div>
+      <!-- Self-drawing survey contour lines -->
+      <svg class="hero-contours" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path style="--d:0" pathLength="1" d="M-40 620 C 200 560, 340 660, 560 600 S 940 480, 1180 540 S 1400 620, 1500 580"/>
+        <path style="--d:1" pathLength="1" d="M-40 690 C 240 640, 420 730, 660 670 S 1000 560, 1240 620 S 1420 700, 1500 660"/>
+        <path style="--d:2" pathLength="1" d="M-40 550 C 180 500, 380 590, 620 530 S 900 410, 1160 470 S 1380 540, 1500 500"/>
+        <path style="--d:3" pathLength="1" d="M-40 760 C 260 720, 480 800, 760 740 S 1080 650, 1500 730"/>
+        <text x="1090" y="648">— 120 —</text>
+        <text x="880" y="500">— 125 —</text>
+        <text x="1220" y="756">— 115 —</text>
+      </svg>
+
+      <div class="container hero-inner">
+        <p class="hero-eyebrow">Co. Laois · Est. 2016</p>
+        <h1 id="hero-title">Engineering certainty, from site to <em>sign&#8209;off</em>.</h1>
+        <p class="hero-sub">Civil and structural design, GPS surveys, site suitability testing, planning and certification — one consulting engineering practice in Co.&nbsp;Laois, serving the Midlands and nationwide.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-accent" href="#contact">Request a consultation</a>
+          <a class="btn btn-ghost" href="#services">Explore our services</a>
+        </div>
+        <dl class="hero-stats">
+          <div class="stat">
+            <dt class="visually-hidden">Established</dt>
+            <dd class="stat-num">2016</dd>
+            <dd class="stat-label" aria-hidden="true">Established</dd>
+          </div>
+          <div class="stat">
+            <dt class="visually-hidden">Years in practice</dt>
+            <dd class="stat-num"><span data-count id="years-count">0</span><span class="unit">+</span></dd>
+            <dd class="stat-label" aria-hidden="true">Years in practice</dd>
+          </div>
+          <div class="stat">
+            <!-- EDIT-ME: placeholder figure — confirm real project count before launch -->
+            <dt class="visually-hidden">Projects delivered</dt>
+            <dd class="stat-num"><span data-count="250">0</span><span class="unit">+</span></dd>
+            <dd class="stat-label" aria-hidden="true">Projects delivered</dd>
+          </div>
+          <div class="stat">
+            <!-- EDIT-ME: placeholder figure — confirm counties served before launch -->
+            <dt class="visually-hidden">Counties served</dt>
+            <dd class="stat-num"><span data-count="12">0</span></dd>
+            <dd class="stat-label" aria-hidden="true">Counties served</dd>
+          </div>
+        </dl>
+      </div>
+      <svg class="hero-scrollcue" width="18" height="26" viewBox="0 0 18 26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="1" width="16" height="24" rx="8"/>
+        <path d="M9 7 V12"/>
+      </svg>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section class="section alt" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker" aria-hidden="true">
+            <span class="dim l"></span>
+            <span class="kicker-label">01 · Services</span>
+            <span class="dim r"></span>
+          </div>
+          <h2 id="services-title">Every discipline your project needs, under one roof</h2>
+          <p>From the first walk of the site to the final certificate, CKCE carries design, survey, assessment and statutory sign&#8209;off in&#8209;house — so nothing is lost between consultants.</p>
+        </div>
+
+        <ul class="svc-grid" data-stagger>
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- I-beam section -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 8 H38 M10 8 V13 H20 V35 H10 V40 M38 8 V13 H28 V35 H38 V40 M10 40 H38"/>
+                <path d="M4 8 V40 M2 10 H6 M2 38 H6" stroke-width="1" opacity="0.55"/>
+              </svg>
+            </div>
+            <h3>Civil &amp; structural design</h3>
+            <p>Foundations, superstructures, retaining works and drainage design for new builds and extensions — calculated, detailed and coordinated with your architect from day one.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- house frame -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 22 L24 7 L42 22"/>
+                <path d="M10 19 V40 H38 V19"/>
+                <path d="M17 40 V28 H24 V40 M24 13 V22 M31 40 V28"/>
+              </svg>
+            </div>
+            <h3>Self&#8209;build supervision</h3>
+            <p>Stage inspections and interim certificates for mortgage drawdown, so your lender releases funds on schedule and your build stays on a sound footing.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- theodolite on tripod -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="14" r="5"/>
+                <path d="M24 6 V9 M24 19 V23 M24 23 L12 42 M24 23 L36 42 M24 23 V42"/>
+                <path d="M29 12 L40 8 M40 8 l-3.2 0.4 M40 8 l-1 3" stroke-width="1.1"/>
+              </svg>
+            </div>
+            <h3>GPS &amp; topographical surveys</h3>
+            <p>GNSS/RTK topographical surveys, setting out, boundary resolution and land registry compliant mapping — survey&#8209;grade data you can design and register against.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- drainage pipe in trench -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 16 H14 V30 H34 V16 H44"/>
+                <circle cx="24" cy="30" r="6"/>
+                <circle cx="24" cy="30" r="2.4"/>
+                <path d="M6 40 H42 M10 44 H38" stroke-width="1" opacity="0.55"/>
+              </svg>
+            </div>
+            <h3>Percolation &amp; site suitability</h3>
+            <p>Trial holes and percolation testing to the EPA Code of Practice 2021 for domestic waste water treatment systems — the assessment your planning application depends on.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- drawing sheet -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="6" width="32" height="36" rx="1.5"/>
+                <path d="M30 42 V32 H40" stroke-width="1.2"/>
+                <path d="M14 14 H30 M14 20 H34 M14 26 L22 26" stroke-width="1.2"/>
+                <circle cx="31" cy="24" r="4" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <h3>Planning applications</h3>
+            <p>Pre&#8209;planning consultations with the local authority, drawings, reports and lodgement — applications built to answer the planner's questions before they are asked.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- map pin over contours -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 6 a10 10 0 0 1 10 10 c0 7-10 18-10 18 S14 23 14 16 A10 10 0 0 1 24 6 Z"/>
+                <circle cx="24" cy="16" r="3.5"/>
+                <path d="M6 40 C14 36, 20 42, 28 39 S40 36, 44 38" stroke-width="1" opacity="0.55"/>
+                <path d="M4 44 C 12 41, 22 46, 30 43 S 42 41, 46 43" stroke-width="1" opacity="0.35"/>
+              </svg>
+            </div>
+            <h3>Feasibility &amp; site appraisals</h3>
+            <p>Buying a site or weighing an extension? We appraise access, services, ground conditions and flood risk screening before you commit, and tell you plainly what the site can carry.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- certification stamp -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 20 a6 6 0 1 1 12 0 c0 4-3 5-3 8 h-6 c0-3-3-4-3-8 Z"/>
+                <path d="M15 28 h18 v6 H15 Z" stroke-width="1.4"/>
+                <path d="M10 40 H38" />
+                <path d="M20 12 l2.5 2.5 L27 10" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <h3>Structural assessments</h3>
+            <p>Structural surveys of existing buildings and Opinions on Compliance with planning permission and building regulations — for sales, purchases and lending requirements.</p>
+          </li>
+
+          <li class="svc-card reveal">
+            <svg class="bench" aria-hidden="true"><use href="#benchmark"/></svg>
+            <div class="svc-icon" aria-hidden="true">
+              <!-- clipboard checklist -->
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="10" y="8" width="28" height="34" rx="2"/>
+                <path d="M18 8 a6 3.5 0 0 1 12 0" />
+                <path d="M16 19 l2 2 3.5-4 M16 28 l2 2 3.5-4" stroke-width="1.3"/>
+                <path d="M26 20 H33 M26 29 H33 M16 36 H33" stroke-width="1.3"/>
+              </svg>
+            </div>
+            <h3>BCAR &amp; project management</h3>
+            <p>Design Certifier and Assigned Certifier roles under BCAR (S.I. No. 9 of 2014), plus tender and procurement support and project management from feasibility to handover.</p>
+          </li>
+        </ul>
+
+        <p class="svc-footnote reveal">
+          <span class="tag">Also</span>
+          <span>Drainage design · Flood risk screening · Tender &amp; procurement support · Land registry mapping · Setting out</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= PROCESS ================= -->
+    <section class="section dark on-dark" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker" aria-hidden="true">
+            <span class="dim l"></span>
+            <span class="kicker-label">02 · How we work</span>
+            <span class="dim r"></span>
+          </div>
+          <h2 id="process-title">A measured line from first call to final certificate</h2>
+          <p>One point of contact throughout. You always know what stage you are at, what happens next, and what it costs.</p>
+        </div>
+
+        <div class="process-track" data-draw>
+          <svg class="process-line" viewBox="0 0 1000 22" preserveAspectRatio="none" aria-hidden="true">
+            <line class="rule" x1="14" y1="11" x2="986" y2="11" pathLength="1"/>
+            <polygon class="head" points="2,11 16,5 16,17"/>
+            <polygon class="head" points="998,11 984,5 984,17"/>
+          </svg>
+
+          <div class="step reveal">
+            <svg class="step-node" aria-hidden="true"><use href="#benchmark"/></svg>
+            <span class="step-num">STAGE 01</span>
+            <h3>Consult</h3>
+            <p>We meet on site or by phone, understand what you want to build, and set out scope, timeline and fee in plain terms.</p>
+          </div>
+          <div class="step reveal">
+            <svg class="step-node" aria-hidden="true"><use href="#benchmark"/></svg>
+            <span class="step-num">STAGE 02</span>
+            <h3>Survey &amp; assess</h3>
+            <p>GNSS survey, trial holes, percolation testing and site appraisal establish exactly what the ground and the planners will allow.</p>
+          </div>
+          <div class="step reveal">
+            <svg class="step-node" aria-hidden="true"><use href="#benchmark"/></svg>
+            <span class="step-num">STAGE 03</span>
+            <h3>Design</h3>
+            <p>Civil and structural design, drainage and planning drawings — coordinated, costed and lodged with the local authority.</p>
+          </div>
+          <div class="step reveal">
+            <svg class="step-node" aria-hidden="true"><use href="#benchmark"/></svg>
+            <span class="step-num">STAGE 04</span>
+            <h3>Certify &amp; deliver</h3>
+            <p>Stage inspections, BCAR certification and interim certificates for your lender, through to Opinion on Compliance at handover.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTORS ================= -->
+    <section class="section" id="sectors" aria-labelledby="sectors-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker" aria-hidden="true">
+            <span class="dim l"></span>
+            <span class="kicker-label">03 · Sectors</span>
+            <span class="dim r"></span>
+          </div>
+          <h2 id="sectors-title">Built for the work the Midlands actually does</h2>
+          <p>The same rigour applies whether it is a one&#8209;off house, a slatted shed or a commercial unit — only the regulations change, and we know them all.</p>
+        </div>
+
+        <div class="mosaic" data-stagger>
+          <figure class="tile reveal">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
+                 alt="Contemporary one-off house with large glazed openings at dusk"
+                 loading="lazy" onerror="this.style.display='none'">
+            <figcaption class="tile-caption">
+              <span class="idx">S·01</span>
+              <h3>Residential &amp; self&#8209;build</h3>
+              <p>One&#8209;off houses, extensions and renovations — design, planning, percolation testing and drawdown certification for self&#8209;builders.</p>
+            </figcaption>
+          </figure>
+          <figure class="tile reveal">
+            <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1600&q=80"
+                 alt="Cattle in an Irish pasture at golden hour"
+                 loading="lazy" onerror="this.style.display='none'">
+            <figcaption class="tile-caption">
+              <span class="idx">S·02</span>
+              <h3>Agricultural</h3>
+              <p>Slatted units, milking parlours and grain stores — structural design, planning and grant&#8209;compliant certification for working farms.</p>
+            </figcaption>
+          </figure>
+          <figure class="tile reveal">
+            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1600&q=80"
+                 alt="Modern commercial building facade against a bright sky"
+                 loading="lazy" onerror="this.style.display='none'">
+            <figcaption class="tile-caption">
+              <span class="idx">S·03</span>
+              <h3>Commercial</h3>
+              <p>Retail, office and light industrial projects — feasibility, structural design, BCAR roles and project management to handover.</p>
+            </figcaption>
+          </figure>
+          <figure class="tile reveal">
+            <img src="https://images.unsplash.com/photo-1512187849-463fdb898f21?auto=format&fit=crop&w=1600&q=80"
+                 alt="Aerial view of a cable-stayed bridge crossing open water"
+                 loading="lazy" onerror="this.style.display='none'">
+            <figcaption class="tile-caption">
+              <span class="idx">S·04</span>
+              <h3>Public realm</h3>
+              <p>Civil works, drainage schemes and flood risk assessments for local authorities and community projects across the Midlands.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHY CKCE ================= -->
+    <section class="section alt" id="why" aria-labelledby="why-title">
+      <div class="container">
+        <div class="why-grid">
+          <div class="reveal">
+            <div class="kicker" aria-hidden="true">
+              <span class="dim l"></span>
+              <span class="kicker-label">04 · Why CKCE</span>
+              <span class="dim r"></span>
+            </div>
+            <h2 id="why-title" style="font-size: var(--size-h2); margin-bottom: 0.9rem;">A decade of drawings, certificates and ground truth</h2>
+            <p style="color: var(--slate-text); max-width: 36rem;">Established in 2016, CKCE has grown on repeat clients and referrals — the kind of reputation you only earn by getting planning granted, structures right and certificates issued on time.</p>
+
+            <ul class="why-points" data-stagger>
+              <li class="reveal">
+                <svg class="pt-marker" aria-hidden="true"><use href="#benchmark"/></svg>
+                <h3>Local knowledge that shortens the road</h3>
+                <p>We work with Laois County Council and the Midlands planning authorities week in, week out. We know what each planner expects to see — and we lodge applications that show it.</p>
+              </li>
+              <li class="reveal">
+                <svg class="pt-marker" aria-hidden="true"><use href="#benchmark"/></svg>
+                <h3>One point of contact, feasibility to certification</h3>
+                <p>The engineer who appraises your site is the engineer who designs, inspects and certifies it. No hand&#8209;offs, no gaps in responsibility, no surprises at drawdown.</p>
+              </li>
+              <li class="reveal">
+                <svg class="pt-marker" aria-hidden="true"><use href="#benchmark"/></svg>
+                <h3>Certainty in writing</h3>
+                <p>Fixed fee proposals, inspection records and certificates your bank and solicitor will accept — every stage documented to the standard the regulations demand.</p>
+              </li>
+            </ul>
+          </div>
+
+          <figure class="why-figure reveal">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80"
+                 alt="Sun setting over open farmland in the Irish Midlands"
+                 loading="lazy" onerror="this.style.display='none'">
+            <figcaption>LAT 53.03° N · LON 7.30° W — CO. LAOIS</figcaption>
+          </figure>
+        </div>
+
+        <div class="accreditation reveal">
+          <span class="acc-label">Assurance</span>
+          <!-- EDIT-ME: confirm professional membership body and grade before launch -->
+          <span class="acc-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M6.5 10.5 L9 13 L14 7.5"/></svg>
+            Professional membership — details to be confirmed
+          </span>
+          <!-- EDIT-ME: confirm professional indemnity insurer and cover level before launch -->
+          <span class="acc-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 2 L17 5 V10 C17 14.5 14 17 10 18.5 C6 17 3 14.5 3 10 V5 Z"/></svg>
+            Professional indemnity insurance held
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section class="section" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker" aria-hidden="true">
+            <span class="dim l"></span>
+            <span class="kicker-label">05 · Testimonials</span>
+            <span class="dim r"></span>
+          </div>
+          <h2 id="testimonials-title">What clients say when the certificate is signed</h2>
+        </div>
+
+        <!-- EDIT-ME: all three testimonials below are placeholders — replace with real, permissioned client quotes before launch -->
+        <div class="quote-grid" data-stagger>
+          <figure class="quote-card reveal">
+            <blockquote>
+              <p>CKCE handled everything from the percolation test to the final drawdown certificate. The bank never once queried a stage payment — that alone was worth the fee.</p>
+            </blockquote>
+            <figcaption><strong>Placeholder — self-build client</strong>Co. Laois</figcaption>
+          </figure>
+          <figure class="quote-card reveal">
+            <blockquote>
+              <p>Planning had been refused twice before we came to CKCE. Their pre&#8209;planning meeting with the council changed the design, and permission was granted first time.</p>
+            </blockquote>
+            <figcaption><strong>Placeholder — site owner</strong>Midlands</figcaption>
+          </figure>
+          <figure class="quote-card reveal">
+            <blockquote>
+              <p>Straight answers at every stage. The feasibility report told us exactly what the site could take, and the finished shed matches the drawings to the millimetre.</p>
+            </blockquote>
+            <figcaption><strong>Placeholder — agricultural client</strong>Co. Offaly</figcaption>
+          </figure>
+        </div>
+        <p class="quote-note reveal">// Placeholder quotes shown for layout — to be replaced with verified client testimonials.</p>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section dark on-dark" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-intro reveal">
+            <div class="kicker" aria-hidden="true">
+              <span class="dim l"></span>
+              <span class="kicker-label">06 · Contact</span>
+              <span class="dim r"></span>
+            </div>
+            <h2 id="contact-title">Start with a conversation about your site</h2>
+            <p>Tell us where the site is and what you want to build. We will come back within two working days with an honest read and a clear next step.</p>
+
+            <a class="contact-mail" href="mailto:info@ckce.ie">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7 L12 14 L22 7"/></svg>
+              info@ckce.ie
+            </a>
+
+            <div class="contact-meta">
+              <span>CO. LAOIS, IRELAND</span>
+              <span>SERVING THE MIDLANDS &amp; NATIONWIDE</span>
+              <span>WWW.CKCE.IE · EST. 2016</span>
+              <!-- EDIT-ME: add phone number when confirmed, e.g. <span>+353 (0)57 000 0000</span> -->
+            </div>
+
+            <div class="map-wrap reveal">
+              <iframe title="Map of Co. Laois, Ireland — CKCE service area"
+                      src="https://www.openstreetmap.org/export/embed.html?bbox=-7.95%2C52.72%2C-6.65%2C53.32&amp;layer=mapnik&amp;marker=53.0344%2C-7.2994"
+                      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+
+          <!--
+            FORM BACKEND — WIRE BEFORE LAUNCH:
+            This form is UI only. Point it at a backend before go-live, e.g.
+              Formspree:  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              Netlify:    add `data-netlify="true" name="contact"` and deploy on Netlify.
+            Until then, submissions are intercepted by JS and visitors are directed to email.
+          -->
+          <form class="contact-form reveal" novalidate>
+            <div class="row">
+              <div class="field">
+                <label for="f-name">Name</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="f-phone">Phone</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="f-service">Service</label>
+                <select id="f-service" name="service" required>
+                  <option value="" selected>Select a service…</option>
+                  <option>Civil &amp; structural design</option>
+                  <option>Self-build supervision &amp; stage certificates</option>
+                  <option>GPS &amp; topographical survey</option>
+                  <option>Percolation / site suitability test</option>
+                  <option>Planning application</option>
+                  <option>Feasibility study / site appraisal</option>
+                  <option>Structural assessment / Opinion on Compliance</option>
+                  <option>BCAR certification / project management</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-message">Message</label>
+              <textarea id="f-message" name="message" placeholder="Where is the site, and what are you hoping to build?" required></textarea>
+            </div>
+            <button class="btn btn-navy" type="submit">Send enquiry</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+            <p class="form-note">Prefer email? Write to <a href="mailto:info@ckce.ie">info@ckce.ie</a> — we reply to every enquiry within two working days.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <svg viewBox="0 0 236 48" role="img" aria-label="CKCE" fill="currentColor"><use href="#wordmark"/></svg>
+          <p>PROJECT MANAGEMENT &amp;<br>CONSULTING ENGINEERS</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer">
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">How we work</a></li>
+            <li><a href="#sectors">Sectors</a></li>
+            <li><a href="#why">Why CKCE</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="footer-contact">
+          <a href="mailto:info@ckce.ie">info@ckce.ie</a>
+          <p>Co. Laois, Ireland<br>Est. 2016</p>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <span>© <span id="copyright-year">2026</span> CKCE. All rights reserved.</span>
+        <span>WWW.CKCE.IE</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+    document.documentElement.classList.add("js");
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Footer year */
+    document.getElementById("copyright-year").textContent = new Date().getFullYear();
+
+    /* Years in practice, computed from founding year */
+    var years = Math.max(1, new Date().getFullYear() - 2016);
+    document.getElementById("years-count").setAttribute("data-count", years);
+
+    /* Header state + scroll progress bar (rAF-throttled) */
+    var header = document.querySelector(".site-header");
+    var progress = document.querySelector(".scroll-progress");
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        header.classList.toggle("scrolled", y > 24);
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* Mobile nav toggle */
+    var toggle = document.querySelector(".nav-toggle");
+    var nav = document.getElementById("site-nav");
+    function setNav(open) {
+      nav.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    }
+    toggle.addEventListener("click", function () {
+      setNav(!nav.classList.contains("open"));
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setNav(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("open")) {
+        setNav(false);
+        toggle.focus();
+      }
+    });
+
+    /* Stagger indices for grouped reveals */
+    document.querySelectorAll("[data-stagger]").forEach(function (group) {
+      Array.prototype.forEach.call(group.children, function (child, i) {
+        child.style.setProperty("--i", i);
+      });
+    });
+
+    /* Count-up animation */
+    function runCounter(el) {
+      var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+      if (reduceMotion) { el.textContent = target; return; }
+      var t0 = null, dur = 1500;
+      function tick(t) {
+        if (!t0) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    /* IntersectionObserver: reveals, hero contours, process line, counters */
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("inview");
+          entry.target.querySelectorAll("[data-count]").forEach(runCounter);
+          io.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+
+      document.querySelectorAll(".reveal, .hero, [data-draw]").forEach(function (el) {
+        io.observe(el);
+      });
+    } else {
+      document.querySelectorAll(".reveal, .hero, [data-draw]").forEach(function (el) {
+        el.classList.add("inview");
+      });
+      document.querySelectorAll("[data-count]").forEach(function (el) {
+        el.textContent = el.getAttribute("data-count");
+      });
+    }
+
+    /* Active nav link highlighting */
+    var navLinks = document.querySelectorAll("[data-navlink]");
+    var byId = {};
+    navLinks.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+    if ("IntersectionObserver" in window) {
+      var navIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var link = byId[entry.target.id];
+          if (!link) return;
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (a) { a.removeAttribute("aria-current"); });
+            link.setAttribute("aria-current", "true");
+          }
+        });
+      }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+      Object.keys(byId).forEach(function (id) {
+        var section = document.getElementById(id);
+        if (section) navIo.observe(section);
+      });
+      /* Clear highlighting while the hero occupies mid-viewport */
+      var hero = document.querySelector(".hero");
+      var heroIo = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          navLinks.forEach(function (a) { a.removeAttribute("aria-current"); });
+        }
+      }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+      heroIo.observe(hero);
+    }
+
+    /* Form: UI only until a backend is wired (see comment above the form) */
+    var form = document.querySelector(".contact-form");
+    var status = form.querySelector(".form-status");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      status.textContent = "// Form backend not yet connected — please email info@ckce.ie directly.";
+    });
+  })();
+  </script>
+</body>
+</html>
