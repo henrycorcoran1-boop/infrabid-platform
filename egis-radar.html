@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Egis Ireland Project Radar — live roads and urban transport schemes on the island of Ireland, the evidence behind each one, and a daily brief on new Egis mentions.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="robots" content="noindex, nofollow">
+<title>Egis Project Radar · InfraBid</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Crect x='14' y='16' width='10' height='36' rx='4' fill='%23133198'/%3E%3Crect x='39' y='10' width='10' height='42' rx='4' fill='%23133198'/%3E%3Crect x='27' y='28' width='9' height='24' rx='4' fill='%23476DCF'/%3E%3Cpath d='M8 46 Q30 41 50 14' stroke='%23476DCF' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='52' cy='12' r='4' fill='%23476DCF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="egis-radar.css">
+</head>
+<body data-requires-auth>
+<a href="#main" class="sr-skip">Skip to content</a>
+<div id="progress"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="InfraBid home">
+      <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+      <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="valuation.html">Valuation</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="takeoff.html">AI Takeoff</a>
+      <a href="tender-import.html">Tender Import</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="process.html">Process</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <div class="nav-auth" data-auth-slot></div>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu">
+    <a href="about.html">About</a>
+    <a href="process.html">Process</a>
+    <a href="valuation.html">Valuation Suite</a>
+    <a href="takeoff.html">AI Takeoff</a>
+    <a href="tender-import.html">Tender Import</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="egis-radar.html">Egis Radar</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="suppliers.html">Suppliers</a>
+    <a href="value-engineering.html">Value Engineering</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="btn btn-primary">Request Demo</a>
+    <div class="nav-auth" data-auth-slot></div>
+  </div>
+</nav>
+<main id="main">
+<section class="phero">
+  <img class="phero-img" src="https://images.unsplash.com/photo-1545262810-77515befe149?auto=format&fit=crop&w=1600&q=65" alt="Motorway interchange from above" loading="eager" decoding="async" onerror="this.style.display='none'"><div class="phero-veil"></div>
+  <div class="wrap content reveal">
+    <h1>Egis Project Radar</h1>
+    <p>Live roads and urban transport schemes on the island of Ireland, what Egis is provably engaged on, and the primary source behind every line. Refreshed each morning; a brief lands in your inbox at 7am whenever something new names Egis.</p>
+  </div>
+</section>
+
+<section class="section alt" id="radar">
+  <div class="wrap">
+
+    <div class="radar-status" id="radar-status">
+      <div class="rs-facts" id="rs-facts"><span class="rs-fact">Loading radar status…</span></div>
+      <div class="rs-actions">
+        <button class="btn btn-ghost" id="btn-subscribe" type="button" style="padding:9px 18px">Daily brief</button>
+        <button class="btn btn-primary" id="btn-sendnow" type="button" style="padding:9px 18px">Send me one now</button>
+      </div>
+    </div>
+
+    <div class="kpi-strip">
+      <div class="kpi-tile"><div class="lbl">Egis Engagements</div><div class="val" id="kpi-confirmed">—</div><div class="sub">Evidenced in a primary source</div></div>
+      <div class="kpi-tile"><div class="lbl">Schemes Tracked</div><div class="val" id="kpi-tracked">—</div><div class="sub">Live across the island</div></div>
+      <div class="kpi-tile"><div class="lbl">Programme Value</div><div class="val" id="kpi-value">—</div><div class="sub">Where a figure is published</div></div>
+      <div class="kpi-tile"><div class="lbl">Mentions · 30 Days</div><div class="val" id="kpi-mentions">—</div><div class="sub">Naming Egis in Ireland</div></div>
+    </div>
+
+    <div class="radar-toolbar">
+      <div class="chipbar" id="inv-chips">
+        <button class="fchip active" data-inv="all">All</button>
+        <button class="fchip" data-inv="confirmed">Egis engaged</button>
+        <button class="fchip" data-inv="market_map">Market map</button>
+        <button class="fchip" data-inv="opportunity">Pipeline</button>
+      </div>
+      <div class="search-box"><input id="radar-search" type="search" placeholder="Search scheme, client, county, role…" aria-label="Search schemes"></div>
+      <select id="mode-filter" aria-label="Filter by mode"><option value="all">All modes</option></select>
+      <select id="sort-by" aria-label="Sort">
+        <option value="rank">Sort: relevance</option>
+        <option value="value">Sort: value</option>
+        <option value="name">Sort: name</option>
+        <option value="verified">Sort: last verified</option>
+      </select>
+      <span class="radar-count" id="radar-count"></span>
+    </div>
+
+    <div class="proj-grid" id="proj-grid"></div>
+    <div class="radar-empty" id="proj-empty" style="display:none">No schemes match those filters.</div>
+
+    <div class="note-box" id="provenance">
+      <strong>How to read this.</strong> <em>Egis engaged</em> means a retrievable primary source — a TED contract award notice, a client announcement, or named press — puts an Egis entity on that scheme. <em>Market map</em> means the scheme is live but Egis involvement is not evidenced; it is competitor and pipeline context, not a claim. <em>Pipeline</em> means it has not been procured yet. Every card links to its sources so you can check the claim rather than trust it.
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="mentions">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> Daily sweep</div>
+    <h2 style="margin:10px 0 8px">Latest mentions</h2>
+    <p style="color:var(--text-sub);max-width:70ch;margin-bottom:8px">Google News and Tenders Electronic Daily, swept at 05:00 and deduplicated. Irish items first. Neither source is exhaustive — treat this as a prompt to look, not as the record.</p>
+    <div class="feed-list" id="feed-list"></div>
+  </div>
+</section>
+</main>
+
+<div class="drawer-veil" id="drawer-veil"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+  <button class="drawer-close" id="drawer-close" type="button" aria-label="Close">&times;</button>
+  <div id="drawer-body"></div>
+</aside>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 64 60" fill="none" aria-hidden="true"><rect x="14" y="16" width="10" height="36" rx="4" fill="#133198"/><rect x="39" y="10" width="10" height="42" rx="4" fill="#133198"/><rect x="27" y="28" width="9" height="24" rx="4" fill="#476DCF"/><path d="M8 46 Q30 41 50 14" stroke="#476DCF" stroke-width="3.6" stroke-linecap="round"/><circle cx="52" cy="12" r="4" fill="#476DCF"/></svg>
+          <span class="wm-ib"><span class="w1"><b>Infra</b><i>Bid</i></span><span class="w2">Bid With Certainty</span></span>
+        </div>
+        <p class="bl">Real-time procurement intelligence and quantity surveying for the Irish construction market.</p>
+      </div>
+      <div class="foot-col"><h5>Platform</h5><a href="valuation.html">Valuation Suite</a><a href="dashboard.html">Dashboard</a><a href="takeoff.html">AI Takeoff</a>
+      <a href="tender-import.html">Tender Import</a><a href="egis-radar.html">Egis Radar</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="about.html">About</a><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Contact</h5><a href="mailto:info@infrabid.ie">info@infrabid.ie</a><li>Dublin, Ireland</li></div>
+    </div>
+    <div class="foot-bar"><span>© 2026 InfraBid · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+  </div>
+</footer>
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+<script src="egis-radar.js"></script>
+</body>
+</html>

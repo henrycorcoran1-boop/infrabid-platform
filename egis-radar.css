@@ -1,0 +1,117 @@
+/* ============================================================
+   Egis Ireland Project Radar — module styles.
+   Layers on style.css and reuses its tokens; defines nothing
+   the base sheet already provides.
+   ============================================================ */
+
+.radar-status{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  padding:16px 20px;margin-bottom:26px;border:1px solid var(--border);border-radius:var(--r-md);
+  background:var(--surface);box-shadow:var(--shadow-sm)
+}
+.radar-status .rs-facts{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.radar-status .rs-fact{font-size:13px;color:var(--text-sub)}
+.radar-status .rs-fact b{color:var(--ink);font-weight:700}
+.radar-status .rs-actions{display:flex;gap:10px;flex-wrap:wrap}
+.rs-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}
+.rs-dot.on{background:#17A06A;box-shadow:0 0 10px rgba(23,160,106,.6)}
+.rs-dot.off{background:#C0392B}
+
+/* Involvement is the spine of this page: what Egis is provably on, what is
+   merely live in the market, and what has not been procured yet. */
+.inv-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap
+}
+.inv-confirmed{background:rgba(23,160,106,.14);color:#0B6B43}
+.inv-market_map{background:rgba(19,49,152,.10);color:var(--navy)}
+.inv-opportunity{background:rgba(245,166,35,.18);color:#8A5B00}
+
+.conf-badge{font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:6px}
+.conf-HIGH{background:rgba(23,160,106,.13);color:#0B6B43}
+.conf-MEDIUM{background:rgba(245,166,35,.16);color:#8A5B00}
+.conf-LOW{background:rgba(130,144,174,.16);color:var(--muted)}
+
+.radar-toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:22px}
+.radar-toolbar .search-box{flex:1 1 240px;min-width:220px}
+.radar-toolbar select{
+  font-family:inherit;font-size:14px;padding:10px 14px;border:1px solid var(--border-2);
+  border-radius:var(--r-sm);background:var(--surface);color:var(--text)
+}
+.radar-count{font-size:13px;color:var(--text-sub);margin-left:auto}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.proj-card{
+  border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);
+  padding:20px;display:flex;flex-direction:column;gap:11px;cursor:pointer;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+  text-align:left;width:100%
+}
+.proj-card:hover,.proj-card:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:var(--border-2)}
+.proj-card .pc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.proj-card h3{font-size:17px;line-height:1.25;margin:0}
+.proj-card .pc-client{font-size:13px;color:var(--text-sub)}
+.proj-card .pc-role{font-size:13.5px;color:var(--text);line-height:1.5}
+.proj-card .pc-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:6px}
+.pc-tag{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg-3);color:var(--text-sub)}
+.pc-tag.val{background:rgba(14,165,233,.12);color:var(--accent-deep);font-weight:700}
+.pc-srccount{font-size:12px;color:var(--muted)}
+
+.radar-empty{padding:40px;text-align:center;color:var(--text-sub);border:1px dashed var(--border-2);border-radius:var(--r-md)}
+
+/* Detail drawer */
+.drawer-veil{position:fixed;inset:0;background:rgba(21,35,78,.45);backdrop-filter:blur(3px);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.drawer-veil.open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;height:100%;width:min(560px,100%);background:var(--bg);z-index:201;
+  box-shadow:-30px 0 70px -30px rgba(19,49,152,.4);transform:translateX(100%);
+  transition:transform .38s var(--ease);overflow-y:auto;padding:28px 30px 60px
+}
+.drawer.open{transform:translateX(0)}
+.drawer-close{position:absolute;top:18px;right:20px;width:36px;height:36px;border-radius:50%;
+  background:var(--bg-3);display:grid;place-items:center;font-size:20px;line-height:1;color:var(--ink)}
+.drawer h2{font-size:23px;line-height:1.2;margin:6px 40px 8px 0}
+.drawer .d-client{color:var(--text-sub);font-size:14px;margin-bottom:14px}
+.d-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.d-row{display:grid;grid-template-columns:132px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--border);font-size:14px}
+.d-row dt{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.d-row dd{margin:0;color:var(--text);line-height:1.55}
+.d-quote{margin:18px 0;padding:14px 16px;border-left:3px solid var(--accent);background:var(--bg-2);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:14px;line-height:1.6;color:var(--text)}
+.d-quote span{display:block;margin-top:7px;font-size:12px;color:var(--muted)}
+.d-sources{margin-top:22px}
+.d-sources h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.src-link{
+  display:block;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r-sm);
+  margin-bottom:9px;transition:border-color .25s ease,background .25s ease
+}
+.src-link:hover{border-color:var(--accent);background:var(--bg-2)}
+.src-link .sl-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
+.src-link .sl-meta{font-size:12px;color:var(--muted);margin-top:4px;word-break:break-all}
+.src-type{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;background:var(--bg-3);color:var(--text-sub);margin-right:7px}
+.src-type.TED,.src-type.eTenders{background:rgba(14,165,233,.14);color:var(--accent-deep)}
+
+/* Mentions feed */
+.feed-list{display:flex;flex-direction:column;gap:2px}
+.feed-item{display:block;padding:15px 0;border-top:1px solid var(--border)}
+.feed-item:hover .fi-title{color:var(--accent-deep)}
+.fi-title{font-size:15px;font-weight:600;color:var(--ink);line-height:1.4;transition:color .2s ease}
+.fi-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:7px;align-items:center}
+.fi-meta span{font-size:11.5px;color:var(--muted)}
+.fi-pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--bg-3);color:var(--text-sub)}
+.fi-pill.ie{background:rgba(23,160,106,.13);color:#0B6B43}
+.fi-pill.TED{background:rgba(14,165,233,.14);color:var(--accent-deep)}
+
+.note-box{
+  margin-top:34px;padding:18px 20px;border:1px solid var(--border);border-left:3px solid var(--muted);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;background:var(--bg-2);font-size:13.5px;line-height:1.65;color:var(--text-sub)
+}
+.note-box strong{color:var(--ink)}
+
+@media (max-width:640px){
+  .proj-grid{grid-template-columns:1fr}
+  .drawer{padding:24px 20px 50px}
+  .d-row{grid-template-columns:1fr;gap:3px}
+  .radar-count{margin-left:0;width:100%}
+}
