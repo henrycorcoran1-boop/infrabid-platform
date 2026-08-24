@@ -18,8 +18,9 @@
  *
  * Deploy:
  *   supabase functions deploy egis-radar --no-verify-jwt --project-ref uksvfvhikjjznjhfesjc
- * Secrets are the ones the tender digest already uses — RESEND_API_KEY, and
- * DIGEST_FROM for the sender. Job auth reuses the vault's digest_key.
+ * Shares only RESEND_API_KEY with the tender digest, and reuses the vault's
+ * digest_key for job auth. The sender is deliberately NOT shared — see
+ * digestFrom(). This is a private tool and must never send as InfraBid.
  *
  * The watch terms live in internal_config under 'egis_watch_terms' (comma
  * separated). Egis grows by acquisition, so the name to watch for in Ireland
@@ -476,6 +477,20 @@ async function authorise(req: Request, admin: Admin): Promise<{ kind: 'job' } | 
   return { kind: 'user', id: data.user.id };
 }
 
+/**
+ * Who the brief comes from.
+ *
+ * Deliberately does NOT read DIGEST_FROM: that secret is the InfraBid tender
+ * email's sender, and this is a private tool that must never go out under the
+ * company's identity. Set internal_config.egis_digest_from to change it; the
+ * fallback is Resend's shared test sender, which is not InfraBid either.
+ */
+async function digestFrom(admin: Admin): Promise<string> {
+  const { data } = await admin.from('internal_config').select('value').eq('key', 'egis_digest_from').maybeSingle();
+  const configured = String((data as { value?: string } | null)?.value ?? '').trim();
+  return configured || 'Egis Radar <onboarding@resend.dev>';
+}
+
 async function watchTerms(admin: Admin): Promise<string[]> {
   const { data } = await admin.from('internal_config').select('value').eq('key', 'egis_watch_terms').maybeSingle();
   const extra = String((data as { value?: string } | null)?.value ?? '')
@@ -500,7 +515,7 @@ Deno.serve(async (req: Request) => {
   const body = (await req.json().catch(() => ({}))) as { mode?: string; force?: boolean };
   const mode = body.mode ?? 'digest';
   const resendKey = Deno.env.get('RESEND_API_KEY');
-  const from = Deno.env.get('DIGEST_FROM') ?? 'InfraBid <alerts@infrabid.ie>';
+  const from = await digestFrom(admin);
 
   if (mode === 'status') {
     const [{ count: unsent }, { count: confirmed }, { count: tracked }, lastRun, sub] = await Promise.all([
