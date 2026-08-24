@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<title>Egis in Ireland · Roads &amp; Urban Transportation · Induction Dossier</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<!-- Egis wordmark, from the official brand SVG. Two variants: the mark is
+     always lime; the wordmark takes petrol on light grounds, white on dark. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="egis-mark">
+    <path d="M45.2307 3.50562C27.0259 3.50562 12.2549 18.2766 12.2549 36.4814C12.2549 54.6861 27.0259 69.4572 45.2307 69.4572C63.4354 69.4572 78.2064 54.6861 78.2064 36.4814C78.2064 18.2766 63.4354 3.50562 45.2307 3.50562ZM45.2307 63.9217C30.0748 63.9217 17.7607 51.6372 17.7607 36.4518C17.7607 21.2664 30.0452 8.98185 45.2307 8.98185C60.3865 8.98185 72.7006 21.2664 72.7006 36.4518C72.7006 51.6372 60.4161 63.9217 45.2307 63.9217Z"/>
+    <path d="M58.4919 44.7996C56.5382 44.7996 52.6605 48.6773 45.2898 48.6773C38.7183 48.6773 36.8534 44.7108 36.8534 44.7108C36.8534 44.7108 43.1289 40.7738 46.2962 37.7545C49.4635 34.7351 53.3413 29.6437 53.3413 24.9075C53.3413 20.1713 49.7299 17.8032 46.681 17.8032C43.6617 17.8032 39.5175 18.7801 34.7813 23.8715C30.0747 28.9629 29.2163 34.7943 29.2163 38.1393C29.2163 41.4842 29.9859 44.2075 29.9859 44.2075C29.9859 44.2075 25.1905 47.0789 18.8558 49.2694C12.5212 51.4302 7.87378 51.6374 7.87378 53.3543C7.87378 54.0943 8.2586 54.5384 9.17623 54.5384C11.1003 54.5384 18.5302 52.9695 22.2896 51.667C26.0489 50.3646 31.5252 47.7005 31.5252 47.7005C33.9229 51.223 38.5703 54.7752 46.7106 54.7752C54.2885 54.7752 61.1856 49.891 61.1856 47.5821C61.2448 46.3684 60.3272 44.7996 58.4919 44.7996ZM37.919 29.2589C41.6784 23.5163 46.089 22.273 47.6578 23.5755C49.1971 24.8187 46.977 29.7917 43.2769 33.7287C39.5767 37.6657 35.2845 40.8034 35.2845 40.8034C35.2845 40.8034 34.1301 35.0311 37.919 29.2589Z"/>
+  </g>
+  <g id="egis-word">
+    <path d="M156.654 22.5995H152.776V51.0759H156.654V22.5995Z"/>
+    <path d="M156.654 14.0732H152.776V19.0462H156.654V14.0732Z"/>
+    <path d="M102.124 21.6809C92.8885 21.6809 87.7675 29.1996 87.7675 36.5111C87.7675 43.8226 91.6452 51.9334 102.864 51.9334C114.053 51.9334 115.504 43.645 115.652 42.7866H112.366C112.366 42.7866 111.448 48.8548 102.746 48.8548C94.0429 48.8548 91.6748 41.6025 91.29 38.1984H116.185C116.155 38.1392 117.073 21.6809 102.124 21.6809ZM91.4084 34.9719C91.4084 34.9719 92.3852 24.8186 102.538 24.8186C111.774 24.8186 112.366 34.9719 112.366 34.9719H91.4084Z"/>
+    <path d="M143.892 22.5986L143.832 27.0683C143.832 27.0683 140.931 21.9177 133.294 21.9177C125.657 21.9177 119.648 27.1867 119.648 36.3335C119.648 45.4803 125.45 50.6309 133.472 50.6309C141.494 50.6309 143.744 46.8123 143.744 46.8123C143.744 46.8123 143.862 47.9964 143.862 49.9797C143.862 51.963 144.602 60.9025 133.709 60.9025C124.355 60.9025 124.029 53.9758 124.029 53.9758H120.655C120.655 53.9758 120.655 64.2475 133.886 64.2475C147.118 64.2475 147.177 54.035 147.177 47.582C147.177 41.1289 147.177 22.569 147.177 22.569H143.892V22.5986ZM133.354 47.5524C125.45 47.5524 123.023 41.0993 123.023 36.2151C123.023 31.3309 125.924 25.0851 133.235 25.0851C140.547 25.0851 143.773 30.8869 143.773 36.6887C143.744 41.6321 141.257 47.5524 133.354 47.5524Z"/>
+    <path d="M184.53 30.9455H180.712C180.712 30.9455 181.245 24.8181 172.601 24.8181C167.865 24.8181 165.941 27.3342 165.941 29.4951C165.941 31.656 167.924 34.1129 175.739 35.2969C183.583 36.481 185.478 40.0331 185.478 43.526C185.478 47.019 182.962 51.8144 173.371 51.8144C163.75 51.8144 161.53 46.3382 161.175 41.8684H164.934C164.934 41.8684 164.934 49.0319 173.489 49.0319C182.044 49.0319 181.777 43.7036 181.777 43.7036C181.777 43.7036 182.754 39.6187 173.223 38.0498C163.662 36.481 162.241 33.3136 162.241 29.8799C162.241 26.4462 165.26 21.7692 173.312 21.7692C181.363 21.7988 184.53 26.8606 184.53 30.9455Z"/>
+  </g>
+</defs></svg>
+
+<!-- ======================================================================
+     PAGE 1 · COVER
+     ====================================================================== -->
+<section class="page cover">
+  <div class="rail">
+    <span style="background:#abc022"></span>
+    <span style="background:#1160c6"></span>
+    <span style="background:#b03a8e"></span>
+    <span style="background:#c9401f"></span>
+    <span style="background:#09212c"></span>
+  </div>
+  <div class="cover-inner">
+    <div class="logo-lockup">
+      <svg viewBox="0 0 193 72" aria-label="Egis">
+        <use href="#egis-mark" fill="#ABC022"></use>
+        <use href="#egis-word" fill="#FFFFFF"></use>
+      </svg>
+    </div>
+
+    <div id="ch-cover-map" class="cover-map" aria-hidden="true"></div>
+
+    <p class="kicker">Induction dossier · Roads &amp; Urban Transportation · Ireland</p>
+    <h1>The live portfolio,<br>the <span class="hl">credentials base</span>,<br>and the people</h1>
+    <p class="deck">
+      A working reference for the incoming Technical Director. Every publicly evidenced
+      Egis assignment in Irish roads and transport, the schemes behind the credentials,
+      the named Irish team, and the questions to close out in week one.
+    </p>
+
+    <div class="cover-stats">
+      <div class="s"><div class="v">13</div><div class="l">Live assignments in roads, transport and operations</div></div>
+      <div class="s"><div class="v">47</div><div class="l">Identifiable schemes across the credentials base</div></div>
+      <div class="s"><div class="v">€600m</div><div class="l">Ceiling value of the tunnels and motorway operations contract</div></div>
+      <div class="s"><div class="v">630<span class="unit">+</span></div><div class="l">Irish staff across 16 offices and sites</div></div>
+      <div class="s"><div class="v">~320<span class="unit">km</span></div><div class="l">Road and light-rail mainline evidenced in the record</div></div>
+      <div class="s"><div class="v">305</div><div class="l">Principal structures evidenced on the schemes counted</div></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <h4>Prepared for</h4>
+        <p>Technical Director,<br>Roads &amp; Urban Transportation<br>Egis in Ireland, Dublin</p>
+      </div>
+      <div>
+        <h4>Information date</h4>
+        <p>24 August 2026</p>
+      </div>
+      <div>
+        <h4>Status</h4>
+        <p>Public-source dossier.<br>Internal reconciliation required.<br>Not for external circulation.</p>
+      </div>
+      <div>
+        <h4>Evidence</h4>
+        <p>Graded A / B / C throughout.<br>Every claim carries a source.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 2 · HOW TO READ THIS DOSSIER
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow">How to read this dossier</p>
+    <h1 class="page-title">Contents, evidence key and the naming traps</h1>
+    <p class="standfirst">
+      Public sources only. Nothing is inferred into fact. Where the record is empty, that is
+      stated rather than filled in. Thirteen live assignments: <strong>ten carry direct public
+      evidence</strong>, three are publicly linked but need the current commission confirming internally.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="grid g-3-2 mb5">
+      <div>
+        <h4 class="mini">Contents</h4>
+        <div class="toc">
+          <div>
+            <div class="row"><span class="n">01</span><span class="t">Executive summary<span>What matters before Monday</span></span><span class="p">3</span></div>
+            <div class="row"><span class="n">02</span><span class="t">Egis at a glance<span>Group, ownership, the four Irish entities</span></span><span class="p">4</span></div>
+            <div class="row"><span class="n">03</span><span class="t">The portfolio map<span>Every live and completed scheme, plotted</span></span><span class="p">6</span></div>
+            <div class="row"><span class="n">04</span><span class="t">Live register dashboard<span>Composition, values, stage snapshot</span></span><span class="p">7</span></div>
+            <div class="row"><span class="n">05</span><span class="t">Live design and capital projects<span>Seven briefs with corridor schematics</span></span><span class="p">9</span></div>
+            <div class="row"><span class="n">06</span><span class="t">Live operations and maintenance<span>Tunnels, motorway network, tolling</span></span><span class="p">12</span></div>
+            <div class="row"><span class="n">07</span><span class="t">Requiring internal confirmation<span>Four publicly linked assignments</span></span><span class="p">14</span></div>
+            <div class="row"><span class="n">08</span><span class="t">The credentials base<span>47 schemes by category, with roles</span></span><span class="p">15</span></div>
+          </div>
+          <div>
+            <div class="row"><span class="n">09</span><span class="t">Consent and delivery programme<span>Milestones to 2033, and the risk on each</span></span><span class="p">20</span></div>
+            <div class="row"><span class="n">10</span><span class="t">Funding and market context<span>NDP, allocations, competitors</span></span><span class="p">22</span></div>
+            <div class="row"><span class="n">11</span><span class="t">The Irish team<span>Named, with discipline and background</span></span><span class="p">24</span></div>
+            <div class="row"><span class="n">12</span><span class="t">Data quality and register controls<span>Five flags to design out</span></span><span class="p">28</span></div>
+            <div class="row"><span class="n">13</span><span class="t">Regulatory and assurance landscape<span>What the technical authority owns</span></span><span class="p">29</span></div>
+            <div class="row"><span class="n">14</span><span class="t">Recommendations<span>Sequenced actions and week-one questions</span></span><span class="p">30</span></div>
+            <div class="row"><span class="n">15</span><span class="t">Source directory<span>Every link, by section</span></span><span class="p">31</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="mini">Evidence confidence key</h4>
+        <div id="ch-grades" class="figure mb3"></div>
+        <table class="data tight" style="font-size:6.6pt">
+          <tbody>
+            <tr><td style="width:7mm"><span class="grade a">A</span></td><td><strong>Confirmed.</strong> Named Egis, JB Barry, client or Government source.</td></tr>
+            <tr><td><span class="grade b">B</span></td><td><strong>Probable or legacy.</strong> Predecessor branding, framework membership or partial evidence.</td></tr>
+            <tr><td><span class="grade c">C</span></td><td><strong>Market context.</strong> Matters to the role; Egis involvement unknown or held by a competitor.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="sec">Three naming traps</h2>
+    <div class="grid g3 gap-s mb5">
+      <div class="card roads">
+        <div class="card-t">Legacy branding</div>
+        <p class="small">Most of the credentials base sits under <strong>JB Barry &amp; Partners</strong>,
+        <strong>Barry Transportation</strong>, <strong>Halcrow Barry</strong> or <strong>CH2M Barry</strong>,
+        not Egis. Search all five names in any tender or notice archive.</p>
+      </div>
+      <div class="card active">
+        <div class="card-t">Entity confusion</div>
+        <p class="small">Four separate Irish legal entities trade under the Egis name. For governance
+        and commercial reporting they are <strong>not interchangeable</strong>. See section 02.</p>
+      </div>
+      <div class="card ops">
+        <div class="card-t">Aggregator contamination</div>
+        <p class="small">Commercial data scrapers list people against Egis Ireland who
+        <strong>do not work there</strong>. One case is documented in full in section 11.</p>
+      </div>
+    </div>
+
+    <h2 class="sec">What is new in this edition</h2>
+    <div class="grid g4 gap-s">
+      <div class="stat-box"><div class="val">31</div><div class="lab">Pages, against 22 in the previous issue</div></div>
+      <div class="stat-box"><div class="val">28</div><div class="lab">Charts, maps, schematics and diagrams</div></div>
+      <div class="stat-box"><div class="val">9</div><div class="lab">Scheme schematics drawn from published scope</div></div>
+      <div class="stat-box"><div class="val">100<span class="unit">%</span></div><div class="lab">Brand assets now taken from the official Egis system</div></div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">How to read · 2</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 3 · 01 EXECUTIVE SUMMARY
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">01</span> · Executive summary</p>
+    <h1 class="page-title">Five things to know before Monday</h1>
+  </div>
+
+  <div class="page-body">
+    <div class="stat-row g5 mb4">
+      <div class="stat roads"><div class="val">6</div><div class="lab">Live design and capital commissions, all at or approaching a consent gate</div></div>
+      <div class="stat ops"><div class="val">3</div><div class="lab">Live operations contracts covering all national tunnels and 328km of motorway</div></div>
+      <div class="stat"><div class="val">3</div><div class="lab">Assignments where the current scope must be confirmed internally</div></div>
+      <div class="stat lime"><div class="val">47</div><div class="lab">Identifiable schemes in the credentials base for bidding</div></div>
+      <div class="stat rail"><div class="val">4</div><div class="lab">Consultancy roles evidenced, which most competitors cannot claim</div></div>
+    </div>
+
+    <div id="ch-compstrip" class="figure mb3"></div>
+    <p class="caption mb4"><strong>The live portfolio at a glance.</strong> Thirteen assignments, ordered by
+      how close each sits to a decision outside Egis's control. Consent-stage design dominates by count;
+      operations dominates by contracted value and by duration.</p>
+
+    <h3 class="sub">1 · The live design portfolio is consent-stage, not construction-stage</h3>
+    <p>Five of the six live capital commissions sit at TII Phase 3 or in statutory process: N/M20 Cork to
+      Limerick, the Donegal TEN-T Priority Route, the N3 Virginia Bypass, the N72/N73 Mallow Relief Road
+      and the R132 Drogheda active travel scheme. Luas Finglas has cleared consent, with its Railway Order
+      operative from 13 April 2026. The immediate technical risk sits in environmental and business-case
+      defensibility rather than in construction delivery, and the immediate commercial risk is that fee
+      drawdown stalls at approval gates outside Egis's control.</p>
+
+    <h3 class="sub">2 · Operations is the revenue floor and the technical governance blind spot</h3>
+    <p>Three live operations contracts run to the early 2030s: the Dublin Tunnel, Jack Lynch Tunnel and
+      Motorway Operations Control Centre contract, worth up to €600 million excluding VAT over a full
+      sixteen-year term; MMaRC Network C covering roughly 328km of the M7, M8, M9, N10, N20, N22, N24,
+      N25, N28 and N40; and the East-Link Toll Bridge in Dublin Docklands. These sit in different legal
+      entities from the consultancy, and the interface between operational assurance and consultancy-side
+      technical governance is undefined in the public record. Defining it is a task for you.</p>
+
+    <h3 class="sub">3 · The credentials base is deep, but it is filed under other names</h3>
+    <p>Forty-seven identifiable schemes span national roads and motorways, secondary roads, bridges,
+      active travel, light and heavy rail, tunnels and transport planning. The great majority were
+      delivered as JB Barry &amp; Partners or Barry Transportation, and the per-scheme evidence lives on
+      two unmaintained legacy websites. Those pages are the spine of every future bid and should be
+      archived locally before the domains lapse.</p>
+
+    <h3 class="sub">4 · Egis holds all four classic consultancy roles, which most competitors cannot claim</h3>
+    <p>The record evidences lead designer under the TII Project Management Guidelines, contractor's
+      designer on design-and-build PPPs, employer's representative with PSDP and site supervision, and
+      technical advisor through planning. Adding motorway and tunnel operations to that gives a
+      design-plus-operate proposition that pure consultancies cannot match. Bids score on demonstrated
+      role, not scheme name, so this should be structured as a role matrix rather than a project list.</p>
+
+    <h3 class="sub">5 · The senior transport structure was still being built when you were hired</h3>
+    <p>Andrew Doyle, the former Irish transport lead, left for WSP in early 2026 and no like-for-like
+      public successor has been named. The January 2026 reorganisation put Francois Basselot in as
+      Managing Director for UK and Ireland with Mike Birch as Transportation Director. Eamon Daly and
+      Liam Prendiville are the senior Dublin-resident transport figures on the record. Egis was
+      simultaneously advertising for a Director of Urban Transport in Dublin. Your remit is likely to be
+      partly defined by you rather than handed to you.</p>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">01 · Executive summary · 3</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 4 · 02 EGIS AT A GLANCE
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">02</span> · Egis at a glance</p>
+    <h1 class="page-title">Group, ownership and scale</h1>
+    <p class="standfirst">
+      French-headquartered at Guyancourt, led by chief executive Laurent Germain. Around 20,500 employees,
+      <strong>72 per cent of business outside France</strong>.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="grid g-5-4 mb5">
+      <div>
+        <h4 class="mini">Group performance, 2024</h4>
+        <div id="ch-group" class="figure"></div>
+        <p class="caption"><strong>Revenue of €2.164bn on 14 per cent growth</strong>, net profit up 75 per cent,
+          and an all-time-high backlog. Bars show the reported 2024 position against the prior year implied by
+          the stated growth rate; the backlog is reported as a record but not quantified publicly.</p>
+      </div>
+      <div>
+        <h4 class="mini">Ownership</h4>
+        <p class="small mb3">Tikehau Capital took control from Caisse des Dépôts in January 2022. In July 2025
+          it raised over €1bn through its first Egis-dedicated continuation fund, co-led by an Apollo S3 and
+          ADIA consortium with Neuberger Berman, aiming to <strong>double Egis in size by 2028</strong>.</p>
+        <div class="grid g2 gap-xs mb3">
+          <div class="stat-box"><div class="val">20,500</div><div class="lab">Employees worldwide</div></div>
+          <div class="stat-box"><div class="val">72<span class="unit">%</span></div><div class="lab">Of business outside France</div></div>
+          <div class="stat-box"><div class="val">€2.164<span class="unit">bn</span></div><div class="lab">Group revenue, 2024</div></div>
+          <div class="stat-box"><div class="val">+75<span class="unit">%</span></div><div class="lab">Net profit movement, 2024</div></div>
+          <div class="stat-box"><div class="val">€1<span class="unit">bn+</span></div><div class="lab">Continuation fund raised, July 2025</div></div>
+          <div class="stat-box"><div class="val">2028</div><div class="lab">Target date to double group size</div></div>
+        </div>
+        <div class="note info">
+          <strong>Why this matters to the remit.</strong> A stated intent to double in size by 2028, funded and
+          under private-equity ownership, is the backdrop to the 100 new Irish roles and to the unfilled senior
+          transport posts described in section 11. Growth targets set at group level land as recruitment,
+          bid volume and assurance load in your directorate.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec">Irish presence and history</h2>
+    <p class="mb3">Egis has operated in Ireland since 1994 and was on the design team for the original Dublin
+      Luas Lines A and B. The transformational event was the acquisition of JB Barry &amp; Partners, announced
+      21 to 22 March 2023 and cleared by the Competition and Consumer Protection Commission as case M/23/012.
+      JB Barry, founded 1959, brought around 180 staff across four offices, together with its subsidiary Barry
+      Transportation, established 2000 and previously trading as Halcrow Barry and CH2M Barry, which carried the
+      roads, structures and public transport capability. The rebrand completed in July 2024. By the jobs
+      announcement of 19 August 2025, made when Tánaiste Simon Harris opened the refurbished Classon House
+      headquarters in Dundrum, the Irish workforce exceeded 630 across 16 offices and sites, with 100 further
+      roles announced.</p>
+
+    <div id="ch-history" class="figure"></div>
+    <p class="caption"><strong>Sixty-seven years of the Irish business, 1959 to 2026.</strong> Markers above the
+      line are corporate and ownership events; markers below are the entity formations that still determine which
+      legal person holds each contract today.</p>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">02 · Egis at a glance · 4</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 5 · 02 CONTINUED — THE FOUR IRISH ENTITIES
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">02</span> · Egis at a glance, continued</p>
+    <h1 class="page-title">The four Irish legal entities</h1>
+    <p class="standfirst">
+      Four separate legal persons trade under the Egis name in Ireland. Which one holds a contract determines
+      professional indemnity, designer duties, CDM appointments and commercial reporting. <strong>They are not
+      interchangeable.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-entities" class="figure mb3"></div>
+    <p class="caption mb5"><strong>Entity map.</strong> Boxes are legal entities; the band beneath each lists the
+      live contracts and assignments the public record places in it. The consultancy entity is the one your
+      technical governance principally sits over; the other three carry the operations and concession positions.</p>
+
+    <table class="data mb5">
+      <thead><tr><th style="width:52mm">Entity</th><th style="width:32mm">Function</th><th>Why it matters to the technical authority</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Egis Engineering Ireland Ltd</td>
+          <td>Consultancy and design</td>
+          <td>Formerly JB Barry &amp; Partners, registered 1987. Headquarters at Classon House, Dundrum, Dublin 14.
+            Around 200 engineers across four offices. The entity your technical governance principally sits over.</td>
+        </tr>
+        <tr>
+          <td class="k">Egis Road &amp; Tunnel Operation Ireland Ltd <span style="color:var(--ink-4)">(ERTO)</span></td>
+          <td>Tunnel and motorway control operations</td>
+          <td>Established 2005. Dublin Tunnel, Jack Lynch Tunnel, the Motorway Operations Control Centre at East
+            Wall Road, and the East-Link Toll Bridge. Safety-critical systems with designer interfaces.</td>
+        </tr>
+        <tr>
+          <td class="k">Egis Projects Ireland Ltd <span style="color:var(--ink-4)">(EPIR)</span></td>
+          <td>PPP, tolling and ITS</td>
+          <td>Established 2001, owned by Egis Projects SA. The vehicle for concession and tolling positions.</td>
+        </tr>
+        <tr>
+          <td class="k">Egis Lagan Services Ltd</td>
+          <td>Motorway maintenance and renewals</td>
+          <td>Joint venture with Lagan, established 2013. Holds MMaRC Network C, roughly 328km in the south and
+            south-east. Renewals design and standards compliance interface.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid g-3-2 gap-s">
+      <div>
+        <div class="note watch mb3">
+          <strong>Governance note.</strong> Public records use Egis, JB Barry, Barry Transportation, Egis Lagan
+          Services and Egis Road &amp; Tunnel Operation Ireland interchangeably. They are not interchangeable for
+          commercial reporting, professional indemnity, designer duties or CDM appointments. Any register you build
+          should carry four distinct fields: <strong>public-facing brand</strong>, <strong>legal entity</strong>,
+          <strong>delivery business unit</strong>, and <strong>contract or framework vehicle</strong>.
+        </div>
+        <h4 class="mini">Service lines within the remit</h4>
+        <p class="small">Highway and road design; bridges and structures; geotechnics; traffic and transport
+          planning; active travel; urban transport and BusConnects-type corridors; tunnels; asset management;
+          motorway operations and maintenance; PPP and tolling; construction supervision and contractor's designer
+          roles; and Project Supervisor Design Process duties.</p>
+      </div>
+      <div>
+        <h4 class="mini">Irish footprint</h4>
+        <div class="grid g2 gap-xs">
+          <div class="stat-box"><div class="val">630<span class="unit">+</span></div><div class="lab">Irish staff, August 2025 announcement</div></div>
+          <div class="stat-box"><div class="val">16</div><div class="lab">Offices and sites across Ireland</div></div>
+          <div class="stat-box"><div class="val">~200</div><div class="lab">Engineers in the consultancy entity</div></div>
+          <div class="stat-box"><div class="val">100</div><div class="lab">Further roles announced August 2025</div></div>
+          <div class="stat-box"><div class="val">4</div><div class="lab">Legal entities trading as Egis in Ireland</div></div>
+          <div class="stat-box"><div class="val">1959</div><div class="lab">JB Barry founded; the oldest thread in the business</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">02 · Egis at a glance · 5</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 6 · 03 THE PORTFOLIO MAP
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">03</span> · The portfolio map</p>
+    <h1 class="page-title">Where the work is</h1>
+    <p class="standfirst">
+      Thirteen live assignments in colour, twenty representative completed schemes as open markers. The geography
+      is <strong>national, not Dublin-centric</strong>, and the operations footprint is concentrated in the south
+      and east.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="grid" style="grid-template-columns:1fr 62mm;gap:4mm">
+      <div id="ch-map" class="figure"></div>
+      <div>
+        <div id="ch-mapkey" class="figure mb4"></div>
+        <div class="card tinted">
+          <div class="card-t">Reading the map</div>
+          <p class="tiny">Coastline from Natural Earth 10m administrative boundaries, projected on a Lambert
+            conformal conic with standard parallels 53.5°N and 54.5°N. Northern Ireland is shown with a dashed
+            boundary because the Donegal TEN-T route has a cross-border interface with the A5. Scheme positions
+            are indicative locations, not surveyed alignments.</p>
+        </div>
+      </div>
+    </div>
+    <p class="caption mb4"><strong>Egis in Ireland, roads and transport assignments, August 2026.</strong> Live
+      assignments are numbered and coloured by category; linear schemes are drawn as corridors. Open markers are
+      completed schemes forming the credentials base, twenty of forty-seven plotted for legibility. Network C
+      corridors are drawn from the roads named in the TII contract description.</p>
+
+    <div class="grid g3 gap-s">
+      <div class="card roads">
+        <div class="card-t">National roads spine</div>
+        <p class="small">The live national road commissions run down the western and northern edge of the country:
+          Donegal TEN-T in the north-west, N3 Virginia in the midlands, and the N/M20 and N72/N73 through Cork and
+          Limerick. <strong>None sit in the greater Dublin area</strong>, which is where competitor design positions
+          are strongest.</p>
+      </div>
+      <div class="card active">
+        <div class="card-t">Urban and active travel</div>
+        <p class="small">Luas Finglas, the R132 Drogheda scheme and Dún Laoghaire Living Streets cluster on the east
+          coast. This is the smallest part of the live portfolio and the area with the clearest competitive gap,
+          given that the BusConnects Dublin corridor design packages sit with other firms.</p>
+      </div>
+      <div class="card ops">
+        <div class="card-t">Operations footprint</div>
+        <p class="small">Dublin Tunnel, the East-Link, the Motorway Operations Control Centre, the Jack Lynch Tunnel
+          in Cork and MMaRC Network C across the south and south-east. Corporate material also cites approximately
+          470km of motorway; <strong>reconcile that against the 328km Network C figure</strong> before quoting either.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">03 · Portfolio map · 6</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 7 · 04 LIVE REGISTER DASHBOARD
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">04</span> · Live register dashboard</p>
+    <h1 class="page-title">Composition, scale and stage</h1>
+    <p class="standfirst">
+      Thirteen live assignments. Design and capital work dominates by count; operations dominates by
+      contracted value and duration. <strong>Only three of the thirteen carry a published value</strong>,
+      which is the single largest gap between this dossier and the internal register.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="grid g-5-4 mb4" style="gap:6mm">
+      <div>
+        <h4 class="mini">Composition by category</h4>
+        <div id="ch-composition" class="figure"></div>
+        <p class="caption"><strong>Thirteen live assignments by category.</strong> Design and capital work is
+          seven of thirteen once the N21 Adare construction commission is counted with it. The three
+          requiring-confirmation entries are carried in the register but at Grade C.</p>
+      </div>
+      <div>
+        <h4 class="mini">Published value coverage</h4>
+        <div id="ch-valcover" class="figure mb3"></div>
+        <div class="grid g2 gap-xs">
+          <div class="stat-box"><div class="val">3 / 13</div><div class="lab">Live assignments with a value in the public record</div></div>
+          <div class="stat-box"><div class="val">16 yrs</div><div class="lab">Full term of the tunnels and MOCC contract, 8 plus 8</div></div>
+          <div class="stat-box"><div class="val">~€37.5m</div><div class="lab">Implied average annual ceiling across the full 16 years</div></div>
+          <div class="stat-box"><div class="val">2033</div><div class="lab">Earliest year all three operations contracts could still be running</div></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec">Scale of the largest schemes</h2>
+    <div id="ch-values" class="figure"></div>
+    <p class="caption mb4"><strong>Published values only, in euro.</strong> The Donegal TEN-T bar is a range,
+      not a point: the Government's approved estimate is €780m to €915m, superseding the €350m figure still
+      shown on the legacy JB Barry project page. The tunnels and MOCC figure is a sixteen-year ceiling
+      including the eight-year extension option, not a booked value, so it is not comparable with the two
+      capital figures above and below it. The grey bar is the superseded Donegal figure, shown only so it can
+      be recognised and rejected. Ten further live assignments have no published value at all and are named
+      beneath the axis rather than plotted as zero.</p>
+
+    <div class="note watch">
+      <strong>Do not treat €600m as a booking.</strong> It is the potential value over the full sixteen-year
+      term including the extension option. Confirm the committed value of the initial eight-year term before
+      it appears in any board pack, bid or forecast. The same caution applies to the Donegal range: €780m to
+      €915m is a scheme cost estimate for the client, not an Egis fee.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">04 · Live register dashboard · 7</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 8 · 04 CONTINUED — STAGE SNAPSHOT
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">04</span> · Live register dashboard, continued</p>
+    <h1 class="page-title">Stage snapshot</h1>
+    <p class="standfirst">
+      Where each live assignment sits in the consent and delivery sequence, and the next thing that has to
+      happen. <strong>Five of the six design commissions are waiting on a decision outside Egis's control.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-stagefunnel" class="figure mb3"></div>
+    <p class="caption mb4"><strong>Distribution across the delivery sequence.</strong> Counts are of live
+      assignments, not of value. The operations block does not sit on the consent sequence at all, which is
+      exactly why its technical governance interface is undefined.</p>
+
+    <table class="data zebra">
+      <thead>
+        <tr>
+          <th style="width:7mm"></th>
+          <th style="width:42mm">Assignment</th>
+          <th style="width:30mm">Type</th>
+          <th style="width:48mm">Public stage</th>
+          <th>Next watchpoint</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="grade a">A</span></td><td class="k">N/M20 Cork to Limerick</td><td>National road, multimodal</td><td>Phase 3 design and environmental evaluation</td><td>Business case approval, then planning submission</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">Donegal TEN-T Priority Route</td><td>National road, active travel, cross-border</td><td>Statutory approval; application and CPO notices published 14 May 2026</td><td>An Coimisiún Pleanála process, possible oral hearing</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">N3 Virginia Bypass</td><td>National road, multimodal</td><td>Phase 3, with a live programme date conflict</td><td>Confirm the Q4 2027 planning programme and its cause</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">N72/N73 Mallow Relief Road</td><td>National secondary, active travel</td><td>Phase 3; approval pathway to Gate 1</td><td>Preliminary business case and Gate 1, then planning</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">Luas Finglas</td><td>Light rail</td><td>Railway Order operative from 13 April 2026</td><td>Funding gate and procurement strategy</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">R132 Drogheda active travel</td><td>Urban active travel</td><td>NTA Phase 3 approved; Phase 4 Part 8 consultation</td><td>Submissions close 1 September 2026</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">N21 Adare Bypass</td><td>National road, construction</td><td>Under construction by the Sisk Sorensen joint venture</td><td>Completion ahead of the September 2027 Ryder Cup</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">Dublin and Jack Lynch Tunnels, MOCC</td><td>Operations</td><td>Live eight-year contract, extendable by eight</td><td>Operational KPIs, renewals and resilience</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">MMaRC Network C</td><td>Maintenance and renewals</td><td>Live network operator</td><td>Asset renewals, incident trends, winter readiness</td></tr>
+        <tr><td><span class="grade a">A</span></td><td class="k">East-Link Toll Bridge</td><td>Toll operations</td><td>Live operator, listed by TII for the 2026 toll schedule</td><td>Contract term, performance regime, capital renewals</td></tr>
+        <tr><td><span class="grade c">C</span></td><td class="k">Dún Laoghaire Living Streets</td><td>Urban realm</td><td>Design credited publicly; current stage unclear</td><td>Confirm residual construction-stage scope</td></tr>
+        <tr><td><span class="grade c">C</span></td><td class="k">Tunnel digital asset transformation</td><td>Digital and asset management</td><td>Described publicly; phase and contract boundary unclear</td><td>Confirm whether embedded in the O&amp;M contract</td></tr>
+        <tr><td><span class="grade c">C</span></td><td class="k">Cork Area Commuter Rail signalling</td><td>Heavy rail</td><td>Partner in the signalling and communications solution</td><td>Live task orders and directorate interface</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note mt-a" style="margin-top:4mm">
+      <strong>A reconciliation note on the count.</strong> Section 01 describes six design and capital
+      commissions at a consent gate; the register above carries seven design and capital rows because the N21
+      Adare Bypass is already in construction and is counted separately. Section 07 discusses four items
+      requiring confirmation: the three carried in this register plus the national Disability Toll Exemption
+      and speed-camera services, which sit outside the roads and urban transport register entirely. Both
+      framings are correct; make sure only one of them reaches a board pack.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">04 · Live register dashboard · 8</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 9 · 05 LIVE DESIGN AND CAPITAL — NATIONAL ROADS I
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">05</span> · Live design and capital projects</p>
+    <h1 class="page-title">National roads</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">N/M20 Cork to Limerick <span class="pill roads" style="margin-left:2mm">TII Phase 3</span></h2>
+    <div class="grid g4 gap-s mb3">
+      <div class="stat-box"><div class="val">~80<span class="unit">km</span></div><div class="lab">Motorway and dual carriageway, Blarney to Patrickswell</div></div>
+      <div class="stat-box"><div class="val">~100<span class="unit">km</span></div><div class="lab">Active travel provision along the corridor</div></div>
+      <div class="stat-box"><div class="val">7</div><div class="lab">Transport hubs along the route</div></div>
+      <div class="stat-box"><div class="val">1</div><div class="lab">Dedicated freight hub, at Mallow</div></div>
+    </div>
+    <p class="small mb3"><strong>Client</strong> Limerick City and County Council with partner authorities and TII.
+      <strong>Egis role</strong> Egis and JB Barry publicly identify involvement in planning and developing the
+      multimodal corridor; the named lead technical advisor team is Barry Transportation with Sweco and WSP.</p>
+
+    <div id="ch-nm20" class="figure"></div>
+    <p class="caption mb3"><strong>Corridor schematic, indicative.</strong> Approximately 80km between Blarney
+      and Patrickswell. Diamonds are junctions and interchanges; filled markers are transport and freight hubs.
+      Positions along the line are proportional to distance, not surveyed chainage.</p>
+
+    <p class="small mb3">A detailed project update was published in June 2025 with planning then programmed for
+      2026 subject to business-case approval. A revised local-link proposal at Attyflin Junction was published
+      on 2 April 2026 following review of stakeholder concerns. No public confirmation of a full statutory
+      planning submission had been identified by the information date.</p>
+
+    <div class="note watch mb5">
+      <strong>Director watchpoint.</strong> Confirm business-case approval status, the current planning
+      submission programme, and precisely which work packages Egis owns within the technical-adviser team.
+      This is the largest Irish roads opportunity in the pipeline and the one where the Egis position is least clear.
+    </div>
+
+    <h2 class="sec">Donegal TEN-T Priority Route Improvement Project <span class="pill roads" style="margin-left:2mm">Statutory approval</span></h2>
+    <div class="grid g4 gap-s mb3">
+      <div class="stat-box"><div class="val">€780–915m</div><div class="lab">Current Government cost range</div></div>
+      <div class="stat-box"><div class="val">3</div><div class="lab">Linked sections in one commission</div></div>
+      <div class="stat-box"><div class="val">1–4</div><div class="lab">TII phases covered by the commission</div></div>
+      <div class="stat-box"><div class="val">8 wks</div><div class="lab">Consultation run, including a cross-border process</div></div>
+    </div>
+    <p class="small mb3"><strong>Client</strong> Donegal County Council and TII. <strong>Egis role</strong> JB Barry
+      and Egis, in partnership with RPS, publicly identify a commission covering TII Phases 1 to 4, including
+      design, environmental assessment and statutory processes.</p>
+
+    <div id="ch-donegal" class="figure"></div>
+    <p class="caption mb3"><strong>Three linked sections, indicative.</strong> Ballybofey and Stranorlar;
+      Letterkenny to Manorcunningham; and Manorcunningham to Lifford, Strabane and the A5 link. The A5 tie-in
+      crosses the border, which is why the statutory process included a cross-border consultation.</p>
+
+    <p class="small mb3">Application and CPO notices were published on 14 May 2026 and the project is in the An
+      Coimisiún Pleanála statutory approval process, with planning, EIAR and CPO documentation publicly
+      available through the project portal. The earliest publicly stated construction start is 2028, subject to
+      approval, funding and procurement.</p>
+
+    <div class="note watch">
+      <strong>Director watchpoint.</strong> Track submissions, any oral hearing, requests for further
+      information, the decision programme, and scope or cost movement against the approved business case.
+      This is the single largest consenting exposure in the live portfolio.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">05 · Live design and capital · 9</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 10 · 05 CONTINUED — NATIONAL ROADS II
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">05</span> · Live design and capital projects, continued</p>
+    <h1 class="page-title">National roads and secondary routes</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">N3 Virginia Bypass <span class="pill roads" style="margin-left:2mm">TII Phase 3</span></h2>
+    <div class="grid g4 gap-s mb3">
+      <div class="stat-box"><div class="val">~14.5<span class="unit">km</span></div><div class="lab">Type 2 divided road, Derver to north of Virginia</div></div>
+      <div class="stat-box"><div class="val">~20<span class="unit">km</span></div><div class="lab">Walking and cycling facilities</div></div>
+      <div class="stat-box"><div class="val">2</div><div class="lab">Park-and-share transport hubs</div></div>
+      <div class="stat-box"><div class="val">2 yrs</div><div class="lab">Public slippage: planning moved from 2026 to Q4 2027</div></div>
+    </div>
+    <p class="small mb3"><strong>Client</strong> Cavan County Council and TII, counties Cavan and Meath.
+      <strong>Egis role</strong> Barry Transportation and JB Barry is the publicly named Technical Advisor to
+      Cavan County Council, the commission covering planning and design phases. Scope also includes bus,
+      demand-management and town-centre measures.</p>
+
+    <div id="ch-n3" class="figure"></div>
+    <p class="caption mb3"><strong>Corridor schematic, indicative.</strong> Approximately 14.5km of Type 2
+      divided road with parallel walking and cycling provision and two park-and-share hubs.</p>
+
+    <div id="ch-n3slip" class="figure mb2"></div>
+    <p class="caption mb3"><strong>The programme movement, on the public record.</strong> The June 2025 project
+      update expected planning the following year; a February 2026 Cavan County Council meeting report states
+      submission is now expected in Q4 2027. Nothing in the public record explains the cause.</p>
+
+    <div class="note watch mb5">
+      <strong>Director watchpoint.</strong> Obtain the approved baseline programme and establish the cause,
+      impact and mitigation of the movement to Q4 2027. A two-year slip on a Phase 3 commission has direct
+      fee-phasing and resource-planning consequences.
+    </div>
+
+    <h2 class="sec">N72/N73 Mallow Relief Road <span class="pill roads" style="margin-left:2mm">TII Phase 3</span></h2>
+    <div class="grid g4 gap-s mb3">
+      <div class="stat-box"><div class="val">~5<span class="unit">km</span></div><div class="lab">East-west relief route, N20 to the N72/N73 corridors</div></div>
+      <div class="stat-box"><div class="val">1–4</div><div class="lab">TII phases in the technical advisor commission</div></div>
+      <div class="stat-box"><div class="val">Gate 1</div><div class="lab">Approval expected during 2026, per TII's May 2026 update</div></div>
+      <div class="stat-box"><div class="val">Q4 2026</div><div class="lab">Planning target identified in local reporting</div></div>
+    </div>
+    <p class="small mb3"><strong>Client</strong> Cork County Council and TII. <strong>Egis role</strong> Barry
+      Transportation and JB Barry appointed Technical Advisor delivering engineering, environmental, economic
+      and appraisal services through TII Phases 1 to 4. The route removes strategic HGV traffic from Mallow town
+      centre, with active travel provision and improved conditions for vulnerable road users.</p>
+
+    <div id="ch-mallow" class="figure"></div>
+    <p class="caption mb3"><strong>Relief route schematic, indicative.</strong> Roughly 5km connecting the N20
+      to the N72 and N73, drawn against the existing town-centre route it is intended to relieve.</p>
+
+    <div class="note watch">
+      <strong>Director watchpoint.</strong> Align the internal programme with Gate 1 and preliminary business
+      case requirements, and confirm whether a Q4 2026 statutory submission remains achievable. Note also that
+      the Gate 1 and TII Phase 3 vocabularies conflict in public reporting — see the register control in section 12.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">05 · Live design and capital · 10</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 11 · 05 CONTINUED — LIGHT RAIL, ACTIVE TRAVEL, CONSTRUCTION
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">05</span> · Live design and capital projects, continued</p>
+    <h1 class="page-title">Light rail, active travel and the one live construction commission</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">Luas Finglas <span class="pill rail" style="margin-left:2mm">Railway Order operative</span></h2>
+    <div class="grid g5 gap-s mb3">
+      <div class="stat-box"><div class="val">~3.9<span class="unit">km</span></div><div class="lab">Green Line extension, Broombridge to Charlestown</div></div>
+      <div class="stat-box"><div class="val">4</div><div class="lab">New stops</div></div>
+      <div class="stat-box"><div class="val">2</div><div class="lab">Bridges over the Tolka</div></div>
+      <div class="stat-box"><div class="val">350</div><div class="lab">Park and ride spaces near St Margaret's Road</div></div>
+      <div class="stat-box"><div class="val">13 Apr</div><div class="lab">Railway Order operative, 2026</div></div>
+    </div>
+    <p class="small mb3"><strong>Client</strong> TII with the National Transport Authority. <strong>Egis role</strong>
+      Egis and JB Barry are publicly linked to the planning and detailed design of the Green Line extension,
+      delivered with Barry Transportation and SYSTRA. Egis was also on the original 1990s Luas design team.</p>
+
+    <div id="ch-luas" class="figure"></div>
+    <p class="caption mb4"><strong>Line diagram, indicative.</strong> Largely grass-tracked, with cycle parking
+      and EV charging at the park and ride. Hollow markers are new stops; the filled marker is the existing
+      Green Line terminus the extension connects to.</p>
+
+    <div class="note watch mb5">
+      <strong>Director watchpoint.</strong> Confirm the funding gate, procurement strategy, design-stage
+      responsibilities, and the transition from planning design into delivery support. The Railway Order carries
+      land-acquisition powers and authority to construct, operate and maintain; TII stated in March 2026 that
+      the scheme was ready to progress once funding is secured, and no public construction contract award had
+      been identified by the information date. <strong>This is the clearest route from a consented design
+      position into a delivery-phase commission.</strong>
+    </div>
+
+    <div class="grid g2" style="gap:6mm">
+      <div>
+        <h2 class="sec">R132 Drogheda <span class="pill active" style="margin-left:2mm">Part 8</span></h2>
+        <p class="small mb3"><strong>Bridge of Peace to MacBride Station.</strong> Client Louth County Council
+          with the NTA. Egis role: JB Barry and Egis publicly identify responsibility for design, statutory
+          approval and construction support. NTA Phase 3 approval achieved; the project is in Phase 4 Part 8
+          statutory planning consultation. Plans and particulars were available from 21 July to 18 August 2026,
+          with submissions closing at 5:00 pm on Tuesday 1 September 2026.</p>
+        <div class="grid g2 gap-xs mb3">
+          <div class="stat-box"><div class="val">~1.6<span class="unit">km</span></div><div class="lab">Segregated cycle lanes and footpaths, R132</div></div>
+          <div class="stat-box"><div class="val">~0.8<span class="unit">km</span></div><div class="lab">Marsh Road (R150) provision</div></div>
+          <div class="stat-box"><div class="val">8</div><div class="lab">Key junctions upgraded</div></div>
+          <div class="stat-box"><div class="val">20<span class="unit">%</span></div><div class="lab">Target rise in walking and cycling trips within five years</div></div>
+        </div>
+        <div class="note risk">
+          <strong>This closes within days of your start.</strong> Monitor Part 8 submissions, design responses,
+          approval timing and the transition into detailed design, procurement and construction support.
+        </div>
+      </div>
+      <div>
+        <h2 class="sec">N21 Adare Bypass <span class="pill roads" style="margin-left:2mm">Under construction</span></h2>
+        <p class="small mb3"><strong>Foynes to Limerick Phase 1A.</strong> Egis is Engineer to the Sisk Sorensen
+          joint venture. The design and construction contract was signed in March 2025 at around €150m, with
+          completion targeted June 2027 ahead of the Ryder Cup in September 2027. This is the only live
+          commission in the portfolio where the deliverable is a built asset rather than a consent application.</p>
+        <div class="grid g2 gap-xs mb3">
+          <div class="stat-box"><div class="val">~7<span class="unit">km</span></div><div class="lab">Bypass length</div></div>
+          <div class="stat-box"><div class="val">~€150m</div><div class="lab">Design and construction contract value</div></div>
+          <div class="stat-box"><div class="val">Jun 2027</div><div class="lab">Targeted completion</div></div>
+          <div class="stat-box"><div class="val">Sep 2027</div><div class="lab">Immovable external deadline</div></div>
+        </div>
+        <div class="note risk">
+          <strong>A hard, publicly visible deadline.</strong> Slippage here is reputational as well as
+          commercial. Watch early-warning notices and design change volume.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">05 · Live design and capital · 11</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 12 · 06 LIVE OPERATIONS AND MAINTENANCE
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">06</span> · Live operations and maintenance</p>
+    <h1 class="page-title">Tunnels and the Motorway Operations Control Centre</h1>
+    <p class="standfirst">
+      Three publicly confirmed services, all delivered through entities separate from the consultancy, all
+      carrying <strong>safety-critical designer and assurance interfaces</strong>.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="stat-row g4 mb4">
+      <div class="stat ops"><div class="val">€600m</div><div class="lab">Potential value excluding VAT over the full sixteen years</div></div>
+      <div class="stat ops"><div class="val">8 + 8</div><div class="lab">Years: live contract term plus the extension option</div></div>
+      <div class="stat ops"><div class="val">3rd</div><div class="lab">Successive Dublin Tunnel operating contract won by Egis</div></div>
+      <div class="stat ops"><div class="val">19 May</div><div class="lab">2025 announcement date, by the Minister for Transport</div></div>
+    </div>
+
+    <p class="small mb4"><strong>Client</strong> TII. <strong>Entity</strong> Egis Road &amp; Tunnel Operation
+      Ireland. <strong>Contract</strong> Live eight-year contract with an option for a further eight, announced
+      19 May 2025 and signed by Steve Preece, Pat Maher of TII and Pierre-Yves Massille of Egis Consulting
+      &amp; Operations.</p>
+
+    <h2 class="sec">What the contract actually covers</h2>
+    <div id="ch-mocc" class="figure"></div>
+    <p class="caption mb4"><strong>Scope of the tunnels and MOCC contract.</strong> The control centre at East
+      Wall Road sits at the centre; the ring shows the assets and systems the contract places under Egis
+      operation. Every one of them generates designer, assurance or lifecycle duties that reach the technical
+      directorate regardless of which entity holds the contract.</p>
+
+    <div class="grid g-3-2" style="gap:6mm">
+      <div>
+        <h3 class="sub">Scope</h3>
+        <p class="small mb3">Tunnel operation and routine and reactive maintenance covering fire, ventilation,
+          electrical, drainage and lighting systems; Dublin Tunnel tolling and revenue management; and 24/7
+          motorway monitoring, incident coordination, variable-message signs and approximately 1,600 emergency
+          roadside telephones. The MOCC at East Wall Road monitors more than 1,200km of motorway nationally.</p>
+        <h3 class="sub">Recent upgrades cited by TII</h3>
+        <p class="small">A new tolling system, SCADA replacement and LED conversion, with the 2022 Dublin Tunnel
+          LED programme replacing 1,800 lamps and cutting light-related energy use by 60 per cent. The contract
+          commits Egis to sourcing 100 per cent of operational energy from renewable sources from day one.</p>
+      </div>
+      <div>
+        <h4 class="mini">The numbers behind the scope</h4>
+        <div class="grid g2 gap-xs">
+          <div class="stat-box"><div class="val">1,200<span class="unit">km+</span></div><div class="lab">Motorway monitored nationally from the MOCC</div></div>
+          <div class="stat-box"><div class="val">~1,600</div><div class="lab">Emergency roadside telephones</div></div>
+          <div class="stat-box"><div class="val">4.7<span class="unit">km</span></div><div class="lab">Dublin Tunnel, open since 2006</div></div>
+          <div class="stat-box"><div class="val">1,800</div><div class="lab">Lamps replaced in the 2022 LED programme</div></div>
+          <div class="stat-box"><div class="val">60<span class="unit">%</span></div><div class="lab">Cut in light-related energy use after LED conversion</div></div>
+          <div class="stat-box"><div class="val">100<span class="unit">%</span></div><div class="lab">Renewable operational energy, from day one</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note watch" style="margin-top:4mm">
+      <strong>Director watchpoint.</strong> Establish the technical director interface with operational
+      assurance, asset renewals, incident learning, lifecycle investment and cross-business technical
+      governance. Tunnel ventilation, fire and life safety, structural inspection and ITS all generate designer
+      duties that will reach your desk regardless of which entity holds the contract.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">06 · Live operations and maintenance · 12</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 13 · 06 CONTINUED — NETWORK C, TOLLING, WIDER OPERATIONS
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">06</span> · Live operations and maintenance, continued</p>
+    <h1 class="page-title">The motorway network, tolling and the footprint conflict</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">Motorway Maintenance and Renewals Contract, Network C</h2>
+    <p class="small mb3"><strong>Client</strong> TII. <strong>Entity</strong> Egis Lagan Services, the joint
+      venture with Lagan established 2013. <strong>Scope</strong> Approximately 328km in the south and
+      south-east, one of three TII motorway operating regions. Network inspections, incident response,
+      emergency repairs and winter maintenance; asset data, drainage, barriers, structures, rehabilitation,
+      improvement and renewal works. TII's current road-maintenance page explicitly identifies Egis Lagan
+      Services as the Network C manager.</p>
+
+    <div id="ch-networkc" class="figure"></div>
+    <p class="caption mb4"><strong>The roads named in the Network C description.</strong> Ten routes across the
+      south and south-east. Lengths are not published route by route, so the bars show relative corridor extent
+      as drawn on the section 03 map, not contracted kilometres — the total is the published figure of
+      approximately 328km.</p>
+
+    <h2 class="sec">The 470km against 328km conflict</h2>
+    <div id="ch-footprint" class="figure"></div>
+    <p class="caption mb4"><strong>Two published figures that do not reconcile.</strong> Egis corporate material
+      refers to approximately 470km of motorways and all tunnels, while TII pages identify Network C at 328km,
+      Dublin and Jack Lynch tunnel operations, and a separate operator for the Limerick Tunnel. The gap of
+      roughly 142km is unexplained in the public record. Establish which definition each figure uses before
+      either appears in a bid.</p>
+
+    <div class="grid g2" style="gap:6mm">
+      <div>
+        <h3 class="sub">East-Link Toll Bridge, Dublin Docklands</h3>
+        <p class="small mb3"><strong>Client</strong> TII, with the asset in the Dublin City transport network.
+          <strong>Entity</strong> Egis Road &amp; Tunnel Operation Ireland, listed by TII as the operator for the
+          2026 toll schedule. <strong>Scope</strong> Toll collection and electronic-tag interoperability,
+          customer service and operational support for a strategic Docklands crossing, and interface with TII
+          tolling oversight. The public source confirms the operator but does not disclose the contract term or
+          commercial value.</p>
+        <div class="note watch">
+          <strong>Director watchpoint.</strong> Confirm contract term, asset-management obligations, performance
+          regime, the interface with Dublin City Council and any planned capital renewals.
+        </div>
+      </div>
+      <div>
+        <h3 class="sub">Also operated, per Egis corporate material</h3>
+        <ul class="ticks mb3">
+          <li>The <strong>M1 Dundalk toll</strong> through Northlink Limited, majority Egis-owned, for Celtic Roads Group.</li>
+          <li>The <strong>national mobile speed-enforcement camera network</strong>.</li>
+          <li>The <strong>national Disability Toll Exemption Scheme</strong>.</li>
+        </ul>
+        <div class="note risk">
+          <strong>Do not describe Egis as the operator of these.</strong> Other Irish PPP motorway concessions
+          including the M50, M3, M4/M6, M7 and Limerick Tunnel, M8, M17/M18 and the N25 Waterford bypass are
+          operated by other groups; the M50 is operated by Globalvia and Semperian.
+        </div>
+      </div>
+    </div>
+
+    <div class="note watch" style="margin-top:4mm">
+      <strong>Director watchpoint on Network C.</strong> Reconcile Network C asset risk, the renewal pipeline,
+      design assurance, technical standards, incident trends and capacity against consultancy-side technical
+      leadership. <strong>Renewals design is where the two sides of the business meet</strong>, and it is the
+      most likely place for a designer-duty gap to sit undetected.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">06 · Live operations and maintenance · 13</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 14 · 07 REQUIRING INTERNAL CONFIRMATION
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">07</span> · Requiring internal confirmation</p>
+    <h1 class="page-title">Publicly linked, current scope unclear</h1>
+    <p class="standfirst">
+      Egis involvement is documented in each case, but the live commission, task order or remaining scope
+      cannot be established from public sources. <strong>Each is a week-one question.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-confidence" class="figure mb3"></div>
+    <p class="caption mb4"><strong>What the public record does and does not establish.</strong> In every case the
+      involvement is documented; in every case the contracting detail is not. The bars show which of five
+      commercial facts could be established from public sources for each assignment.</p>
+
+    <table class="data mb4">
+      <thead>
+        <tr>
+          <th style="width:36mm">Assignment</th>
+          <th style="width:42mm">The public link to Egis</th>
+          <th style="width:42mm">Why verification is needed</th>
+          <th>Confirm internally</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="k">Dún Laoghaire Living Streets</td>
+          <td>Egis, with architects NMP, is publicly credited with redesigning the public realm and urban street system.</td>
+          <td>Public sources establish design involvement but not whether Egis retains a live construction-stage, site-support or close-out commission.</td>
+          <td>Project number and client instruction; residual scope; construction-stage technical designer duties and approvals interface; commercial status, programme and named project leadership.</td>
+        </tr>
+        <tr>
+          <td class="k">Dublin and Jack Lynch Tunnel digital asset transformation</td>
+          <td>Egis describes a digital asset-management upgrade focused on real-time asset insights, trusted data and operational resilience.</td>
+          <td>The public page does not identify the delivery phase, contract boundary, or whether the work is embedded within the new O&amp;M contract.</td>
+          <td>Current phase, deliverables and implementation roadmap; ownership of data, platforms, cyber assurance and information governance; relationship to lifecycle renewals, the MOCC and tunnel O&amp;M obligations.</td>
+        </tr>
+        <tr>
+          <td class="k">National Disability Toll Exemption and mobile speed-camera services</td>
+          <td>The Egis Ireland corporate page states that Egis operates the national disability toll-exemption scheme and nationwide mobile speed-enforcement camera systems.</td>
+          <td>The corporate summary gives no contracting entity, contract term, renewal date or service boundary.</td>
+          <td>Legal entity, client, contract start and end, extension options; operational KPIs, systems ownership, data protection and assurance responsibilities; the technical director governance interface for digital, safety and operational risk.</td>
+        </tr>
+        <tr>
+          <td class="k">Rail and wider urban-transport frameworks</td>
+          <td>Egis publicly identifies Irish Rail signalling modernisation across 2,400km enabling battery-powered trains, Cork Area Commuter Rail signalling and communications over 62km, a Galway to Athenry capacity feasibility study, and a multidisciplinary consultancy framework with SYSTRA.</td>
+          <td>Framework membership does not disclose active task orders, current fees, delivery stage or the roads-and-urban-transport directorate interface.</td>
+          <td>Live task orders and work packages under the Iarnród Éireann framework; the responsibility split across rail, urban transport, systems and project-management teams; current resource commitments, key milestones and commercial exposure.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note risk">
+      <strong>The BusConnects question.</strong> Earlier reporting associated Egis with the BusConnects Galway
+      Dublin Road corridor detailed design. That association could not be re-confirmed against a named award
+      notice in this pass and is therefore carried at Grade B. The BusConnects Dublin Core Bus Corridor design
+      packages sit with Jacobs and the ROD-TYPSA team, and BusConnects Cork's Sustainable Transport Corridors
+      consultant is Jacobs, appointed January 2024. <strong>If Egis holds no BusConnects position, that is the
+      clearest single gap in the urban transport portfolio and should shape the bid strategy.</strong>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">07 · Requiring internal confirmation · 14</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 15 · 08 THE CREDENTIALS BASE — OVERVIEW
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">08</span> · The credentials base</p>
+    <h1 class="page-title">Forty-seven schemes, and the roles they evidence</h1>
+    <p class="standfirst">
+      Delivered largely as JB Barry &amp; Partners, Barry Transportation, Halcrow Barry and CH2M Barry.
+      <strong>Bids score on demonstrated role</strong>, so the role column matters more than the scheme name.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="stat-row g5 mb4">
+      <div class="stat lime"><div class="val">47</div><div class="lab">Identifiable schemes across all categories</div></div>
+      <div class="stat roads"><div class="val">305</div><div class="lab">Principal structures on the schemes that publish a count</div></div>
+      <div class="stat roads"><div class="val">~320<span class="unit">km</span></div><div class="lab">Mainline road and light rail, summed from published lengths</div></div>
+      <div class="stat active"><div class="val">15</div><div class="lab">Counties with at least one scheme on the record</div></div>
+      <div class="stat rail"><div class="val">4</div><div class="lab">Award citations in the record, 2014 to 2024</div></div>
+    </div>
+
+    <div class="grid g-5-4 mb4" style="gap:6mm">
+      <div>
+        <h4 class="mini">Identifiable schemes by category</h4>
+        <div id="ch-categories" class="figure"></div>
+        <p class="caption">Counts include both live and completed work. <strong>The concentration in national
+          roads and active travel is the strongest bidding asset.</strong></p>
+      </div>
+      <div>
+        <h4 class="mini">Derived scale of the record</h4>
+        <div id="ch-scale" class="figure mb3"></div>
+        <p class="caption"><strong>Derived, not published as a total.</strong> Summed from the mainline lengths
+          and structure counts stated scheme by scheme in the tables that follow. Associated roads, link roads
+          and active travel provision are counted separately and are not included in the mainline figure.
+          Schemes that publish no length or structure count contribute nothing, so both figures are floors.</p>
+      </div>
+    </div>
+
+    <h2 class="sec">Turn this into a role matrix, not a project list</h2>
+    <div id="ch-rolematrix" class="figure"></div>
+    <p class="caption mb3"><strong>The four consultancy roles tender panels score separately, against the
+      categories they are evidenced in.</strong> Cells show the number of named schemes in the record that
+      evidence that role in that category. Few Irish competitors evidence all four alongside motorway and
+      tunnel operations.</p>
+
+    <div class="note dark">
+      The record evidences <strong>lead designer</strong> under the TII Project Management Guidelines (N63,
+      N22 Tralee, N59 Moycullen); <strong>contractor's designer</strong> on design-and-build PPPs (M18/N17,
+      N4 Lucan, N2 Finglas to Ashbourne, N22 Macroom, N4 Dromod); <strong>employer's representative</strong>
+      with PSDP and site supervision (N56 Donegal, NRA service areas); and <strong>technical advisor through
+      planning</strong> (N3 Virginia, N72/N73 Mallow, Donegal TEN-T). Adding motorway and tunnel operations
+      to that gives a design-plus-operate proposition that pure consultancies cannot match.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">08 · The credentials base · 15</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 16 · 08 CONTINUED — NATIONAL ROADS AND MOTORWAYS
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">08</span> · The credentials base, continued</p>
+    <h1 class="page-title">National roads and motorways</h1>
+    <p class="standfirst">
+      Eleven entries, the deepest part of the record and the one that carries the structures count.
+      <strong>Every entry names the role, because that is what is scored.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <table class="data zebra">
+      <thead>
+        <tr>
+          <th style="width:40mm">Scheme</th>
+          <th style="width:20mm">County</th>
+          <th style="width:38mm">Egis or predecessor role</th>
+          <th>Technical detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="k">N22 Baile Bhuirne to Macroom</td><td>Cork</td>
+          <td>Contractor's lead designer and site design supervision, from 2019</td>
+          <td>22km Type 2 dual carriageway offline; <strong>105 principal structures</strong> including four
+            river bridges; 1.24m m³ site-won rock reused; push-launched ladder-deck weathering-steel Bohill
+            bridge, first of its type and scale on an Irish national primary road. €280m, opened in stages to
+            6 November 2023. EPA recorded a 53.8 per cent fall in Macroom nitrogen dioxide within six months.</td>
+        </tr>
+        <tr>
+          <td class="k">M3 Clonee to North of Kells PPP</td><td>Meath</td><td>Design</td>
+          <td>63km motorway plus 61km associated roads; 59 structures (35 overbridges, 19 underpasses, three
+            river bridges, two rail bridges) plus 39 culverts; Boyne and Blackwater crossings.</td>
+        </tr>
+        <tr>
+          <td class="k">M11 Gorey to Enniscorthy PPP</td><td>Wexford</td><td>Design</td>
+          <td>27km M11 plus 4.1km N80 link and 8km N30; 91 structures including Slaney and Urrin crossings,
+            one rail bridge, 20 overbridges, 35 underbridges, 39 culverts.</td>
+        </tr>
+        <tr>
+          <td class="k">M18/N17 Gort to Tuam PPP</td><td>Galway</td><td>Contractor's designer</td>
+          <td>53.2km motorway Gort to Kilmore plus 4.2km Type 2 dual carriageway; three grade-separated
+            junctions; two rail bridges; five river bridges.</td>
+        </tr>
+        <tr>
+          <td class="k">N4 Lucan Bypass upgrade</td><td>Dublin</td><td>Contractor's designer</td>
+          <td>Roughly 6km online widening to three-lane dual with bus lanes; Newcastle Road grade separation;
+            three new bridges. €75m, completed 2009.</td>
+        </tr>
+        <tr>
+          <td class="k">N2 Finglas to Ashbourne</td><td>Dublin, Meath</td><td>Contractor's designer</td>
+          <td>Roughly 17km dual three-lane and dual two-lane; 16 bridges; two grade-separated interchanges;
+            M50/N2 interchange upgrade; tolling facilities; 6.5km link roads.</td>
+        </tr>
+        <tr>
+          <td class="k">N4 Dromod to Rooskey Bypass</td><td>Leitrim, Roscommon</td>
+          <td>Designer to Jons Civil Engineering on design and build</td>
+          <td>Bypass scheme.</td>
+        </tr>
+        <tr>
+          <td class="k">N22 Tralee Bypass, Tralee to Bealagrellagh</td><td>Kerry</td>
+          <td>Main design consultant, NRA Phases 5 to 7</td>
+          <td>8km Type 2 dual carriageway plus 5.5km single carriageway access route; five roundabouts; five
+            principal structures.</td>
+        </tr>
+        <tr>
+          <td class="k">N1/M1 Northern Motorway · M7 Naas pavement improvement</td>
+          <td>Dublin, Louth · Kildare</td><td>Design</td>
+          <td>Motorway contract and pavement improvement scheme respectively.</td>
+        </tr>
+        <tr>
+          <td class="k">Kirwan Roundabout, N6 Bóthar na dTreabh</td><td>Galway</td><td>Design</td>
+          <td>Five-arm roundabout, outermost orbital of eastern Galway City.</td>
+        </tr>
+        <tr>
+          <td class="k">NRA service and rest areas</td><td>National</td>
+          <td>Client's representative, construction monitoring and contract administration, PPP</td>
+          <td>Shortlisted, ACEI Excellence Awards 2014.</td>
+        </tr>
+        <tr>
+          <td class="k">N21 Adare Bypass, Foynes to Limerick Phase 1A</td><td>Limerick</td>
+          <td>Engineer to the Sisk Sorensen joint venture</td>
+          <td>7km bypass; design and construction contract signed March 2025; around €150m; completion targeted
+            June 2027 ahead of the Ryder Cup. <strong>Live — see section 05.</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 class="mini" style="margin-top:4mm">Principal structures, by scheme</h4>
+    <div id="ch-structures" class="figure mb3"></div>
+
+    <div class="note">
+      <strong>Where the structures count comes from.</strong> Five schemes on this page publish a structure
+      count: N22 Macroom (105), M11 Gorey to Enniscorthy (91), M3 Clonee to Kells (59), N2 Finglas to
+      Ashbourne (16) and M18/N17 Gort to Tuam (10 named). With N22 Tralee (5) and the secondary-road schemes
+      overleaf, the record evidences <strong>305 principal structures plus 78 culverts</strong>. That is a
+      bid-ready number, and it is nowhere stated as a total in any public source — it has to be assembled from
+      the individual project pages, which is one more reason to archive them.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">08 · The credentials base · 16</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 17 · 08 CONTINUED — SECONDARY ROADS AND STRUCTURES
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">08</span> · The credentials base, continued</p>
+    <h1 class="page-title">Secondary roads, bridges and structures</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">Secondary and local roads</h2>
+    <table class="data zebra mb5">
+      <thead>
+        <tr><th style="width:52mm">Scheme</th><th style="width:44mm">Role</th><th>Technical detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">N63 Abbeyknockmoy to Annagh Hill, Galway</td><td>NRA main design consultant, Phases 1 to 5</td><td>Two sections totalling roughly 3.2km upgraded to Type 2 single carriageway; railway bridge demolition; arch bridge extension; five structures.</td></tr>
+        <tr><td class="k">N59 Moycullen Bypass, Galway</td><td>Design, Phases 5 to 7</td><td>4.3km single carriageway bypass; 11 structures including a 43.3m two-span bridge over the Lough Kip river and a 242m piled platform through deep peat; split into bypass and online improvement contracts.</td></tr>
+        <tr><td class="k">N60 Castlebar to Balla (Lagnamuck), Mayo</td><td>Design</td><td>Roughly 1.4km online upgrade to Type 2 single carriageway with cycle tracks and footpaths, to DMURS and DMRB.</td></tr>
+        <tr><td class="k">N56 Boyoughter to Kilkenny, Donegal</td><td>PSDP, Employer's Representative and site supervision, Phases 6 to 7</td><td>Roughly 5km realignment and widening to Type 3 single carriageway with a cycle track, following the Cloughbolie to Boyoughter scheme.</td></tr>
+        <tr><td class="k">Killeen Road improvement, Dublin</td><td>Design</td><td>Roughly 1km wide single lane with off-road cycle tracks; new bridge over the Grand Canal and canal re-lining.</td></tr>
+        <tr><td class="k">Clonshaugh Road improvement, Dublin</td><td>Design</td><td>Road improvement scheme.</td></tr>
+        <tr><td class="k">N5 Ballaghaderreen Bypass, Roscommon</td><td>Involvement recognised by the Geoscience Ireland Award 2015</td><td>Completed bypass. <span class="grade b">B</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="sec">Bridges and structures</h2>
+    <table class="data zebra mb4">
+      <thead>
+        <tr><th style="width:52mm">Structure</th><th style="width:44mm">Role</th><th>Technical detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">M3 River Boyne Bridge, south of Navan</td><td>Design, client Meath County Council</td><td>114m three-span steel-girder integral bridge with a 52m skew span; masonry-clad piers reflecting the adjacent eighteenth-century Ballinter Bridge.</td></tr>
+        <tr><td class="k">Newcastle Bridge, Lucan</td><td>Design</td><td>45m two-span overbridge carrying the R120 over the N4 Lucan Bypass; opened 2009.</td></tr>
+        <tr><td class="k">Bohill river bridge, N22</td><td>Contractor's designer</td><td>Push-launched ladder-deck weathering-steel bridge, first of its type and scale carrying a national primary road in Ireland. Irish Concrete Society Infrastructure Award 2023 for the Sullane and Laney bridges; Project of the Year 2024 for the S02C arch overbridge.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g-3-2" style="gap:6mm">
+      <div>
+        <h4 class="mini">Signature structures, by span</h4>
+        <div id="ch-spans" class="figure"></div>
+        <p class="caption">Only three structures in the record publish a span dimension. Everything else is
+          counted but not dimensioned, which is a gap worth closing internally before the next structures bid.</p>
+      </div>
+      <div>
+        <h4 class="mini">Awards in the record</h4>
+        <table class="data tight" style="font-size:6.6pt">
+          <tbody>
+            <tr><td class="k" style="width:14mm">2014</td><td>ACEI Excellence Awards, shortlisted — NRA service and rest areas</td></tr>
+            <tr><td class="k">2015</td><td>Geoscience Ireland Award — N5 Ballaghaderreen Bypass</td></tr>
+            <tr><td class="k">2023</td><td>Irish Concrete Society Infrastructure Award — Sullane and Laney bridges, N22</td></tr>
+            <tr><td class="k">2024</td><td>Project of the Year — S02C arch overbridge, N22</td></tr>
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:3mm">
+          <strong>Two of the four awards are N22 Macroom structures.</strong> That scheme is doing a
+          disproportionate amount of work in the credentials base: the largest structure count, the first
+          push-launched weathering-steel ladder-deck on an Irish national primary road, a measured air-quality
+          outcome, and half the award record. It should be the lead reference on any structures bid.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">08 · The credentials base · 17</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 18 · 08 CONTINUED — ACTIVE TRAVEL AND URBAN REALM
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">08</span> · The credentials base, continued</p>
+    <h1 class="page-title">Active travel, cycle infrastructure and urban realm</h1>
+    <p class="standfirst">
+      Nine entries, spread across five local authorities and the NTA. <strong>This is the category with the
+      widest client base and the shallowest individual scheme values</strong> — which is exactly the profile
+      that framework position, rather than scheme size, decides.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="stat-row g5 mb4">
+      <div class="stat active"><div class="val">9</div><div class="lab">Schemes in the active travel and urban realm category</div></div>
+      <div class="stat active"><div class="val">7</div><div class="lab">Distinct clients across those nine schemes</div></div>
+      <div class="stat active"><div class="val">~130<span class="unit">km</span></div><div class="lab">Walking and cycling provision named across the live portfolio</div></div>
+      <div class="stat active"><div class="val">20<span class="unit">%</span></div><div class="lab">Modal-shift target on the live R132 Drogheda scheme</div></div>
+      <div class="stat"><div class="val">0</div><div class="lab">BusConnects corridor design packages on the record</div></div>
+    </div>
+
+    <table class="data zebra mb4">
+      <thead>
+        <tr><th style="width:52mm">Scheme</th><th style="width:38mm">Client</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">R132 Bridge of Peace to MacBride Station, Drogheda</td><td>Louth County Council, NTA</td><td><strong>Live.</strong> 1.6km R132 plus 0.8km Marsh Road; eight junction upgrades; targets a 20 per cent rise in walking and cycling trips within five years. Part 8 stage.</td></tr>
+        <tr><td class="k">Dún Laoghaire Living Streets</td><td>Dún Laoghaire-Rathdown</td><td>Public realm and urban street system redesign with architects NMP. Current scope to confirm.</td></tr>
+        <tr><td class="k">Bray to UCD Core Bus Corridor feasibility and options study</td><td>Wicklow, Dublin</td><td>Bus priority plus cycle facilities to the GDA Cycle Network Plan and National Cycle Manual.</td></tr>
+        <tr><td class="k">Cork Cycle Network</td><td>Cork City</td><td>Citywide network linking primary attraction nodes; road safety audit.</td></tr>
+        <tr><td class="k">Tallaght to Liffey Valley via R113 and Clondalkin Village</td><td>South Dublin County Council</td><td>8km cycle route.</td></tr>
+        <tr><td class="k">Harbour to Lidl cycle route, Greystones</td><td>Wicklow</td><td>Detailed design.</td></tr>
+        <tr><td class="k">Dublin Bikes scheme</td><td>Dublin City</td><td>Cycle infrastructure.</td></tr>
+        <tr><td class="k">New Vale road safety scheme, Shankill</td><td>Dún Laoghaire-Rathdown, NTA</td><td>Cyclist and pedestrian safety design.</td></tr>
+        <tr><td class="k">Luas Park &amp; Ride, Carrickmines</td><td>Dublin</td><td>Roughly 350 spaces serving the Green Line, with cycle tracks, cycle parking and bus drop-off.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g-5-4" style="gap:6mm">
+      <div>
+        <h4 class="mini">Active travel clients on the record</h4>
+        <div id="ch-atclients" class="figure"></div>
+        <p class="caption"><strong>Client spread, not scheme value.</strong> Local authority relationships are
+          the asset in this category. The NTA appears on two of the nine as co-client, which is the route into
+          the national active travel programme.</p>
+      </div>
+      <div>
+        <h4 class="mini">Walking and cycling provision, live portfolio</h4>
+        <div id="ch-atprovision" class="figure mb3"></div>
+        <h4 class="mini">Design standards evidenced</h4>
+        <ul class="ticks mb3">
+          <li><strong>DMURS</strong> — Design Manual for Urban Roads and Streets</li>
+          <li><strong>National Cycle Manual</strong></li>
+          <li><strong>GDA Cycle Network Plan</strong></li>
+          <li><strong>DMRB</strong>, on the rural and secondary schemes</li>
+        </ul>
+        <div class="note info">
+          <strong>The gap this table exposes.</strong> Every scheme here is a local authority or NTA
+          commission. None is a BusConnects Core Bus Corridor design package, and the Bray to UCD entry is a
+          feasibility and options study rather than a detailed design appointment. The urban transport
+          corridor design ground in the greater Dublin area sits with competitors — see section 10.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">08 · The credentials base · 18</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 19 · 08 CONTINUED — RAIL, PLANNING, OPERATIONS
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">08</span> · The credentials base, continued</p>
+    <h1 class="page-title">Rail, planning, operations and the standards behind them</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">Light rail and heavy rail</h2>
+    <table class="data zebra mb4">
+      <thead><tr><th style="width:52mm">Scheme</th><th style="width:32mm">Client</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Luas Finglas</td><td>TII, NTA</td><td><strong>Live.</strong> 3.9km, four stops; Railway Order operative 13 April 2026.</td></tr>
+        <tr><td class="k">Dublin Luas Lines A and B</td><td>TII predecessor</td><td>Original design team from 1994: design, engineering, procurement, testing and commissioning. 25km of track, 36 stations, Red Cow and Sandyford depots.</td></tr>
+        <tr><td class="k">Cork Area Commuter Rail signalling and communications</td><td>Iarnród Éireann</td><td>Signalling and communications partner over 62km, Mallow to Cork to Cobh and Midleton; NEC4 project management office.</td></tr>
+        <tr><td class="k">Irish Rail train protection system</td><td>Iarnród Éireann</td><td>Signalling and train management modernisation across 2,400km, enabling battery trains for the first time in Ireland.</td></tr>
+        <tr><td class="k">Galway to Athenry capacity feasibility study</td><td>Iarnród Éireann</td><td>Rail capacity study.</td></tr>
+        <tr><td class="k">DART Underground reference design</td><td>Iarnród Éireann</td><td>Highway element of the Reference Design for the Railway Order, plus traffic and utility design. Roughly 7.6km of tunnels, six stations.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g2 mb4" style="gap:6mm">
+      <div>
+        <h2 class="sec">Transport planning and traffic</h2>
+        <table class="data tight" style="font-size:6.6pt">
+          <thead><tr><th style="width:34mm">Commission</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td class="k">N/M20 Cork to Limerick</td><td>Design and planning consultancy on the multimodal corridor.</td></tr>
+            <tr><td class="k">Microsoft Ireland Dublin campus</td><td>Mobility management plan, Leopardstown.</td></tr>
+            <tr><td class="k">South County Business Park and Leopardstown roundabout signalisation</td><td>PTV VISSIM micro-simulation, traffic and transport assessment, junction capacity.</td></tr>
+            <tr><td class="k">Temporary traffic management</td><td>Multiple commissions for local authorities and contractors.</td></tr>
+            <tr><td class="k">Bandon transport and public realm enhancement plan</td><td>Cork, with SYSTRA. <span class="grade b">B</span></td></tr>
+            <tr><td class="k">NRA road safety audit framework</td><td>Multi-party framework Lots 1 and 2a, 2b and 2c for multidisciplinary roads consultancy.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h2 class="sec">Tunnels, tolling and operations</h2>
+        <table class="data tight" style="font-size:6.6pt">
+          <thead><tr><th style="width:34mm">Service</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Dublin Tunnel</td><td>4.7km, open since 2006. Operations, maintenance and tolling.</td></tr>
+            <tr><td class="k">Jack Lynch Tunnel, Cork</td><td>Immersed-tube tunnel on the N40. Operations and maintenance.</td></tr>
+            <tr><td class="k">Motorway Operations Control Centre</td><td>East Wall Road, Dublin 3. Monitors more than 1,200km and roughly 1,600 emergency telephones.</td></tr>
+            <tr><td class="k">MMaRC Network C</td><td>Roughly 328km, south and south-east. Egis Lagan Services.</td></tr>
+            <tr><td class="k">East-Link Toll Bridge</td><td>Dublin Docklands. Listed operator for the 2026 toll schedule.</td></tr>
+            <tr><td class="k">M1 Dundalk toll</td><td>Northlink Limited, majority Egis-owned, for Celtic Roads Group.</td></tr>
+            <tr><td class="k">National services</td><td>Disability Toll Exemption Scheme and the mobile speed-enforcement camera network.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="sec">Typical cross-sections across the live portfolio</h2>
+    <div id="ch-sections" class="figure"></div>
+    <p class="caption"><strong>Indicative cross-sections, not to scale.</strong> The live portfolio spans three
+      distinct cross-section families, each with different standards, safety audit implications and land-take
+      consequences. Verify dimensions against the TII DN and DM series and the scheme departures register.</p>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">08 · The credentials base · 19</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 20 · 09 CONSENT AND DELIVERY PROGRAMME
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">09</span> · Consent and delivery programme</p>
+    <h1 class="page-title">What lands, and when</h1>
+    <p class="standfirst">
+      Solid bars carry a confirmed Egis role; hatched bars are probable, legacy, or a duration the public
+      record does not state. <strong>Dates beyond a published milestone are indicative</strong> and should be
+      replaced with the approved internal baseline in week one.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-gantt" class="figure"></div>
+    <p class="caption mb4"><strong>Egis Irish roads and transport programme, 2024 to 2033.</strong> The three
+      operations contracts provide the revenue floor to the early 2030s. Every design commission is gated by a
+      statutory or business-case approval outside Egis's control. Numbered markers are the milestones keyed below.</p>
+
+    <div class="grid g2 mb4" style="gap:6mm">
+      <div>
+        <h4 class="mini">Milestone key</h4>
+        <table class="data tight" style="font-size:6.6pt">
+          <tbody>
+            <tr><td class="k" style="width:5mm">1</td><td>Luas Finglas Railway Order operative, 13 April 2026</td></tr>
+            <tr><td class="k">2</td><td>Donegal TEN-T application and CPO notices published, 14 May 2026</td></tr>
+            <tr><td class="k">3</td><td>R132 Drogheda Part 8 submissions close, 1 September 2026</td></tr>
+            <tr><td class="k">4</td><td>N72/N73 Mallow planning target, Q4 2026</td></tr>
+            <tr><td class="k">5</td><td>N21 Adare completion ahead of the Ryder Cup, September 2027</td></tr>
+            <tr><td class="k">6</td><td>N3 Virginia planning submission, now Q4 2027</td></tr>
+            <tr><td class="k">7</td><td>Donegal TEN-T earliest construction start, 2028</td></tr>
+            <tr><td class="k" style="color:var(--ink-4)">—</td><td style="color:var(--ink-4)">N/M20 business case approval gate: no date on the public record</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h4 class="mini">The three dates that matter most</h4>
+        <div class="card ops mb3">
+          <div class="card-t">1 September 2026 · R132 Drogheda</div>
+          <p class="small">Part 8 submissions close within days of your start. The design response sits with your team.</p>
+        </div>
+        <div class="card roads mb3">
+          <div class="card-t">Q4 2026 · N72/N73 Mallow</div>
+          <p class="small">Gate 1 and the preliminary business case determine whether the statutory submission
+            holds. This is the nearest controllable gate.</p>
+        </div>
+        <div class="card active">
+          <div class="card-t">September 2027 · N21 Adare</div>
+          <p class="small">A hard, publicly visible deadline on a live construction commission where Egis is
+            engineer to the contractor. Slippage here is reputational as well as commercial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note dark">
+      <strong>Consenting risk is the dominant programme variable.</strong> The N6 Galway City Ring Road was
+      approved in April 2026 after two decades and a 2023 High Court quashing on climate grounds. The N2 Slane
+      Bypass was granted planning in July 2025 and is in judicial review. The N3 Virginia planning submission
+      has moved from 2026 to Q4 2027. For a technical authority the implication is that the defensibility of
+      environmental and climate assessment work is not a compliance formality; it is the principal determinant
+      of whether a scheme reaches construction, and the area where an approved design is most likely to be
+      unpicked years after sign-off.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">09 · Consent and delivery programme · 20</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 21 · 09 CONTINUED — PROGRAMME RISK
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">09</span> · Consent and delivery programme, continued</p>
+    <h1 class="page-title">Programme risk on the live commissions</h1>
+    <p class="standfirst">
+      Seven live commissions carry a named programme risk. <strong>Three are high exposure, and only one of
+      those is inside Egis's control.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="grid g-5-4 mb4" style="gap:6mm">
+      <div>
+        <div id="ch-riskmatrix" class="figure"></div>
+        <p class="caption"><strong>Exposure against control.</strong> The vertical axis is the exposure stated in
+          the table below; the horizontal axis is how much of the outcome sits inside Egis's own delivery rather
+          than with a consenting body, funder or client. The upper-left quadrant is where a technical authority
+          has influence but not control, and it is where most of this portfolio sits.</p>
+      </div>
+      <div>
+        <h4 class="mini">Risk type distribution</h4>
+        <div id="ch-risktypes" class="figure mb3"></div>
+        <div class="note risk">
+          <strong>Four of seven risks are consenting, statutory or approval risks.</strong> None of them is a
+          design or buildability risk. That is the clearest single statement of what this directorate is
+          actually exposed to, and it should shape where assurance effort goes.
+        </div>
+      </div>
+    </div>
+
+    <table class="data zebra">
+      <thead>
+        <tr>
+          <th style="width:34mm">Commission</th>
+          <th style="width:22mm">Risk type</th>
+          <th style="width:20mm">Exposure</th>
+          <th>What drives it, and the early indicator to watch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">Donegal TEN-T</td><td>Consenting</td><td><span class="pill ops">High</span></td><td>Largest scheme in the portfolio, cross-border interface with the A5, and an eight-week consultation already closed. Watch for an oral hearing direction or a request for further information; either adds six to twelve months.</td></tr>
+        <tr><td class="k">N3 Virginia Bypass</td><td>Programme</td><td><span class="pill ops">High</span></td><td>Planning has already slipped from 2026 to Q4 2027 on the public record. Watch whether the approved internal baseline has been formally revised or whether the slip is unmanaged.</td></tr>
+        <tr><td class="k">N21 Adare Bypass</td><td>Delivery</td><td><span class="pill ops">High</span></td><td>Fixed external deadline ahead of the September 2027 Ryder Cup on a design-and-construct contract where Egis is engineer to the joint venture. Watch early-warning notices and design change volume.</td></tr>
+        <tr><td class="k">N/M20 Cork to Limerick</td><td>Commercial</td><td><span class="pill roads">Medium to high</span></td><td>Fee drawdown gated by business-case approval outside Egis control, within a three-firm advisor team. Watch the business case decision and any reallocation of work packages.</td></tr>
+        <tr><td class="k">N72/N73 Mallow</td><td>Approval</td><td><span class="pill none">Medium</span></td><td>Gate 1 and preliminary business case terminology conflicts with the TII phase language in public reporting. Watch whether Gate 1 lands within 2026 as TII indicated.</td></tr>
+        <tr><td class="k">R132 Drogheda</td><td>Statutory</td><td><span class="pill none">Medium</span></td><td>Part 8 submissions close 1 September 2026. Watch submission volume and whether material design change is required before council approval.</td></tr>
+        <tr><td class="k">Luas Finglas</td><td>Funding</td><td><span class="pill none">Medium</span></td><td>Consent secured but no construction award identified. Watch the funding decision and the procurement route, which together determine whether Egis converts a consenting position into a delivery commission.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">09 · Consent and delivery programme · 21</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 22 · 10 FUNDING AND MARKET CONTEXT
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">10</span> · Funding and market context</p>
+    <h1 class="page-title">The money</h1>
+    <p class="standfirst">
+      National road funding rose <strong>13 per cent year on year</strong> into 2026, inside a National
+      Development Plan that commits €275.4 billion to 2035 under a hierarchy that structurally favours the
+      operations and renewals capability Egis already holds.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="stat-row g5 mb4">
+      <div class="stat lime"><div class="val">€275.4bn</div><div class="lab">National Development Plan Review 2025, to 2035</div></div>
+      <div class="stat active"><div class="val">€102.4bn</div><div class="lab">Capital allocations across 2026 to 2030</div></div>
+      <div class="stat active"><div class="val">€24.33bn</div><div class="lab">Department of Transport share, 2026 to 2030</div></div>
+      <div class="stat roads"><div class="val">€1.5bn+</div><div class="lab">National, regional and local roads, 2026</div></div>
+      <div class="stat roads"><div class="val">+13<span class="unit">%</span></div><div class="lab">National road funding, year on year</div></div>
+    </div>
+
+    <h2 class="sec">Irish roads allocation, 2026</h2>
+    <div id="ch-roads" class="figure"></div>
+    <p class="caption mb4"><strong>Within a total of over €1.5bn for national, regional and local roads,
+      national roads take approximately €800m</strong>, of which €659m is TII exchequer capital, €104m is PPP
+      and roughly €33m is maintenance. The dashed extent is the wider roads envelope, which is stated only as
+      a floor.</p>
+
+    <h2 class="sec">The wider envelope</h2>
+    <div id="ch-ndp" class="figure"></div>
+    <p class="caption mb4"><strong>National Development Plan Review 2025, published 22 July 2025.</strong> The
+      two components named in the summary source — €202.4bn Exchequer and €63bn non-Exchequer — sum to
+      €265.4bn against a headline of €275.4bn. The €10bn balance is not attributed in that summary. Reconcile
+      against the published Review before quoting any split externally; this is exactly the class of conflict
+      section 12 is about.</p>
+
+    <h2 class="sec">The hierarchy matters more than the totals</h2>
+    <div id="ch-nifti" class="figure mb3"></div>
+
+    <div class="note dark">
+      Investment is governed by the National Investment Framework for Transport in Ireland and its
+      <em class="term">Maintain, Optimise, Improve, New</em> hierarchy, which prioritises protecting and
+      renewing existing assets before new build. Egis already holds motorway maintenance, tunnel operations
+      and renewals design positions. In a policy framework that puts maintenance and optimisation ahead of new
+      build, that is not a peripheral part of the business — <strong>it is the part aligned with where the
+      money is directed first.</strong>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">10 · Funding and market context · 22</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 23 · 10 CONTINUED — COMPETITIVE POSITION
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">10</span> · Funding and market context, continued</p>
+    <h1 class="page-title">Who else is bidding for it</h1>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-competitors" class="figure mb3"></div>
+    <p class="caption mb4"><strong>Visible Irish transport position, by lane.</strong> Horizontal position is
+      how much of each firm's visible Irish transport work is national roads design against urban transport and
+      corridor design; vertical position is the strength of that visible position. Firms that are Egis partners
+      on at least one live commission are drawn hollow — several occupy both roles at once, which is the
+      defining feature of this market.</p>
+
+    <table class="data zebra mb4">
+      <thead>
+        <tr><th style="width:44mm">Competitor</th><th style="width:56mm">Visible Irish transport position</th><th>Implication</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">Arup</td><td>Over 700 staff. Lead designer, N6 Galway City Ring Road. Galway Transport Strategy.</td><td>Dominant in major national roads design. The benchmark to displace on scheme design.</td></tr>
+        <tr><td class="k">Roughan &amp; O'Donovan, often with AECOM</td><td>N5 Westport to Turlough; recent 2026 TII consultancy awards.</td><td>The alliance winning the TII commissions Egis is not. Strongest in national road design and structures.</td></tr>
+        <tr><td class="k">Jacobs</td><td>BusConnects Dublin and Cork design; client-side technical advisor on the Adare Bypass.</td><td>Holds the urban transport design ground and sits opposite Egis on Adare.</td></tr>
+        <tr><td class="k">Sweco and WSP</td><td>Partners with Barry Transportation on the N/M20 technical advisor team; WSP now employs Andrew Doyle.</td><td>Partner in one lane, competitor in others, and personally entangled through the Doyle move.</td></tr>
+        <tr><td class="k">RPS and Tetra Tech</td><td>Partner with JB Barry on the Donegal TEN-T commission.</td><td>Joint venture partner on the largest live consenting scheme.</td></tr>
+        <tr><td class="k">AtkinsRéalis, Mott MacDonald, SYSTRA</td><td>Broad transport consultancy; Egis partners with SYSTRA on the Iarnród Éireann framework and on Luas Finglas.</td><td>Competitor in some lanes, partner in others.</td></tr>
+        <tr><td class="k">Ayesa, TOBIN, Malachy Walsh, PUNCH, DBFL, Waterman Moylan, Fehily Timoney</td><td>Mid-tier Irish transport and infrastructure consultancies.</td><td>The competitive set for local authority and regional scheme work.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g2 gap-s">
+      <div class="card roads">
+        <div class="card-t">Where Egis is strong</div>
+        <ul class="ticks">
+          <li>Operations and asset management</li>
+          <li>Tunnels and intelligent transport systems</li>
+          <li>Construction-stage designer and supervision</li>
+          <li>Technical advisory through planning on national roads</li>
+          <li><strong>The combination of design plus operations</strong>, which pure consultancies cannot offer</li>
+        </ul>
+      </div>
+      <div class="card ops">
+        <div class="card-t">Where it is not, on the public record</div>
+        <ul class="ticks dash">
+          <li>Greater Dublin urban transport corridor design, where BusConnects packages sit with competitors</li>
+          <li>Recent TII national road detailed-design commissions, where Arup and the Roughan &amp; O'Donovan and AECOM alliance lead</li>
+        </ul>
+        <p class="small" style="margin-top:2mm"><strong>Establish in month one</strong> whether this is
+          deliberate portfolio choice or an addressable gap.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">10 · Funding and market context · 23</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 24 · 11 THE IRISH TEAM
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">11</span> · The Irish team</p>
+    <h1 class="page-title">Who is who in transportation</h1>
+    <p class="standfirst">
+      Drawn from company leadership and people pages, ACEI listings, Engineers Ireland material and press
+      releases. <strong>Professional information only.</strong> Confidence stated for each.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-orgchart" class="figure mb3"></div>
+    <p class="caption mb4"><strong>The senior structure as the public record describes it, not as an
+      organisation chart.</strong> Solid lines are relationships stated in public sources; the dashed box is the
+      vacancy created by the Andrew Doyle departure, against which Egis was advertising through early 2026.
+      Your own position in this structure is one of the questions in section 14.</p>
+
+    <div class="grid g3 gap-s mb4">
+      <div class="person">
+        <div class="nm">Eamon Daly</div>
+        <div class="rl">Director · Transportation and traffic engineering</div>
+        <div class="bio">Chartered Engineer with 25 years and more in transportation and traffic. BE and MEngSc
+          in Transportation Engineering, UCD 1995 to 1996. CEng, MIEI, FConsEI. Previously TOBIN Consulting
+          Engineers. Appeared on the Engineers Ireland AMPLIFIED podcast discussing motorways, tunnels, Luas and
+          MetroLink. <strong>Your closest technical counterpart in the Irish transport team.</strong>
+          <span class="grade a">A</span></div>
+      </div>
+      <div class="person">
+        <div class="nm">Liam Prendiville</div>
+        <div class="rl">Managing Director · Transportation lead, Ireland</div>
+        <div class="bio">35 years and more in transportation and traffic engineering. BE, Diploma in Project
+          Management, Diploma in Highways and Geotechnical Engineering, CEng, FIEI, FConsEI. Former managing
+          director and largest shareholder of JB Barry. N/M20 involvement. <strong>The senior Irish-resident
+          transport figure on the record.</strong> <span class="grade a">A</span></div>
+      </div>
+      <div class="person">
+        <div class="nm">Francois Basselot</div>
+        <div class="rl">Managing Director · UK and Ireland</div>
+        <div class="bio">In post from January 2026. Formerly head of Egis energy and sustainable cities for
+          Europe and Africa. Over ten years in Tier 1 consultancy. The only name listed on the Egis Ireland
+          leadership page. <span class="grade a">A</span></div>
+      </div>
+      <div class="person">
+        <div class="nm">Mike Birch</div>
+        <div class="rl">Transportation Director · UK and Ireland</div>
+        <div class="bio">Announced 2026. Over 35 years. From West Yorkshire Combined Authority as Mass Transit
+          Director on a £3bn tram programme. Previously Jacobs and Ramboll, with HS2 and Crossrail board roles.
+          Spans light rail, heavy rail, highways and active travel. <span class="grade a">A</span></div>
+      </div>
+      <div class="person">
+        <div class="nm">Steve Preece</div>
+        <div class="rl">Managing Director · Operations and Maintenance, Ireland</div>
+        <div class="bio">Also cited as CEO of Egis in Ireland. Long-standing head of Irish operations and
+          tolling. Co-signatory of the May 2025 Dublin Tunnel contract. Leads the tunnels, MOCC, motorway
+          monitoring and the safety camera network. <span class="grade a">A</span></div>
+      </div>
+      <div class="person gone">
+        <div class="nm">Andrew Doyle</div>
+        <div class="rl">Departed · former Country Director, Transportation</div>
+        <div class="bio">Left for WSP as Country Director for Ireland in early 2026. Over 30 years in road and
+          rail; previously M50 Concession and Solas. <strong>No like-for-like public successor named.</strong>
+          Departure confirmed. <span class="grade a">A</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec">Who to see, and in what order</h2>
+    <table class="data tight">
+      <thead><tr><th style="width:34mm">Person</th><th style="width:48mm">Why</th><th>What to get out of it</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Liam Prendiville</td><td>Senior Irish-resident transport figure; N/M20 history; former JB Barry MD</td><td>The real reporting line, the transport pipeline, and the honest history of which legacy relationships still hold.</td></tr>
+        <tr><td class="k">Eamon Daly</td><td>Director, transportation and traffic; your closest technical counterpart</td><td>Live commission status, discipline capability, resource pinch points, and where technical assurance currently sits.</td></tr>
+        <tr><td class="k">Martin Hogan</td><td>Chief Business Officer; bids, clients, acquisitions</td><td>Framework positions, the win and loss log, and which pursuits need your name on them.</td></tr>
+        <tr><td class="k">Steve Preece</td><td>Managing Director, Operations and Maintenance</td><td>The operations and consultancy interface, renewals design, and where designer duties currently land.</td></tr>
+        <tr><td class="k">Deirdre O'Hara and Gordon Barry</td><td>Geotechnics and environment</td><td>Consenting defensibility on Donegal TEN-T, N3 Virginia and N72/N73 Mallow.</td></tr>
+        <tr><td class="k">Mike Birch</td><td>Transportation Director, UK and Ireland</td><td>Where the Irish transport remit sits within the integrated structure, and what he expects of you.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">11 · The Irish team · 24</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 25 · 11 CONTINUED — THE WIDER NAMED TEAM
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">11</span> · The Irish team, continued</p>
+    <h1 class="page-title">The wider named team</h1>
+    <p class="standfirst">
+      Professional information only, from published company, ACEI and Engineers Ireland sources. Confidence
+      stated for each. <strong>This comes almost entirely from the legacy JB Barry people page</strong>, which
+      describes the firm as it stood before the July 2024 rebrand — treat it as a starting list for
+      introductions rather than an organisation chart, and confirm each before use.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <table class="data zebra tight">
+      <thead>
+        <tr><th style="width:30mm">Name</th><th style="width:46mm">Role and discipline</th><th style="width:16mm">Confidence</th><th>Background</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">Tom Cannon</td><td>Associate Director. Project management, road design, road safety, transportation</td><td><span class="grade a">A</span></td><td>30 years and more.</td></tr>
+        <tr><td class="k">Peter Morehan</td><td>Traffic, transportation and road safety engineering</td><td><span class="grade a">A</span></td><td>20 years. BE, CEng, MIEI.</td></tr>
+        <tr><td class="k">Gabriel Dooley</td><td>Associate Director. Pavement and drainage design in transportation</td><td><span class="grade a">A</span></td><td>20 years and more. <strong>Directly relevant to Network C renewals.</strong></td></tr>
+        <tr><td class="k">Tim Finn</td><td>Technical Director. Structural, water and transportation engineering</td><td><span class="grade a">A</span></td><td>30 years and more.</td></tr>
+        <tr><td class="k">William (Willie) Lalor</td><td>Associate Director. Structural and transportation engineering</td><td><span class="grade a">A</span>/<span class="grade b">B</span></td><td>20 years. Castlebar office; western region cover.</td></tr>
+        <tr><td class="k">Maurice O'Donoghue</td><td>Structural, water and transportation engineering</td><td><span class="grade a">A</span></td><td>30 years and more. BE, EurIng, CEng, FIEI, Dip PM, FConsEI.</td></tr>
+        <tr><td class="k">Deirdre O'Hara</td><td>Associate Director. Geotechnics, soils and geology</td><td><span class="grade a">A</span></td><td>25 years and more. IGI, EFG, CEng. <strong>The named geotechnical lead.</strong></td></tr>
+        <tr><td class="k">Garry Flood</td><td>Director. Structural engineering</td><td><span class="grade a">A</span></td><td>30 years and more. Dip Eng, BSc(Eng), CEng, FConsEI.</td></tr>
+        <tr><td class="k">Gordon Barry</td><td>Technical Director. Environment, EIA and dispute resolution</td><td><span class="grade a">A</span></td><td>30 years and more. Chartered Engineer, Environmentalist and Scientist; arbitrator and adjudicator, FIDIC and CIArb. <strong>Relevant to consenting defensibility.</strong></td></tr>
+        <tr><td class="k">Kieran O'Dwyer</td><td>Technical Director. Environmental consultancy, EIA and environmental management</td><td><span class="grade a">A</span>/<span class="grade b">B</span></td><td>35 years and more. BE Civil, UCD.</td></tr>
+        <tr><td class="k">Anne Marie Conibear</td><td>Director and Company Secretary. Water, wastewater and flood</td><td><span class="grade a">A</span></td><td>30 years and more. BE, CEng, MICE, FIEI, FConsEI.</td></tr>
+        <tr><td class="k">Martin Hogan</td><td>Chief Business Officer</td><td><span class="grade a">A</span></td><td>30 years and more. Chartered Fellow of RSC and CIWM. Leads Irish growth, client base and acquisitions. <strong>The person to see about bid strategy.</strong></td></tr>
+        <tr><td class="k">Erica Lund</td><td>Tenders and procurement, marketing, communications, business development</td><td><span class="grade a">A</span></td><td>30 years. The operational route into bid production.</td></tr>
+        <tr><td class="k">James Quinlan</td><td>Director for Luas Finglas</td><td><span class="grade b">B</span></td><td>Narrated the Railway Order fly-through. Current employment status may have changed; confirm before assuming continuity on Luas Finglas.</td></tr>
+        <tr><td class="k">Ulick Fitzmaurice, Ruari O'Byrne</td><td>BIM management</td><td><span class="grade b">B</span></td><td>MSc Construction Informatics. The digital delivery capability you will need to assess.</td></tr>
+        <tr><td class="k">Helen Bray</td><td>Chief Financial Officer, Ireland</td><td><span class="grade a">A</span></td><td>Named at the May 2025 Dublin Tunnel contract event.</td></tr>
+        <tr><td class="k">Bryan Harrington</td><td>Associate Director; water, wastewater and transportation background. Elsewhere cited as Director for Energy</td><td><span class="grade b">B</span></td><td>Title conflicting across sources; confirm.</td></tr>
+        <tr><td class="k">Joanne Moran, Marcus Fagan, Michael Hand, Ben Gaffney, Paul Judge, Ross Kinsella, Seamus Donaghy, Ger McInerney, Martin Healy</td><td>Water, environment and energy directors, several with transportation cross-skills</td><td><span class="grade a">A</span>/<span class="grade b">B</span></td><td>Context for the wider Irish directorate.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">11 · The Irish team · 25</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 26 · 11 CONTINUED — CAPABILITY PICTURE
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">11</span> · The Irish team, continued</p>
+    <h1 class="page-title">Depth, discipline coverage and where it sits</h1>
+    <p class="standfirst">
+      What the named list adds up to, and what it does not tell you. <strong>The experience is deep and the
+      discipline spread is wide; the missing thing is any published statement of who leads what.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="stat-row g5 mb4">
+      <div class="stat lime"><div class="val">465<span class="unit">+</span></div><div class="lab">Years of stated experience across the named individuals</div></div>
+      <div class="stat roads"><div class="val">17</div><div class="lab">Named individuals with a stated experience figure</div></div>
+      <div class="stat active"><div class="val">10</div><div class="lab">Disciplines represented in the named list</div></div>
+      <div class="stat"><div class="val">16</div><div class="lab">Offices and sites across the Irish business</div></div>
+      <div class="stat ops"><div class="val">0</div><div class="lab">Published discipline-lead appointments for the remit</div></div>
+    </div>
+
+    <div class="grid g-3-2 mb5" style="gap:6mm">
+      <div>
+        <div id="ch-experience" class="figure"></div>
+        <p class="caption"><strong>Stated experience across seventeen named individuals.</strong> Where a source
+          says "30 years and more", the stated figure is used, so every bar is a floor. The seventeen named
+          people carry <strong>at least 465 years of stated experience between them</strong> — a number worth
+          having in front of you before any conversation about capability.</p>
+      </div>
+      <div>
+        <h4 class="mini">Discipline coverage in the named list</h4>
+        <div id="ch-disciplines" class="figure"></div>
+        <p class="caption"><strong>Named individuals by discipline.</strong> Several appear in more than one
+          discipline, which is why the bars sum to more than the headcount.</p>
+      </div>
+    </div>
+
+    <div class="grid g-3-2" style="gap:6mm">
+      <div>
+        <h2 class="sec">Where the business physically is</h2>
+        <div id="ch-offices" class="figure"></div>
+        <p class="caption"><strong>Sixteen offices and sites, two of them named in public sources.</strong>
+          Classon House in Dundrum is the Dublin 14 headquarters, refurbished and opened by Tánaiste Simon
+          Harris in August 2025; Castlebar appears through the western region cover in the named list. The
+          remaining locations are not identified publicly, which matters for resource planning, for site
+          supervision cover and for any claim about regional presence in a bid.</p>
+      </div>
+      <div>
+        <h4 class="mini">Where each name comes from</h4>
+        <div id="ch-nameevidence" class="figure mb3"></div>
+        <div class="note info mb3">
+          <strong>What this page cannot tell you.</strong> Depth of experience is not the same as coverage.
+          Nothing in the public record establishes which of these people currently leads highways, structures,
+          geotechnics, traffic, transport planning, active travel, or digital and BIM — or whether those lead
+          roles exist at all after the rebrand and the January 2026 reorganisation.
+        </div>
+        <div class="note dark">
+          <strong>The three capability questions to close in week one.</strong> Which named discipline leads
+          exist today, and for which disciplines. Which of the seventeen are still with the business after the
+          rebrand. And how the roughly 200 consultancy engineers divide between transport, water, environment
+          and energy — because the headline of 630 staff across the Irish business is not the number available
+          to your directorate.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">11 · The Irish team · 26</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 27 · 11 CONTINUED — TWO FINDINGS
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">11</span> · The Irish team, continued</p>
+    <h1 class="page-title">Two findings you should act on before you repeat any name</h1>
+  </div>
+
+  <div class="page-body">
+    <div class="grid g2 mb5" style="gap:6mm">
+      <div>
+        <h2 class="sec">Finding one</h2>
+        <h3 class="sub">No senior person named "Tara" could be confirmed at Egis in Ireland</h3>
+        <p class="small mb3">A targeted search across Egis in Ireland, Egis Engineering Ireland, JB Barry &amp;
+          Partners and Barry Transportation found no senior person with the first name Tara in any transport,
+          highways, rail, structures, planning, environment or commercial role. <strong>This is a considered
+          negative finding rather than an absence of searching.</strong></p>
+        <div id="ch-tara" class="figure mb3"></div>
+        <p class="caption mb3">How the name most likely entered the record. The aggregator listing is the only
+          link between the person and Egis, and it is wrong.</p>
+        <p class="small mb3">The most likely source of the name is Tara O'Leary, a transport planning
+          professional at Sweco, previously Fehily Timoney, Carl Bro and Grontmij, based in Cork. She is listed
+          against "Egis in Ireland" by a commercial data-scraping aggregator, and that listing is wrong. Sweco
+          is a partner to Barry Transportation on the N/M20 technical advisor team, which is a plausible route
+          for the two organisations to have become conflated. A secondary possibility is confusion with Tara
+          Street station in Dublin.</p>
+        <div class="note risk">
+          <strong>Action.</strong> Confirm with HR or with Liam Prendiville before the name appears in any
+          internal or external document. If a Tara does work in the Irish transport team, she joined after the
+          public record was last updated, which is entirely possible given the recruitment activity through 2026.
+        </div>
+      </div>
+      <div>
+        <h2 class="sec">Finding two</h2>
+        <h3 class="sub">The discipline-lead layer is invisible in public sources</h3>
+        <p class="small mb3">The Egis Ireland leadership page lists only Francois Basselot. The named
+          individuals in the table on the previous page come almost entirely from the legacy JB Barry people
+          page and ACEI listings, which describe the firm as it was before the rebrand. <strong>No current,
+          published Egis Ireland organisation chart exists</strong> for highways, structures, geotechnics,
+          traffic, transport planning, active travel, or digital and BIM.</p>
+        <div id="ch-vacancies" class="figure mb3"></div>
+        <p class="caption mb3">Senior transport roles Egis was recruiting for in Dublin through early 2026,
+          against the one senior transport departure on the record.</p>
+        <p class="small mb3">Through early 2026 Egis was advertising for a Director of Urban Transport in
+          Dublin, a Director of Urban Transportation, and a Technical Director to lead a MetroLink tender bid,
+          alongside the unfilled transport country director role. Read alongside the announced creation of 100
+          new Irish roles, the picture is of a business building senior transport capacity faster than it is
+          publishing it.</p>
+        <div class="note info">
+          <strong>Two practical consequences.</strong> The internal organisation chart will be materially ahead
+          of anything in this document, and there may be live pursuits, MetroLink among them, that intersect
+          your remit before you have formally scoped it. Treat your first fortnight as scoping as much as
+          induction, and expect to shape the structure rather than inherit it.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec">A verification protocol worth adopting on day one</h2>
+    <p class="small mb3">Every name in this dossier is graded, and the grading matters because commercial data
+      aggregators actively contaminate the record. A workable rule for any name that reaches a bid, a
+      client-facing document or an organisation chart:</p>
+    <div class="grid g3 gap-s">
+      <div class="card" style="border-top:1.1pt solid var(--grade-a)">
+        <div class="card-t" style="color:var(--grade-a)">Confirmed</div>
+        <p class="small">Where the person appears on an <strong>Egis-controlled page, a client publication, a
+          professional body listing or a signed document</strong>.</p>
+      </div>
+      <div class="card" style="border-top:1.1pt solid var(--grade-b)">
+        <div class="card-t" style="color:var(--grade-b)">Provisional</div>
+        <p class="small">Where the source is a <strong>legacy JB Barry or Barry Transportation page</strong>.
+          Correct at the time of writing, but pre-rebrand and potentially superseded.</p>
+      </div>
+      <div class="card" style="border-top:1.1pt solid var(--cat-ops)">
+        <div class="card-t" style="color:var(--cat-ops)">Rejected</div>
+        <p class="small">Where the only source is a <strong>commercial contact-data aggregator</strong>. The
+          Tara O'Leary case shows these attach real people to the wrong employer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">11 · The Irish team · 27</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 28 · 12 DATA QUALITY AND REGISTER CONTROLS
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">12</span> · Data quality and register controls</p>
+    <h1 class="page-title">Five flags to design out of the permanent register</h1>
+    <p class="standfirst">
+      Each of these caused a real conflict while assembling this dossier. <strong>Building the control into the
+      register now prevents the same conflict recurring every quarter.</strong>
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-flags" class="figure mb3"></div>
+    <p class="caption mb4"><strong>The value conflict and the programme conflict, drawn to scale.</strong> Both are cases where two
+      published figures describe the same thing and do not agree. Neither can be resolved from public sources;
+      both can be designed out of a register by storing the source and date alongside every value.</p>
+
+    <table class="data zebra mb4">
+      <thead>
+        <tr><th style="width:34mm">Flag</th><th style="width:60mm">What conflicts</th><th>Register control</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">Donegal TEN-T value movement</td><td>The legacy JB Barry project page still displays €350 million, while the Government's July 2024 approval stated a current estimated range of €780 million to €915 million, and 2026 reporting commonly refers to an approximately €800 million project.</td><td>Store original published value, current approved estimate, estimate date, source and confidence as separate fields. <strong>Never overwrite a historical estimate silently.</strong></td></tr>
+        <tr><td class="k">N3 Virginia programme conflict</td><td>The June 2025 project update expected planning the following year; a February 2026 Cavan County Council meeting report states submission is now expected in Q4 2027.</td><td>Maintain baseline date, current forecast date, movement, reason, approval status and source. Flag material slippage automatically.</td></tr>
+        <tr><td class="k">Road operations footprint</td><td>Egis corporate material refers to approximately 470km of motorways and all tunnels, while TII pages identify Network C at 328km, Dublin and Jack Lynch tunnel operations, and a separate operator for the Limerick Tunnel.</td><td>Map every asset to legal entity, contract vehicle, client, operating scope, start and end dates and business unit before presenting any consolidated footprint.</td></tr>
+        <tr><td class="k">Mixed corporate and contracting identities</td><td>Public records use Egis, JB Barry, Barry Transportation, Halcrow Barry, CH2M Barry, Egis Lagan Services and Egis Road &amp; Tunnel Operation Ireland. These are not interchangeable for governance or commercial reporting.</td><td>Retain four separate fields: public-facing brand, legal entity, delivery business unit, and contract or framework vehicle.</td></tr>
+        <tr><td class="k">Mallow approval terminology</td><td>TII's May 2026 update says the Mallow Relief Road is expected to proceed to Gate 1 during 2026, while local reporting describes a Phase 3 design process and a possible Q4 2026 planning submission subject to preliminary business case approval.</td><td>Reconcile the Infrastructure Guidelines gate, the TII Project Management Guideline phase and the statutory planning programme in one approved milestone map.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g-3-2" style="gap:6mm">
+      <div>
+        <h4 class="mini">Minimum control fields for a permanent register</h4>
+        <div class="grid g2 gap-xs">
+          <ul class="ticks">
+            <li>Project or contract name and internal code</li>
+            <li>Client, sponsor and contracting authority</li>
+            <li>Public-facing brand, legal entity and Egis business unit</li>
+            <li>Project director, project manager and technical lead</li>
+            <li>TII phase, Infrastructure Guidelines gate and statutory stage</li>
+          </ul>
+          <ul class="ticks">
+            <li>TED or eTenders notice ID, award notice and framework or lot reference</li>
+            <li>Baseline, current forecast and next critical milestone</li>
+            <li>Contract value, fee, margin and remaining fee, access controlled</li>
+            <li>Top technical, programme, commercial, stakeholder and resource risks</li>
+            <li>Source URL, source date, last-checked date and confidence rating</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="note dark">
+          <strong>Archive the legacy websites this week.</strong> The per-scheme evidence underpinning most of
+          section 08 sits on jbbarry.ie and barrytransportation.ie. Both are unmaintained, and
+          barrytransportation.ie now carries a disclaimer stating it is an independent information resource not
+          affiliated with the original firm. Crawl and save every project page to a controlled drive before the
+          domains lapse. Without those pages the credentials base becomes very difficult to evidence in a
+          tender — and it is the source of the 305-structure and 320-kilometre figures on page 15.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">12 · Data quality and register controls · 28</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 29 · 13 REGULATORY AND ASSURANCE LANDSCAPE
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">13</span> · Regulatory and assurance landscape</p>
+    <h1 class="page-title">What the technical authority is accountable for</h1>
+  </div>
+
+  <div class="page-body">
+    <h2 class="sec">The consent sequence, and where the gates sit</h2>
+    <div id="ch-tiiflow" class="figure"></div>
+    <p class="caption mb3"><strong>The TII Project Management Guidelines phases, with the Infrastructure
+      Guidelines gates that sit alongside them.</strong> The two vocabularies are not the same thing and do not
+      map one to one, which is the root of the Mallow terminology conflict in section 12. Diamonds are approval
+      gates; the shaded phases are where five of the six live design commissions currently sit.</p>
+
+    <div id="ch-consentroutes" class="figure mb3"></div>
+    <p class="caption mb4"><strong>Three consent routes, three different exposures.</strong> Which route a
+      scheme takes determines who decides it, how long it takes, and what a challenge looks like. All three are
+      live in the current portfolio.</p>
+
+    <div class="grid g2 mb4" style="gap:6mm">
+      <div>
+        <h3 class="sub">Process and consent</h3>
+        <ul class="ticks">
+          <li>TII <strong>Project Management Guidelines</strong>, Phases 1 to 4, and the phase-gate approvals that govern them</li>
+          <li><strong>Infrastructure Guidelines gates</strong>, notably Gate 1 and the preliminary business case, which sit alongside but are not the same as TII phases</li>
+          <li>TII <strong>DN design and DM standards</strong> publication series, and the scheme departures register</li>
+          <li>Consent routes via <strong>An Coimisiún Pleanála</strong>, formerly An Bord Pleanála, including Railway Orders for light rail and compulsory purchase orders</li>
+          <li><strong>Part 8</strong> local authority consent for active travel and urban realm schemes</li>
+          <li><strong>Environmental Impact Assessment</strong> and Appropriate Assessment obligations</li>
+          <li><strong>DMURS</strong> and the National Cycle Manual for urban and active travel design</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub">Risk and duty</h3>
+        <ul class="ticks">
+          <li><strong>Judicial review exposure</strong> on road schemes. The N6 Galway quashing and the live N2 Slane proceedings are the cautionary cases</li>
+          <li>The <strong>Road Safety Audit regime</strong>, including the NRA and TII framework under which Egis holds a position</li>
+          <li><strong>Safety, Health and Welfare at Work (Construction) Regulations</strong> designer duties and Project Supervisor Design Process appointments, which Egis has held directly on the N56 Donegal scheme</li>
+          <li><strong>Climate Action Plan and NIFTI</strong> implications. The requirement to assess climate impact is what quashed the first N6 Galway approval</li>
+          <li><strong>Tunnel safety, fire and life safety, and ventilation assurance</strong> arising from the ERTO operations contracts</li>
+          <li><strong>Professional indemnity and designer liability</strong> across four separate legal entities</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note dark">
+      <strong>The specific assurance question this portfolio raises.</strong> Five of the six live design
+      commissions are technical advisor or Phase 1 to 4 appointments, where the deliverable is a consent
+      application rather than a construction design. The assurance regime for that work is different from
+      construction-stage design assurance: the risk is not buildability but <strong>evidentiary robustness
+      under cross-examination</strong>, at an oral hearing or in judicial review, potentially years after the
+      work was signed off. Confirm in month one that the technical assurance regime distinguishes the two, and
+      that environmental, climate and traffic modelling deliverables carry the same review rigour as structural
+      calculations.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">13 · Regulatory and assurance · 29</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 30 · 14 RECOMMENDATIONS
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">14</span> · Recommendations</p>
+    <h1 class="page-title">What to do, and what to ask</h1>
+  </div>
+
+  <div class="page-body">
+    <div id="ch-actions" class="figure mb3"></div>
+    <p class="caption mb4"><strong>Nine sequenced actions across the first month.</strong> The four week-one
+      actions are ordered by how much else they unblock; the five month-one actions are ordered by how long
+      they take to close. Only one has an external deadline that will not wait.</p>
+
+    <div class="grid g2 mb4" style="gap:6mm">
+      <div>
+        <h2 class="sec">Week one: verify the map</h2>
+        <ol class="steps">
+          <li><strong>Confirm the Irish roads and urban transport reporting line.</strong> Establish who, if
+            anyone, succeeded Andrew Doyle, how the remit divides between Mike Birch at UK and Ireland level,
+            Liam Prendiville and Eamon Daly in Dublin, and where you sit. This blocks almost everything else.</li>
+          <li><strong>Get the internal live project register and the win and loss log</strong> for TII, NTA and
+            local authority transport work over the last 24 months and reconcile it against sections 04 to 08.
+            Expect the internal list to be longer than the public one.</li>
+          <li><strong>Deal with the R132 Drogheda Part 8 deadline.</strong> Submissions close 1 September 2026.
+            Establish who owns the design response and whether resource is committed.</li>
+          <li><strong>Archive jbbarry.ie and barrytransportation.ie</strong> to a controlled drive. A ten-minute
+            instruction that protects the entire credentials base.</li>
+        </ol>
+      </div>
+      <div>
+        <h2 class="sec">First month: close the capability gap</h2>
+        <ol class="steps">
+          <li><strong>Establish the Egis position on N/M20</strong> within the Barry Transportation, Sweco and
+            WSP team, including which work packages Egis owns and whether that position survives the
+            business-case gate.</li>
+          <li><strong>Map the Egis position on every live TII and NTA framework</strong> with lot numbers and
+            expiry dates. Framework position determines what you are allowed to bid before capability does.</li>
+          <li><strong>Define the operations and consultancy technical interface.</strong> Three operations
+            contracts run to the early 2030s in separate legal entities with no published governance link to
+            consultancy-side technical authority. Write that interface down.</li>
+          <li><strong>Audit designer and PSDP duty coverage</strong> and technical assurance across live
+            commissions, distinguishing consent-stage evidentiary assurance from construction-stage design
+            assurance.</li>
+          <li><strong>Resolve the greater Dublin urban transport gap.</strong> Decide whether to invest in
+            displacing BusConnects incumbents or to concentrate on national roads, rail and operations.</li>
+        </ol>
+      </div>
+    </div>
+
+    <h2 class="sec">Ten questions to ask internally</h2>
+    <div class="grid g2 gap-s mb4">
+      <ol class="steps" style="font-size:7pt">
+        <li>Who is my direct report, who reports to me, and how does that reconcile with Basselot, Birch, Prendiville and Daly?</li>
+        <li>What is the full live roads and urban transport register, with roles, values, stages, fee positions and assurance status?</li>
+        <li>What is our standing on TII's consultant frameworks and the NTA's design panels, and which renewals are imminent?</li>
+        <li>What is our current N/M20 work-package ownership, and does it survive the business case?</li>
+        <li>Why has the N3 Virginia planning submission moved to Q4 2027, and what is the fee and resource consequence?</li>
+      </ol>
+      <ol class="steps" start="6" style="font-size:7pt">
+        <li>Do we hold a BusConnects position anywhere, and if not, is that deliberate?</li>
+        <li>Who are our named discipline leads for highways, structures, geotechnics, traffic, transport planning, active travel, and digital and BIM?</li>
+        <li>What is the governance interface between ERTO, Egis Lagan Services and consultancy-side technical authority, particularly for renewals design and tunnel safety?</li>
+        <li>What is our designer and PSDP duty exposure across all four Irish legal entities, and how is professional indemnity structured across them?</li>
+        <li>Is there a Tara in the Irish transport team, and if so what is her role?</li>
+      </ol>
+    </div>
+
+    <div class="note risk">
+      <strong>Caveats to carry into every internal conversation.</strong>
+      <strong>The register is a floor, not a ceiling</strong> — much consultancy work generates no public notice
+      under any of the five brand names. <strong>€600m is a ceiling, not a booking</strong> — it is the potential
+      value over the full sixteen-year term including the eight-year extension option; confirm the committed
+      value of the initial eight-year term before quoting it. <strong>Do not publish any organisation chart
+      externally</strong> until it is confirmed internally, and do not use the name Tara against Egis at all
+      until HR confirms.
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier
+    </span>
+    <span class="folio">14 · Recommendations · 30</span>
+  </div>
+</section>
+
+<!-- ======================================================================
+     PAGE 31 · 15 SOURCE DIRECTORY
+     ====================================================================== -->
+<section class="page">
+  <div class="page-head">
+    <p class="eyebrow"><span class="num">15</span> · Source directory</p>
+    <h1 class="page-title">Where each claim comes from</h1>
+    <p class="standfirst">
+      Primary sources are Egis, JB Barry, client and Government publications. Trade press is secondary.
+      <strong>Aggregator sources are excluded</strong> from this dossier except where explicitly flagged as
+      unreliable in section 11.
+    </p>
+  </div>
+
+  <div class="page-body">
+    <div class="grid g2" style="gap:5mm">
+      <div class="src-list">
+        <div class="r"><span class="s">N/M20 — JB Barry joins Egis</span><span class="u">jbbarry.ie/wp/news-4/jb-barry-and-partners-joins-egis/</span></div>
+        <div class="r"><span class="s">N/M20 — Attyflin Junction update</span><span class="u">limerick.ie/council/newsroom/public-notices/n-m20-cork-to-limerick-project-attyflin-junction</span></div>
+        <div class="r"><span class="s">N/M20 — June 2025 project update</span><span class="u">limerick.ie/council/newsroom/news/n-m20-cork-to-limerick-project-update-2</span></div>
+        <div class="r"><span class="s">Donegal TEN-T — JB Barry project page</span><span class="u">jbbarry.ie/wp/sectors/transportation/national-roads/donegal-ten-t/</span></div>
+        <div class="r"><span class="s">Donegal TEN-T — statutory application portal</span><span class="u">donegal-ten-t.ie</span></div>
+        <div class="r"><span class="s">Donegal TEN-T — Government cost range</span><span class="u">gov.ie/en/department-of-transport/press-releases/cabinet-approves-plan-for-major-road-developments-in-donegal/</span></div>
+        <div class="r"><span class="s">N3 Virginia — JB Barry project page</span><span class="u">jbbarry.ie/wp/sectors/transportation/national-roads/n3-virginia-bypass/</span></div>
+        <div class="r"><span class="s">N3 Virginia — project news and FAQ</span><span class="u">jbbarry.ie/n3virginiabypass.ie/news.html</span></div>
+        <div class="r"><span class="s">N3 Virginia — Q4 2027 council report</span><span class="u">northernsound.ie/news/virginia-bypass-not-expected-to-go-to-planning-until-q4-2027-276850</span></div>
+        <div class="r"><span class="s">N72/N73 Mallow — project website</span><span class="u">mallowreliefroad.ie</span></div>
+        <div class="r"><span class="s">N72/N73 Mallow — JB Barry project page</span><span class="u">jbbarry.ie/wp/sectors/transportation/national-roads/n72-n73-mallow-relief/</span></div>
+        <div class="r"><span class="s">TII Oireachtas update, 27 May 2026</span><span class="u">tii.ie/en/news/press-releases/joint-committee-on-transport-meeting-of-the-committee-with-tii-on-wednesday-27-may-2026/</span></div>
+        <div class="r"><span class="s">Mallow — Q4 2026 planning reporting</span><span class="u">independent.ie/regionals/cork/news/planning-application-for-mallow-relief-road-could-be-submitted-before-the-end-of-2026/</span></div>
+        <div class="r"><span class="s">Luas Finglas — Egis project page</span><span class="u">egis-group.com/projects/extending-the-dublin-luas-tram-system-to-finglas</span></div>
+        <div class="r"><span class="s">Luas Finglas — Railway Order portal</span><span class="u">luasfinglasrocms.tii.ie</span></div>
+        <div class="r"><span class="s">Luas Finglas — project website</span><span class="u">luasfinglas.ie</span></div>
+        <div class="r"><span class="s">R132 Drogheda — JB Barry project page</span><span class="u">jbbarry.ie/wp/sectors/transportation/active-travel/bridge-of-peace-macbride/</span></div>
+        <div class="r"><span class="s">R132 Drogheda — Part 8 notice</span><span class="u">louthcoco.ie/louth_county_council/public-news/part-8-consultation-proposed-drogheda-active-travel-scheme/</span></div>
+      </div>
+      <div class="src-list">
+        <div class="r"><span class="s">Tunnels and MOCC — TII contract announcement</span><span class="u">tii.ie/en/news/press-releases/egis-dublin-tunnel/</span></div>
+        <div class="r"><span class="s">Tunnels and MOCC — Egis contract announcement</span><span class="u">egis-group.com/all-news/egis-in-ireland-secures-new-contract-to-operate-and-maintain-the-dublin-tunnel…</span></div>
+        <div class="r"><span class="s">Network C — TII maintenance regions</span><span class="u">tii.ie/en/roads-tolling/operations-and-maintenance/road-maintenance/</span></div>
+        <div class="r"><span class="s">East-Link — TII operator and tolling page</span><span class="u">tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/east-link-toll-bridge/</span></div>
+        <div class="r"><span class="s">Dún Laoghaire — Egis Living Streets project page</span><span class="u">egis-group.com/projects/dun-laoghaire-living-streets</span></div>
+        <div class="r"><span class="s">Tunnel digital assets — Egis project page</span><span class="u">egis-group.com/projects/digital-asset-management-upgrade-for-dublin-and-jack-lynch-tunnels-ireland</span></div>
+        <div class="r"><span class="s">Egis in Ireland — portfolio overview</span><span class="u">egis-group.com/locations/europe-central-asia/ireland</span></div>
+        <div class="r"><span class="s">Irish Rail framework — Egis and SYSTRA</span><span class="u">egis-group.com/all-news/egis-secures-prestigious-multi-disciplinary-consultancy-framework-with-iarnrod-eireann-irish-rail…</span></div>
+        <div class="r"><span class="s">N22 Macroom — Egis project page</span><span class="u">egis-group.com/projects/the-n22-baile-bhuirne-macroom-bypass-largest-civil-and-structural-construction-projects-in-ireland</span></div>
+        <div class="r"><span class="s">N22 Macroom — Cork National Roads Office</span><span class="u">corkrdo.ie/forbairt-bothair-n22-baile-bhuirne-maigh-chromtha/</span></div>
+        <div class="r"><span class="s">Credentials base — legacy project index</span><span class="u">barrytransportation.ie · jbbarry.ie/wp/sectors/transportation/</span></div>
+        <div class="r"><span class="s">Irish team — people page and ACEI</span><span class="u">jbbarry.ie/wp/about/our-people/ · acei.ie/find-a-consulting-engineer/jb-barry-partners-ltd</span></div>
+        <div class="r"><span class="s">Eamon Daly — Engineers Ireland AMPLIFIED</span><span class="u">engineersireland.ie/Resources/Engineers-TV/motorways-metrolink-more-eamon-daly-director-at-egis</span></div>
+        <div class="r"><span class="s">N21 Adare — TII contract announcement</span><span class="u">tii.ie/en/news/press-releases/adare-bypass/</span></div>
+        <div class="r"><span class="s">JB Barry acquisition — Egis announcement</span><span class="u">egis-group.com/all-news/egis-to-expand-in-ireland-with-major-acquisition-of-civil-engineering-firm-jb-barry-partners</span></div>
+        <div class="r"><span class="s">Rebrand — JB Barry &amp; Partners rebrand as Egis</span><span class="u">egis-group.com/all-news/jb-barry-partners-in-ireland-rebrand-as-egis</span></div>
+        <div class="r"><span class="s">Brand assets — Egis corporate identity</span><span class="u">egis-group.com — wordmark, palette and typography taken from the live brand system</span></div>
+        <div class="r"><span class="s">Map geometry — coastline and boundaries</span><span class="u">Natural Earth 10m admin-0 (public domain), projected Lambert conformal conic</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec" style="margin-top:5mm">On imagery and brand assets in this document</h2>
+    <div class="grid g-3-2" style="gap:6mm">
+      <div>
+        <p class="small">All graphics in this dossier were drawn from the data described in their captions.
+          <strong>No third-party photography is reproduced.</strong> Project photography worth obtaining, with
+          rights-holders, includes: the Dublin Tunnel contract signing and traffic control room (Egis Group
+          newsroom); Luas Finglas visualisations and route map (luasfinglas.ie and TII); N22 Baile Bhuirne to
+          Macroom (Cork National Roads Office and Jons Civil Engineering); and Donegal TEN-T scheme
+          visualisations (donegal-ten-t.ie). Source each directly from the named rights-holder and attribute
+          before reuse.</p>
+      </div>
+      <div>
+        <div class="note watch">
+          <strong>Brand assets in this edition are the real ones.</strong> The wordmark and symbol are the
+          official Egis brand SVG, and the palette — lime #ABC022 and petrol #09212C — is taken from the live
+          Egis brand system, as is the use of EB Garamond. The typeface substitutes Manrope for the licensed
+          brand face Codec Pro, which cannot be embedded here. <strong>Swap in Codec Pro from the internal brand
+          portal before any onward circulation.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="mark">
+      <svg viewBox="0 0 90 72"><use href="#egis-mark" fill="#ABC022"></use></svg>
+      Egis in Ireland · Roads &amp; Urban Transportation · Induction dossier · Prepared 24 August 2026 from public sources
+    </span>
+    <span class="folio">15 · Source directory · 31</span>
+  </div>
+</section>
+
+
+<script src="assets/ireland_geo.js"></script>
+<script src="assets/charts.js"></script>
+<script src="assets/map.js"></script>
+<script src="assets/render-charts.js"></script>
+</body>
+</html>

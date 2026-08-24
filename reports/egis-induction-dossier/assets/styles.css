@@ -1,0 +1,605 @@
+/* ==========================================================================
+   Egis in Ireland · Roads & Urban Transportation · Induction dossier
+   Print stylesheet — A4, rendered to PDF by build/render.mjs
+   Brand tokens taken from the live Egis brand system:
+     lime #ABC022 · petrol #09212C · bright lime #D5F311 · tints #F6FCCF / #F0F9FA
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope-normal-300_800.woff2') format('woff2-variations');
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('fonts/EBGaramond-normal-400_600.woff2') format('woff2-variations');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('fonts/EBGaramond-italic-400_500.woff2') format('woff2-variations');
+  font-weight: 400 500;
+  font-style: italic;
+  font-display: block;
+}
+
+:root {
+  /* -------------------------------------------------- Egis brand */
+  --lime: #abc022;
+  --lime-bright: #d5f311;
+  --lime-deep: #849a12;
+  --petrol: #09212c;
+  --petrol-80: #33474f;
+  --petrol-60: #5c6b72;
+  --petrol-40: #8b969b;
+  --tint-lime: #f6fccf;
+  --tint-cyan: #f0f9fa;
+
+  /* -------------------------------------------------- ink & surface */
+  --ink: #09212c;
+  --ink-2: #3c4c54;
+  --ink-3: #6b7b84;
+  --ink-4: #97a3a9;
+  --rule: #dfe5e4;
+  --rule-strong: #b9c3c2;
+  --surface: #ffffff;
+  --surface-2: #f6f8f7;
+  --surface-3: #eef2f1;
+
+  /* -------------------------------------------------- categorical data palette
+     Validated with dataviz/scripts/validate_palette.js --mode light --pairs all:
+     lightness band PASS · chroma floor PASS · CVD separation 7.3 (warn band,
+     carried with legend + direct labels) · normal-vision floor PASS ·
+     contrast vs surface PASS. Do not re-order: hues are assigned by entity. */
+  --cat-roads: #849a12;   /* National roads & motorways      */
+  --cat-active: #1160c6;  /* Active travel & urban realm     */
+  --cat-ops: #c9401f;     /* Operations, maintenance, tolling*/
+  --cat-rail: #b03a8e;    /* Light rail & heavy rail         */
+  --cat-none: #6b7b84;    /* Requiring confirmation (status) */
+
+  --cat-roads-soft: #eef1de;
+  --cat-active-soft: #e3ecfa;
+  --cat-ops-soft: #fae8e3;
+  --cat-rail-soft: #f7e7f2;
+  --cat-none-soft: #edf0f1;
+
+  /* -------------------------------------------------- status */
+  --grade-a: #2f7d4f;
+  --grade-b: #b8801a;
+  --grade-c: #6b7b84;
+  --risk-high: #c9401f;
+  --risk-med: #d98324;
+  --risk-low: #2f7d4f;
+
+  --sans: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'EB Garamond', Georgia, serif;
+}
+
+/* ==========================================================================
+   Page frame
+   ========================================================================== */
+
+@page {
+  size: 210mm 297mm;
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: #8b969b;
+  font-variant-numeric: tabular-nums lining-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  padding: 14mm 16mm 12mm;
+  background: var(--surface);
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+  display: flex;
+  flex-direction: column;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+
+/* screen-only separation so proofs are readable */
+@media screen {
+  body { padding: 10mm 0; }
+  .page { margin: 0 auto 8mm; box-shadow: 0 2px 14px rgba(9, 33, 44, .28); }
+}
+
+/* ==========================================================================
+   Page furniture
+   ========================================================================== */
+
+.eyebrow {
+  font-size: 6.6pt;
+  font-weight: 700;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+  color: var(--lime-deep);
+  margin: 0 0 2.5mm;
+}
+.eyebrow .num { color: var(--ink-4); }
+
+h1.page-title {
+  font-size: 20pt;
+  font-weight: 800;
+  letter-spacing: -.022em;
+  line-height: 1.08;
+  margin: 0 0 2.5mm;
+}
+.standfirst {
+  font-size: 9pt;
+  line-height: 1.45;
+  color: var(--ink-2);
+  margin: 0 0 4mm;
+  max-width: 165mm;
+  font-weight: 400;
+}
+.standfirst strong { font-weight: 700; color: var(--ink); }
+
+.page-head {
+  border-bottom: .5pt solid var(--rule);
+  padding-bottom: 3mm;
+  margin-bottom: 4.5mm;
+  flex: none;
+}
+.page-body { flex: 1 1 auto; min-height: 0; }
+
+.page-foot {
+  flex: none;
+  margin-top: auto;
+  padding-top: 2.5mm;
+  border-top: .5pt solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 6.4pt;
+  letter-spacing: .05em;
+  color: var(--ink-4);
+}
+.page-foot .folio { font-weight: 700; color: var(--ink-3); }
+.page-foot .mark { display: flex; align-items: center; gap: 1.6mm; }
+.page-foot .mark svg { height: 2.8mm; width: auto; display: block; }
+
+h2.sec {
+  font-size: 11pt;
+  font-weight: 800;
+  letter-spacing: -.012em;
+  margin: 0 0 2.5mm;
+  padding-left: 2.6mm;
+  border-left: 1.4mm solid var(--lime);
+  line-height: 1.15;
+}
+h3.sub {
+  font-size: 8.6pt;
+  font-weight: 800;
+  letter-spacing: .01em;
+  margin: 0 0 1.8mm;
+  color: var(--ink);
+}
+h4.mini {
+  font-size: 6.4pt;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin: 0 0 1.6mm;
+}
+
+p { margin: 0 0 2.2mm; font-size: 8.1pt; line-height: 1.48; }
+p:last-child { margin-bottom: 0; }
+.lead { font-size: 8.6pt; line-height: 1.5; }
+.small { font-size: 7.2pt; line-height: 1.42; color: var(--ink-2); }
+.tiny { font-size: 6.5pt; line-height: 1.38; color: var(--ink-3); }
+
+a { color: inherit; text-decoration: none; }
+strong { font-weight: 700; }
+em.term { font-style: normal; font-weight: 700; }
+
+/* ==========================================================================
+   Layout helpers
+   ========================================================================== */
+
+.grid { display: grid; gap: 5mm; }
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g5 { grid-template-columns: repeat(5, 1fr); }
+.g-2-1 { grid-template-columns: 2fr 1fr; }
+.g-1-2 { grid-template-columns: 1fr 2fr; }
+.g-3-2 { grid-template-columns: 3fr 2fr; }
+.g-5-4 { grid-template-columns: 5fr 4fr; }
+.gap-s { gap: 3mm; }
+.gap-xs { gap: 2mm; }
+.mt-a { margin-top: auto; }
+.mb3 { margin-bottom: 3mm; }
+.mb4 { margin-bottom: 4mm; }
+.mb5 { margin-bottom: 5mm; }
+.mb6 { margin-bottom: 6mm; }
+
+/* ==========================================================================
+   Stat tiles / hero numbers
+   ========================================================================== */
+
+.stat-row { display: grid; gap: 3mm; }
+.stat {
+  border-top: 1.1pt solid var(--ink);
+  padding-top: 1.8mm;
+}
+.stat .val {
+  font-size: 17pt;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1;
+  margin-bottom: 1.2mm;
+}
+.stat .val .unit { font-size: 9.5pt; font-weight: 700; letter-spacing: -.01em; }
+.stat .lab {
+  font-size: 6.4pt;
+  line-height: 1.32;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.stat.roads { border-color: var(--cat-roads); } .stat.roads .val { color: var(--cat-roads); }
+.stat.active { border-color: var(--cat-active); } .stat.active .val { color: var(--cat-active); }
+.stat.ops { border-color: var(--cat-ops); } .stat.ops .val { color: var(--cat-ops); }
+.stat.rail { border-color: var(--cat-rail); } .stat.rail .val { color: var(--cat-rail); }
+.stat.lime { border-color: var(--lime); } .stat.lime .val { color: var(--lime-deep); }
+
+.stat-box {
+  background: var(--surface-2);
+  border-radius: 1.2mm;
+  padding: 3mm 3.2mm;
+}
+.stat-box .val { font-size: 14pt; font-weight: 800; letter-spacing: -.03em; line-height: 1; margin-bottom: 1.2mm; }
+.stat-box .val .unit { font-size: 8pt; font-weight: 700; }
+.stat-box .lab { font-size: 6.3pt; line-height: 1.3; color: var(--ink-3); font-weight: 500; }
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7.1pt;
+  line-height: 1.34;
+}
+table.data thead th {
+  font-size: 5.9pt;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  text-align: left;
+  padding: 0 2mm 1.4mm 0;
+  border-bottom: 1pt solid var(--ink);
+  vertical-align: bottom;
+}
+table.data tbody td {
+  padding: 1.5mm 2mm 1.5mm 0;
+  border-bottom: .4pt solid var(--rule);
+  vertical-align: top;
+  color: var(--ink-2);
+}
+table.data tbody tr:last-child td { border-bottom: none; }
+table.data td.k { font-weight: 700; color: var(--ink); }
+table.data td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.data.tight tbody td { padding: 1.1mm 2mm 1.1mm 0; }
+table.data.zebra tbody tr:nth-child(even) { background: var(--surface-2); }
+table.data.zebra tbody td:first-child { padding-left: 1.4mm; }
+
+/* grade chips */
+.grade {
+  display: inline-block;
+  width: 3.6mm; height: 3.6mm;
+  line-height: 3.6mm;
+  text-align: center;
+  border-radius: .7mm;
+  font-size: 5.6pt;
+  font-weight: 800;
+  color: #fff;
+  vertical-align: text-top;
+}
+.grade.a { background: var(--grade-a); }
+.grade.b { background: var(--grade-b); }
+.grade.c { background: var(--grade-c); }
+
+.pill {
+  display: inline-block;
+  padding: .5mm 1.5mm;
+  border-radius: 1mm;
+  font-size: 5.8pt;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.pill.roads { background: var(--cat-roads-soft); color: #55640b; }
+.pill.active { background: var(--cat-active-soft); color: #0d4794; }
+.pill.ops { background: var(--cat-ops-soft); color: #932d13; }
+.pill.rail { background: var(--cat-rail-soft); color: #7d2864; }
+.pill.none { background: var(--cat-none-soft); color: #4d5a60; }
+
+.dot {
+  display: inline-block;
+  width: 2mm; height: 2mm;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 1.2mm;
+}
+
+/* ==========================================================================
+   Callouts, notes, figures
+   ========================================================================== */
+
+.note {
+  background: var(--surface-2);
+  border-left: 1.1mm solid var(--rule-strong);
+  padding: 2.6mm 3mm;
+  font-size: 7.2pt;
+  line-height: 1.44;
+  color: var(--ink-2);
+  border-radius: 0 1mm 1mm 0;
+}
+.note strong { color: var(--ink); }
+.note.watch { border-left-color: var(--lime); background: var(--tint-lime); }
+.note.risk { border-left-color: var(--cat-ops); background: var(--cat-ops-soft); }
+.note.info { border-left-color: var(--cat-active); background: var(--cat-active-soft); }
+.note.dark {
+  background: var(--petrol);
+  color: #cfd8da;
+  border-left-color: var(--lime);
+}
+.note.dark strong { color: #fff; }
+
+.figure { margin: 0; }
+.figure svg { display: block; width: 100%; height: auto; }
+figcaption, .caption {
+  font-size: 6.3pt;
+  line-height: 1.4;
+  color: var(--ink-3);
+  margin-top: 1.8mm;
+}
+figcaption strong, .caption strong { color: var(--ink); font-weight: 700; }
+
+.card {
+  border: .5pt solid var(--rule);
+  border-radius: 1.4mm;
+  padding: 3mm 3.2mm;
+}
+.card.tinted { background: var(--surface-2); border-color: transparent; }
+.card .card-t {
+  font-size: 7.6pt;
+  font-weight: 800;
+  margin-bottom: 1.4mm;
+  letter-spacing: -.005em;
+}
+.card.roads { border-top: 1.1pt solid var(--cat-roads); }
+.card.active { border-top: 1.1pt solid var(--cat-active); }
+.card.ops { border-top: 1.1pt solid var(--cat-ops); }
+.card.rail { border-top: 1.1pt solid var(--cat-rail); }
+
+ul.ticks { margin: 0; padding: 0; list-style: none; }
+ul.ticks li {
+  font-size: 7.2pt;
+  line-height: 1.4;
+  padding-left: 3.4mm;
+  position: relative;
+  margin-bottom: 1.4mm;
+  color: var(--ink-2);
+}
+ul.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 1.05mm;
+  width: 1.5mm; height: 1.5mm;
+  background: var(--lime);
+  border-radius: .3mm;
+}
+ul.ticks li:last-child { margin-bottom: 0; }
+ul.ticks.dash li::before { background: var(--ink-4); height: .5mm; top: 1.5mm; width: 2.2mm; }
+
+ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; }
+ol.steps li {
+  counter-increment: s;
+  position: relative;
+  padding-left: 6mm;
+  margin-bottom: 2.4mm;
+  font-size: 7.4pt;
+  line-height: 1.42;
+  color: var(--ink-2);
+}
+ol.steps li::before {
+  content: counter(s);
+  position: absolute;
+  left: 0; top: -.1mm;
+  width: 4.2mm; height: 4.2mm;
+  line-height: 4.2mm;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--petrol);
+  color: var(--lime-bright);
+  font-size: 5.8pt;
+  font-weight: 800;
+}
+ol.steps li strong { color: var(--ink); }
+ol.steps li:last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   Cover
+   ========================================================================== */
+
+.cover {
+  padding: 0;
+  background: var(--petrol);
+  color: #fff;
+  display: block;
+}
+.cover .rail {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 7mm;
+  display: flex;
+  flex-direction: column;
+}
+.cover .rail span { flex: 1; }
+.cover-inner {
+  position: absolute;
+  inset: 0;
+  padding: 20mm 18mm 16mm 24mm;
+  display: flex;
+  flex-direction: column;
+}
+.cover .logo-lockup svg { height: 13mm; width: auto; display: block; }
+.cover .kicker {
+  margin-top: 26mm;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--lime-bright);
+}
+.cover h1 {
+  font-size: 33pt;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.03;
+  margin: 4mm 0 0;
+  max-width: 150mm;
+}
+.cover h1 .hl { color: var(--lime-bright); }
+.cover .deck {
+  margin-top: 6mm;
+  font-size: 9.4pt;
+  line-height: 1.52;
+  color: #b9c6ca;
+  max-width: 128mm;
+  font-weight: 400;
+}
+.cover-map {
+  position: absolute;
+  right: -6mm;
+  top: 52mm;
+  width: 118mm;
+  pointer-events: none;
+}
+.cover-map svg { display: block; width: 100%; height: auto; }
+
+.cover .cover-stats {
+  position: relative;
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 3mm;
+  padding-bottom: 7mm;
+  border-bottom: .5pt solid rgba(255, 255, 255, .2);
+}
+.cover .cover-stats .s .v {
+  font-size: 15.5pt;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  color: var(--lime-bright);
+  line-height: 1;
+  margin-bottom: 1.4mm;
+}
+.cover .cover-stats .s .v .unit { font-size: 9pt; }
+.cover .cover-stats .s .l {
+  font-size: 5.9pt;
+  line-height: 1.32;
+  color: #93a4a9;
+  font-weight: 500;
+}
+.cover .meta {
+  margin-top: 6mm;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4mm;
+}
+.cover .meta h4 {
+  font-size: 5.8pt;
+  font-weight: 700;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin: 0 0 1.4mm;
+}
+.cover .meta p {
+  font-size: 6.9pt;
+  line-height: 1.4;
+  color: #b9c6ca;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Contents
+   ========================================================================== */
+
+.toc { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8mm; }
+.toc .row {
+  display: grid;
+  grid-template-columns: 6mm 1fr 6mm;
+  align-items: baseline;
+  padding: 1.5mm 0;
+  border-bottom: .4pt solid var(--rule);
+  font-size: 7.4pt;
+}
+.toc .row .n { font-weight: 800; color: var(--lime-deep); font-size: 6.6pt; }
+.toc .row .t { font-weight: 600; color: var(--ink); }
+.toc .row .t span { display: block; font-weight: 400; font-size: 6.4pt; color: var(--ink-3); margin-top: .3mm; }
+.toc .row .p { text-align: right; font-weight: 700; color: var(--ink-4); font-size: 6.6pt; }
+
+/* ==========================================================================
+   Team
+   ========================================================================== */
+
+.person {
+  border-top: 1pt solid var(--ink);
+  padding-top: 2mm;
+}
+.person .nm { font-size: 8.4pt; font-weight: 800; letter-spacing: -.01em; margin-bottom: .6mm; }
+.person .rl {
+  font-size: 6.3pt;
+  font-weight: 700;
+  color: var(--lime-deep);
+  letter-spacing: .04em;
+  margin-bottom: 1.6mm;
+  line-height: 1.28;
+}
+.person .bio { font-size: 6.6pt; line-height: 1.42; color: var(--ink-2); }
+.person.gone { border-top-color: var(--ink-4); opacity: .82; }
+.person.gone .rl { color: var(--ink-4); }
+
+/* ==========================================================================
+   Misc
+   ========================================================================== */
+
+.rule-lime { height: 1.1mm; background: var(--lime); width: 22mm; border-radius: .5mm; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: .8mm 2.4mm; font-size: 6.9pt; }
+.kv dt { font-weight: 700; color: var(--ink-4); text-transform: uppercase; letter-spacing: .1em; font-size: 5.8pt; padding-top: .35mm; }
+.kv dd { margin: 0; color: var(--ink-2); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 1.4mm 4mm; font-size: 6.4pt; color: var(--ink-2); }
+.legend .li { display: flex; align-items: center; gap: 1.4mm; }
+.legend .sw { width: 2.6mm; height: 2.6mm; border-radius: .5mm; flex: none; }
+.legend .sw.line { height: 1mm; width: 4mm; border-radius: .5mm; }
+
+.src-list { font-size: 6.2pt; line-height: 1.42; }
+.src-list .r { display: grid; grid-template-columns: 46mm 1fr; gap: 3mm; padding: .75mm 0; border-bottom: .35pt solid var(--rule); }
+.src-list .r .s { font-weight: 700; color: var(--ink); }
+.src-list .r .u { color: var(--ink-3); word-break: break-all; font-size: 5.9pt; }
