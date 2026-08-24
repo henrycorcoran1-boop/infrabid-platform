@@ -319,6 +319,9 @@ table.data.zebra tbody td:first-child { padding-left: 1.4mm; }
 .grade.a { background: var(--grade-a); }
 .grade.b { background: var(--grade-b); }
 .grade.c { background: var(--grade-c); }
+/* Confirmed internally: outside the public-source grades entirely, so it is
+   marked differently rather than folded into Grade A. */
+.grade.i { background: var(--petrol); color: var(--lime-bright); }
 
 .pill {
   display: inline-block;

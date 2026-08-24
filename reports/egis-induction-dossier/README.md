@@ -75,11 +75,37 @@ each is captioned as derived in the document:
 - **465 years** of stated experience across 17 named individuals — every figure
   is a floor, since "30 years and more" is counted as 30.
 
-## Source
+## Audience
 
-Content is carried over from the previous 22-page issue, which was assembled
-from public sources only. Section 15 lists every link. Nothing was added to the
-factual record in this edition; the changes are graphical, statistical and
-structural. Two conflicts the previous issue did not flag are now shown
-explicitly: the NDP components that sum to €265.4bn against a €275.4bn headline
-(p22), and the ~470km against 328km operations footprint (p13).
+Written as a standing induction reference for **any** incoming Technical
+Director in Roads and Urban Transportation — not for a named individual. It
+addresses the reader as "you" in the ordinary induction register, but carries
+no reference to a particular hire, start date or interview.
+
+## Source and evidence grades
+
+Content is carried over from the previous 22-page issue, assembled from public
+sources only. Section 15 lists every link.
+
+Grades A / B / C answer one question — *may this be published?* A fourth marker,
+**I**, was added for facts confirmed internally that carry no public source at
+all. Two appointments are marked I:
+
+- **Eamon Daly — Service Line Director, Transport.** The role this dossier's
+  reader reports into.
+- **Tara O'Leary — Technical Director, Urban Transport.** The closest peer role.
+
+Both are for internal use until Egis publishes them.
+
+Section 11's "finding one" previously recorded that no senior person named Tara
+could be confirmed at Egis in Ireland. That finding was correct about the
+sources and wrong about the business, and it is now rewritten as a closed
+finding: the public-source pass missed a real appointment because no
+Egis-controlled page, client publication or professional listing carried it. The
+verification protocol was changed accordingly — an aggregator-only source is
+*unpublishable*, not *false*, and the question "is this true?" routes to HR or
+the line manager rather than to a search engine.
+
+Two numeric conflicts the previous issue did not flag are also shown explicitly:
+the NDP components that sum to €265.4bn against a €275.4bn headline (p22), and
+the ~470km against 328km operations footprint (p13).

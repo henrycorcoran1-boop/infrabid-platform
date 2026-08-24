@@ -1018,7 +1018,7 @@
   /* ================================================================= p24 */
 
   draw('ch-orgchart', function () {
-    var w = 660, h = 172;
+    var w = 700, h = 190;
     var s = EC.svgRoot('ch-orgchart', w, h);
     function box(x, y, bw, bh, title, sub, opt) {
       opt = opt || {};
@@ -1031,41 +1031,68 @@
       wrapText(s, x + bw / 2, y + 14, title, bw - 8, 7, {
         'text-anchor': 'middle', fill: opt.ink || C.ink, 'font-weight': 800
       }, 7.8);
-      wrapText(s, x + bw / 2, y + bh - 8, sub, bw - 8, 5.8, {
+      wrapText(s, x + bw / 2, y + bh - 7, sub, bw - 8, 5.8, {
         'text-anchor': 'middle', fill: opt.sub || C.ink4, 'font-weight': 600, up: true
       }, 6.6);
+      if (opt.chip) {
+        el('rect', { x: x + bw - 13, y: y + 5, width: 9, height: 9, rx: 1.6, fill: C.petrol }, s);
+        txt(s, x + bw - 8.5, y + 11.6, 'I', {
+          'font-size': 5.8, 'font-weight': 800, fill: C.limeBright, 'text-anchor': 'middle'
+        });
+      }
     }
-    function link(x1, y1, x2, y2, dash) {
+    /* kind: 'public' grey solid · 'internal' lime solid · 'unknown' grey dashed */
+    function link(x1, y1, x2, y2, kind) {
+      var col = kind === 'internal' ? C.lime : (kind === 'unknown' ? C.ink4 : C.rule);
       el('path', {
         d: 'M' + x1 + ',' + y1 + 'V' + ((y1 + y2) / 2) + 'H' + x2 + 'V' + y2,
-        fill: 'none', stroke: dash ? C.ink4 : C.rule, 'stroke-width': 1,
-        'stroke-dasharray': dash ? '3 2.4' : null
+        fill: 'none', stroke: col,
+        'stroke-width': kind === 'internal' ? 1.4 : 1,
+        'stroke-dasharray': kind === 'unknown' ? '3 2.4' : null
       }, s);
     }
-    box(252, 4, 156, 30, 'Francois Basselot', 'Managing Director · UK and Ireland',
-      { bar: C.lime, stroke: C.rule });
-    box(96, 54, 150, 30, 'Mike Birch', 'Transportation Director · UK and Ireland', { bar: C.active });
-    box(414, 54, 150, 30, 'Steve Preece', 'MD Operations and Maintenance, Ireland', { bar: C.ops });
-    link(330, 34, 171, 54); link(330, 34, 489, 54);
 
-    box(4, 108, 140, 34, 'Liam Prendiville', 'MD · Transportation lead, Ireland', { bar: C.roads });
-    box(152, 108, 140, 34, 'Eamon Daly', 'Director · Transportation and traffic', { bar: C.roads });
-    box(300, 108, 140, 34, 'Country Director, Transportation',
+    box(252, 0, 156, 28, 'Francois Basselot', 'Managing Director · UK and Ireland',
+      { bar: C.lime });
+    box(96, 44, 150, 28, 'Mike Birch', 'Transportation Director · UK and Ireland', { bar: C.active });
+    box(434, 44, 150, 28, 'Steve Preece', 'MD Operations and Maintenance, Ireland', { bar: C.ops });
+    link(330, 28, 171, 44, 'public');
+    link(330, 28, 509, 44, 'public');
+
+    box(4, 94, 148, 32, 'Liam Prendiville', 'MD · Transportation lead, Ireland', { bar: C.roads });
+    box(164, 94, 162, 32, 'Eamon Daly', 'Service Line Director · Transport',
+      { bar: C.lime, stroke: C.lime, sw: 1.4, fill: '#f9fce9', chip: true });
+    box(338, 94, 152, 32, 'Country Director, Transportation',
       'vacant since early 2026 — Andrew Doyle to WSP',
       { dash: '3.5 2.6', stroke: C.ink4, fill: '#f7f8f7', ink: C.ink3 });
-    box(448, 108, 140, 34, 'You', 'Technical Director · Roads and Urban Transportation',
-      { dash: '3.5 2.6', stroke: C.lime, fill: '#f9fce9', ink: C.ink });
-    link(171, 84, 74, 108); link(171, 84, 222, 108);
-    link(171, 84, 370, 108, true); link(171, 84, 518, 108, true);
-    el('path', {
-      d: 'M489,84 V96 H518 V108', fill: 'none', stroke: C.ink4,
-      'stroke-width': 1, 'stroke-dasharray': '3 2.4'
-    }, s);
-    txt(s, 0, 100, 'DUBLIN', {
-      'font-size': 5.6, 'font-weight': 800, fill: C.ink4, 'letter-spacing': '.16em'
+    link(171, 72, 78, 94, 'public');
+    link(171, 72, 245, 94, 'unknown');
+    link(171, 72, 414, 94, 'unknown');
+
+    box(164, 148, 162, 36, "Tara O'Leary", 'Technical Director · Urban Transport',
+      { bar: C.lime, stroke: C.lime, sw: 1.4, fill: '#f9fce9', chip: true });
+    box(338, 148, 176, 36, 'Technical Director',
+      'Roads and Urban Transportation · this role',
+      { bar: C.lime, stroke: C.lime, sw: 1.4 });
+    link(245, 126, 245, 148, 'internal');
+    link(245, 126, 426, 148, 'internal');
+
+    txt(s, 0, 88, 'DUBLIN · TRANSPORT SERVICE LINE', {
+      'font-size': 5.6, 'font-weight': 800, fill: C.ink4, 'letter-spacing': '.14em'
     });
-    txt(s, w, 148, 'dashed = not established in public sources', {
-      'font-size': 5.8, fill: C.ink4, 'font-weight': 600, 'text-anchor': 'end'
+
+    /* legend */
+    var lx = 534;
+    [['internal', 'confirmed internally'], ['public', 'stated in public sources'],
+     ['unknown', 'not established']].forEach(function (row, i) {
+      var y = 100 + i * 11;
+      var col = row[0] === 'internal' ? C.lime : (row[0] === 'unknown' ? C.ink4 : C.rule);
+      el('line', {
+        x1: lx, y1: y, x2: lx + 12, y2: y, stroke: col,
+        'stroke-width': row[0] === 'internal' ? 1.6 : 1.2,
+        'stroke-dasharray': row[0] === 'unknown' ? '3 2.4' : null
+      }, s);
+      txt(s, lx + 17, y + 2.2, row[1], { 'font-size': 5.8, fill: C.ink3, 'font-weight': 600 });
     });
   });
 
@@ -1128,41 +1155,44 @@
 
   /* ================================================================= p26 */
 
+  /* p27 — what each class of source said about the same appointment. */
   draw('ch-tara', function () {
     var w = 330, h = 176;
     var s = EC.svgRoot('ch-tara', w, h);
-    function node(x, y, bw, bh, t, sub, col, dash) {
-      el('rect', {
-        x: x, y: y, width: bw, height: bh, rx: 2.4, fill: dash ? '#fdf6f3' : '#fff',
-        stroke: col, 'stroke-width': 1.1, 'stroke-dasharray': dash ? '3.5 2.6' : null
-      }, s);
-      wrapText(s, x + bw / 2, y + 13, t, bw - 8, 6.6, {
-        'text-anchor': 'middle', fill: C.ink, 'font-weight': 800
-      }, 7.4);
-      wrapText(s, x + bw / 2, y + bh - 7, sub, bw - 8, 5.6, {
-        'text-anchor': 'middle', fill: C.ink4, 'font-weight': 600, up: true
-      }, 6.4);
-    }
-    node(0, 10, 122, 44, "Tara O'Leary", 'transport planning, Sweco, Cork', C.rule);
-    node(0, 84, 122, 44, 'Sweco', 'partner to Barry Transportation on N/M20', C.rule);
-    node(208, 47, 122, 44, '"Egis in Ireland"', 'the listing is wrong', C.ops, true);
-    el('path', {
-      d: 'M122,32 H160 V62 H202', fill: 'none', stroke: C.ops, 'stroke-width': 1.2
-    }, s);
-    el('path', { d: 'M202,62 l-5,-2.6 v5.2 Z', fill: C.ops }, s);
-    el('path', {
-      d: 'M122,106 H160 V78 H202', fill: 'none', stroke: C.ink4,
-      'stroke-width': 1, 'stroke-dasharray': '3 2.4'
-    }, s);
-    el('rect', { x: 126, y: 54, width: 68, height: 16, rx: 2, fill: C.ops }, s);
-    txt(s, 160, 64.6, 'aggregator', {
-      'font-size': 6, 'font-weight': 800, fill: '#fff', 'text-anchor': 'middle'
+    var rows = [
+      { k: 'Egis pages, client publications, professional listings',
+        v: 'Silent', sub: 'no record of the appointment', c: C.ink4, fill: '#f2f4f3' },
+      { k: 'Commercial data aggregator',
+        v: 'Listed', sub: 'unpublishable — but not a denial', c: C.gradeB, fill: '#fbf4e6' },
+      { k: 'Hiring manager, internal',
+        v: 'Confirmed', sub: 'Technical Director, Urban Transport', c: C.lime, fill: '#f9fce9' }
+    ];
+    txt(s, 0, 9, 'ONE APPOINTMENT, THREE CLASSES OF SOURCE', {
+      'font-size': 5.9, 'font-weight': 800, fill: C.ink, 'letter-spacing': '.13em'
     });
-    txt(s, 160, 92, 'plausible route to the conflation', {
-      'font-size': 5.6, fill: C.ink4, 'font-weight': 600, 'text-anchor': 'middle'
+    var rowH = 38, gap = 8;
+    rows.forEach(function (r, i) {
+      var y = 18 + i * (rowH + gap);
+      el('rect', { x: 0, y: y, width: w, height: rowH, rx: 2.4, fill: r.fill }, s);
+      el('rect', { x: 0, y: y, width: 2.8, height: rowH, rx: 1.4, fill: r.c }, s);
+      wrapText(s, 9, y + 12, r.k, 168, 6.3, { fill: C.ink2, 'font-weight': 700 }, 7);
+      txt(s, w - 9, y + 15, r.v, {
+        'font-size': 9.5, 'font-weight': 800,
+        fill: i === 2 ? C.lime_deep || '#849a12' : r.c, 'text-anchor': 'end'
+      });
+      wrapText(s, w - 9, y + 25, r.sub, 150, 5.8, {
+        'text-anchor': 'end', fill: C.ink4, 'font-weight': 600
+      }, 6.6);
+      if (i === 2) {
+        el('path', {
+          d: 'M' + (w - 9 - 62) + ',' + (y + 11) + 'l3,3l5.5,-6',
+          fill: 'none', stroke: '#849a12', 'stroke-width': 1.8,
+          'stroke-linecap': 'round', 'stroke-linejoin': 'round'
+        }, s);
+      }
     });
-    txt(s, 0, 170, 'One source. No Egis-controlled page, client publication or professional listing.', {
-      'font-size': 5.9, fill: C.ink4, 'font-weight': 500
+    txt(s, 0, 172, 'The sources were incomplete. The person was not absent.', {
+      'font-size': 6.4, fill: C.ink, 'font-weight': 800
     });
   });
 
@@ -1170,24 +1200,24 @@
     var w = 330, h = 176;
     var s = EC.svgRoot('ch-vacancies', w, h);
     var roles = [
-      { k: 'Director of Urban Transport, Dublin', c: C.active },
-      { k: 'Director of Urban Transportation', c: C.active },
-      { k: 'Technical Director, MetroLink tender bid', c: C.rail },
-      { k: 'Country Director, Transportation', c: C.ink4, note: 'unfilled after the Doyle departure' }
+      { k: 'Director of Urban Transport, Dublin', c: C.active, note: 'urban transport now led internally' },
+      { k: 'Director of Urban Transportation', c: C.active, note: 'same, per the internal confirmation' },
+      { k: 'Technical Director, MetroLink tender bid', c: C.rail, note: 'status unknown' },
+      { k: 'Country Director, Transportation', c: C.ink4, note: 'still unfilled on the public record' }
     ];
     txt(s, 0, 8, 'SENIOR TRANSPORT ROLES OPEN IN DUBLIN, EARLY 2026', {
       'font-size': 5.8, 'font-weight': 800, fill: C.ink, 'letter-spacing': '.13em'
     });
     roles.forEach(function (r, i) {
       var y = 22 + i * 29;
-      el('rect', { x: 0, y: y, width: 226, height: 18, rx: 2, fill: r.c, opacity: r.note ? 0.4 : 1 }, s);
+      el('rect', { x: 0, y: y, width: 196, height: 18, rx: 2, fill: r.c, opacity: 0.85 }, s);
       txt(s, 7, y + 12, r.k, { 'font-size': 6.6, 'font-weight': 700, fill: '#fff' });
       if (r.note) {
-        txt(s, 232, y + 12, r.note, { 'font-size': 5.7, fill: C.ink4, 'font-weight': 600 });
+        wrapText(s, 202, y + 11.4, r.note, 128, 5.6, { fill: C.ink4, 'font-weight': 600 }, 6.2);
       }
     });
     el('line', { x1: 0, y1: 150, x2: w, y2: 150, stroke: C.rule, 'stroke-width': 0.6 }, s);
-    txt(s, 0, 164, '4 roles advertised · 1 senior departure · 100 new Irish roles announced', {
+    txt(s, 0, 164, '4 roles advertised · 2 senior transport posts since confirmed internally', {
       'font-size': 6.1, fill: C.ink3, 'font-weight': 600
     });
   });
