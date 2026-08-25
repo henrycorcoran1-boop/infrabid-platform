@@ -8,9 +8,12 @@ Outputs:
 
 - `Spons_Irish_Derived_Costs.xlsx` — the working deliverable. Cost columns are live
   formulas, so editing a factor on the `Irish Basis` sheet re-costs all 3,793 items.
-- `Spons_Irish_Derived_Costs_Report.pdf` — a 182-page printed rate schedule carrying all
+- `Spons_Irish_Derived_Costs_Report.pdf` — a 200-page printed rate schedule carrying all
   3,793 items, grouped by CESMM class / section / sub-heading, with method and basis front
   matter, a flagged-items register and both appendices. Snapshot at the default factors.
+  Styled to the InfraBid theme — palette, type and motifs taken from the platform's own
+  `style.css` (`--navy` / `--blue` / `--signal`, the eyebrow and KPI-tile treatments, and the
+  brand mark redrawn as vector from the site's inline SVG).
 - `Spons_Irish_Derived_Costs.csv` — the same figures already evaluated, for ingestion.
   openpyxl writes formulas without cached results, so a program reading the .xlsx sees
   blanks in the cost columns until a spreadsheet app opens and recalculates it; the CSV
@@ -26,6 +29,11 @@ python3 build_report.py   ./work  Spons_Irish_Derived_Costs_Report.pdf
 
 Stage 1 derives the cost build-ups and writes intermediate JSON; stage 2 renders the workbook;
 stage 3 renders the PDF schedule. Requires `openpyxl` (stage 2) and `reportlab` (stage 3).
+
+`fonts/` holds static instances of **Jost** — the web fallback the site already loads for
+Century Gothic — cut from the Google Fonts variable font at weights 300–800 plus italic.
+They are vendored so the report builds without network access. Jost has no arrow glyphs, so
+the report writes "GBP to EUR" rather than an arrow.
 
 The Irish factors are defined once at the top of each of `build_workbook.py` and
 `build_report.py` — change both together, or regenerate the PDF after editing the workbook's
