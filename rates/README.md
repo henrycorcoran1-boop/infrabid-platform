@@ -8,6 +8,9 @@ Outputs:
 
 - `Spons_Irish_Derived_Costs.xlsx` — the working deliverable. Cost columns are live
   formulas, so editing a factor on the `Irish Basis` sheet re-costs all 3,793 items.
+- `Spons_Irish_Derived_Costs_Report.pdf` — a 182-page printed rate schedule carrying all
+  3,793 items, grouped by CESMM class / section / sub-heading, with method and basis front
+  matter, a flagged-items register and both appendices. Snapshot at the default factors.
 - `Spons_Irish_Derived_Costs.csv` — the same figures already evaluated, for ingestion.
   openpyxl writes formulas without cached results, so a program reading the .xlsx sees
   blanks in the cost columns until a spreadsheet app opens and recalculates it; the CSV
@@ -16,12 +19,17 @@ Outputs:
 ## Running it
 
 ```bash
-python3 derive_costs.py  Spons_Civil_Engineering_Rates.xlsx  ./work
+python3 derive_costs.py   Spons_Civil_Engineering_Rates.xlsx  ./work
 python3 build_workbook.py ./work  Spons_Irish_Derived_Costs.xlsx
+python3 build_report.py   ./work  Spons_Irish_Derived_Costs_Report.pdf
 ```
 
-Stage 1 derives the cost build-ups and writes intermediate JSON; stage 2 renders the workbook.
-Requires `openpyxl`.
+Stage 1 derives the cost build-ups and writes intermediate JSON; stage 2 renders the workbook;
+stage 3 renders the PDF schedule. Requires `openpyxl` (stage 2) and `reportlab` (stage 3).
+
+The Irish factors are defined once at the top of each of `build_workbook.py` and
+`build_report.py` — change both together, or regenerate the PDF after editing the workbook's
+`Irish Basis` sheet, so the two stay in step.
 
 ## What the source actually contains
 
