@@ -14,6 +14,11 @@ Outputs:
   Styled to the InfraBid theme — palette, type and motifs taken from the platform's own
   `style.css` (`--navy` / `--blue` / `--signal`, the eyebrow and KPI-tile treatments, and the
   brand mark redrawn as vector from the site's inline SVG).
+- `InfraBid_WBS_Rate_Model.xlsx` — **the resource model**. Every item resolved into the
+  individual people, plant and materials needed to build it, priced from one editable rate
+  library. 22,930 WBS lines over 3,793 items, 2,988 library entries. See below.
+- `InfraBid_WBS.csv`, `InfraBid_WBS_Item_Cost.csv`, `InfraBid_Rate_Library.csv` — the same
+  three tables with values already evaluated, for ingestion.
 - `Spons_Irish_Derived_Costs.csv` — the same figures already evaluated, for ingestion.
   openpyxl writes formulas without cached results, so a program reading the .xlsx sees
   blanks in the cost columns until a spreadsheet app opens and recalculates it; the CSV
@@ -25,7 +30,11 @@ Outputs:
 python3 derive_costs.py   Spons_Civil_Engineering_Rates.xlsx  ./work
 python3 build_workbook.py ./work  Spons_Irish_Derived_Costs.xlsx
 python3 build_report.py   ./work  Spons_Irish_Derived_Costs_Report.pdf
+python3 build_wbs.py      ./work  InfraBid_WBS_Rate_Model.xlsx
 ```
+
+`build_wbs.py` takes an optional item count as a 4th argument to build a small sample —
+useful for verifying the formula grammar by recalculation before generating 40,000+ formulas.
 
 Stage 1 derives the cost build-ups and writes intermediate JSON; stage 2 renders the workbook;
 stage 3 renders the PDF schedule. Requires `openpyxl` (stage 2) and `reportlab` (stage 3).
@@ -95,6 +104,41 @@ Net effect on a typical built-up item: **£1 of UK cost → €1.255**. Of that,
 and ~7.3% is a real, labour-driven cost premium. That is consistent with Arcadis'
 *International Construction Costs 2025*, which ranks Dublin 9th globally against Bristol 8th
 and London 2nd — Irish cost close to a major UK regional city, below London.
+
+## The WBS resource model
+
+`InfraBid_WBS_Rate_Model.xlsx` separates the two things that behave differently:
+
+- **Constants** — the crew, the plant spread, the materials and the quantity of each. This is
+  how the work gets done. It does not move when the market does.
+- **Rates** — what an hour of a ganger or a tonne of rebar costs. This is what you re-rate.
+
+| Sheet | Rows | What it holds |
+|---|---:|---|
+| `Rate Library` | 2,988 | Every person, machine and material, priced once. Type into the yellow **YOUR RATE €** column to override a rate everywhere it is used. |
+| `WBS` | 22,930 | One row per resource per item. Qty × Rate = Line cost. |
+| `Item Cost` | 3,793 | One row per item, summing its WBS lines by category. |
+| `Gangs and Spreads` | 300 | The crew compositions published in the source, and their hourly cost. |
+
+The shared library is 23 labour grades, 95 plant items and 261 materials; the remaining 2,609
+entries are item-specific materials and specialist packages the source never names. Roughly
+**69% of all material value** links to a shared entry.
+
+**How the hours were set.** An item's labour hours are its labour cost divided by its crew's
+hourly cost, and plant hours likewise — so the crew stays fixed and the hours flex. Every item
+reconciles: **€0.35 across €84.8m**.
+
+**Why not the book's own gang hours?** The source states a *Total Gang Rate/Hour* for each crew
+that does not equal the sum of that crew's own lines — the median gap is 1.4% and the worst is
+far larger. The individual rates cross-check perfectly across every gang they appear in (all 23
+labour grades, 97 of 102 plant items), so the line rates were trusted and the stated totals
+were not.
+
+**What to check.** Crew selection is inferred by matching the gang's name against the item's
+section and sub-heading, falling back to the class's first gang — the cost is right either way,
+but the named crew may not be. Material quantities are the item's material value divided by the
+matched material's unit rate, accepted only when the result lands between 0.4 and 3.0 units;
+matched quantities have a median of 1.009, which is where a genuine match sits.
 
 ## Known limits
 
