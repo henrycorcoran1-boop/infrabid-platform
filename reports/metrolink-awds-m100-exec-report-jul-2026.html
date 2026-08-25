@@ -288,11 +288,38 @@ footer .mono{letter-spacing:.09em;text-transform:uppercase}
     --good:#12705A;--good-bg:#E4F2ED;--watch:#8F6304;--watch-bg:#F7EFDC;
     --crit:#A32A28;--crit-bg:#F8E7E6;--meter-track:#DDE3F3;--shadow:none;
   }
-  body{background:#FFFFFF;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#FFFFFF;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:.875rem}
   .wrap{max-width:none;padding:0}
-  section{margin-top:26px;break-inside:avoid}
-  .statusband,.asks,.lane,.track,.kpis,.tablewrap{break-inside:avoid}
-  footer{margin-top:26px}
+  section{margin-top:24px}
+  .sec-head{break-after:avoid}
+  .statusband,.asks,.lane,.kpis,.tablewrap,.meterwrap,.callout,.lookahead,.masthead{break-inside:avoid}
+  .track{break-inside:auto}
+  .station,.today{break-inside:avoid}
+  /* The sign-off is carried by the PDF running footer in print. */
+  footer{display:none}
+
+  /* Hold the designed multi-column structure at A4 width, overriding the
+     narrow-viewport breakpoints above. */
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .lanes{grid-template-columns:repeat(3,1fr);gap:12px}
+  .split{grid-template-columns:repeat(4,1fr)}
+  .split-5{grid-template-columns:repeat(5,1fr)}
+  .asklist,.lookahead{grid-template-columns:repeat(2,1fr)}
+  .meterwrap{grid-template-columns:1fr;gap:20px}
+  .masthead-right{text-align:right}
+  .doc-title{font-size:var(--step-3)}
+  .station{grid-template-columns:126px 42px minmax(0,1fr) auto}
+  .today{grid-template-columns:126px 42px minmax(0,1fr)}
+  .st-date{font-size:.6875rem;white-space:nowrap}
+  .st-tag{grid-column:auto;padding-bottom:0}
+  .today-label{font-size:.625rem;letter-spacing:.08em}
+  .lane li,.lookahead li,td{font-size:.8125rem}
+  .kpi-value{font-size:1.625rem}
+  table{min-width:0}
+  td.n,th.n{white-space:nowrap}
+  .tablewrap{overflow-x:visible}
+  .statusband p{font-size:.9375rem}
+  a[href]::after{content:none}
 }
 @media (prefers-reduced-motion: no-preference){
   .statusband,.kpi,.lane,.station{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
