@@ -4,7 +4,14 @@ Turns the raw Spon's rate extract (a published all-in UK rate per item) into a *
 from Labour + Plant + Material**, then converts that build-up to an **Irish cost in euro** by
 factoring each resource category separately.
 
-Output: `Spons_Irish_Derived_Costs.xlsx`.
+Outputs:
+
+- `Spons_Irish_Derived_Costs.xlsx` — the working deliverable. Cost columns are live
+  formulas, so editing a factor on the `Irish Basis` sheet re-costs all 3,793 items.
+- `Spons_Irish_Derived_Costs.csv` — the same figures already evaluated, for ingestion.
+  openpyxl writes formulas without cached results, so a program reading the .xlsx sees
+  blanks in the cost columns until a spreadsheet app opens and recalculates it; the CSV
+  avoids that. It is a snapshot at the default factors — regenerate it if you change them.
 
 ## Running it
 

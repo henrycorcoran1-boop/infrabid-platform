@@ -378,4 +378,25 @@ for t in ["Sectoral Employment Order (Construction Sector), Ireland — rates fr
 wb.move_sheet("Irish Basis",offset=-(len(wb.worksheets)-2))
 
 for s in wb.worksheets: s.sheet_view.showGridLines=False
-wb.save(OUT); print("saved",OUT,"rows:",n)
+wb.save(OUT)
+
+# ---------------- CSV export (values, not formulas) ----------------
+# openpyxl writes formulas with no cached result, so anything reading the .xlsx
+# programmatically sees blanks in the cost columns until a spreadsheet app opens
+# and recalculates it. This CSV carries the same figures already evaluated.
+import csv
+CSV = OUT.rsplit(".",1)[0] + ".csv"
+with open(CSV,"w",newline="",encoding="utf-8-sig") as fh:
+    w=csv.writer(fh)
+    w.writerow([c[0] for c in cols])
+    for o in out:
+        L,P,M,S = o['L'],o['P'],o['M'],o['SC']
+        eL,eP,eM,eS = (round(L*LABOUR_F*FX,2),round(P*PLANT_F*FX,2),
+                       round(M*MATERIAL_F*FX,2),round(S*SCF_V*FX,2))
+        w.writerow([o['src'],o['page'],o['cls'],o['sec'],o['sub'],o['item'],o['unit'],o['gh'],
+                    L,P,M,S,round(L+P+M+S,2), eL,eP,eM,eS, round(eL+eP+eM+eS,2),
+                    o['basis'],o['conf'],o['pub'],
+                    (round(o['derived']-o['pub'],2) if o['pub'] is not None else None),
+                    o['flag'],o['note']])
+print("saved",OUT,"rows:",n)
+print("saved",CSV)
